@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   images: {
-    qualities: [60, 70, 75],
+    qualities: [60, 70, 75, 85],
   },
   async headers() {
     return [

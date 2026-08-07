@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IndustriesPage } from "@/components/pages/IndustriesPage";
 import { PageJsonLd } from "@/components/shared/PageJsonLd";
+import { industriesPageFaqs } from "@/data/faqs";
 
 const title = "Industries - Codezela Technologies";
 const description = "Discover the diverse industries Codezela Technologies serves, including retail, healthcare, education, finance, and hospitality. We provide tailored web development, branding, and marketing solutions to meet industry-specific needs.";
@@ -17,7 +18,13 @@ export default function IndustriesRoute() {
   return (
     <>
       <IndustriesPage />
-      <PageJsonLd path="/industries" title={title} description={description} pageType="CollectionPage" />
+      <PageJsonLd
+        path="/industries"
+        title={title}
+        description={description}
+        pageType="CollectionPage"
+        faqs={industriesPageFaqs}
+      />
     </>
   );
 }

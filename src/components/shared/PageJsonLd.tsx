@@ -1,8 +1,12 @@
+import type { FaqItem } from "@/data/faqs";
+import { buildFaqPageSchema } from "@/lib/faq-schema";
+
 type PageJsonLdProps = {
   path: string;
   title: string;
   description: string;
   pageType?: "AboutPage" | "CollectionPage" | "ContactPage" | "WebPage";
+  faqs?: readonly FaqItem[];
 };
 
 export function PageJsonLd({
@@ -10,6 +14,7 @@ export function PageJsonLd({
   title,
   description,
   pageType = "WebPage",
+  faqs = [],
 }: PageJsonLdProps) {
   const url = `https://codezela.com${path}`;
   const jsonLd = {
@@ -44,6 +49,7 @@ export function PageJsonLd({
           },
         ],
       },
+      ...(faqs.length > 0 ? [buildFaqPageSchema(url, faqs)] : []),
     ],
   };
 

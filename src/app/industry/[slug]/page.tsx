@@ -1,5 +1,7 @@
 import { IndustryDetailPage, type IndustryDetail } from "@/components/pages/IndustryDetailPage";
+import { getIndustryFaqs } from "@/data/faqs";
 import industryDetailsJson from "@/data/industry-details.json";
+import { buildFaqPageSchema } from "@/lib/faq-schema";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -53,6 +55,7 @@ export default async function IndustryRoute({ params }: IndustryRouteProps) {
 
   const url = `https://codezela.com/industry/${detail.slug}`;
   const description = detail.ogDescription || detail.summary;
+  const faqs = getIndustryFaqs(detail.slug, detail.title);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -88,12 +91,13 @@ export default async function IndustryRoute({ params }: IndustryRouteProps) {
           { "@type": "ListItem", position: 3, name: detail.title, item: url },
         ],
       },
+      buildFaqPageSchema(url, faqs),
     ],
   };
 
   return (
     <>
-      <IndustryDetailPage detail={detail} />
+      <IndustryDetailPage detail={detail} faqs={faqs} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
@@ -101,4 +105,3 @@ export default async function IndustryRoute({ params }: IndustryRouteProps) {
     </>
   );
 }
-

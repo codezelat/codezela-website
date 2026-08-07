@@ -2,7 +2,9 @@
 
 import { Footer } from "@/components/home/Footer";
 import { Header } from "@/components/home/Header";
+import { FaqSection } from "@/components/shared/FaqSection";
 import { industries } from "@/data/home";
+import { industriesPageFaqs } from "@/data/faqs";
 import { MotionReveal } from "@/components/shared/MotionReveal";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -158,6 +160,13 @@ export function IndustriesPage() {
             </div>
           </div>
         </section>
+
+        <FaqSection
+          id="faq"
+          className="bg-[#fffaff]"
+          description="Practical answers for organisations comparing industry-specific websites, portals, mobile apps, integrations, and custom software for local or international use."
+          faqs={industriesPageFaqs}
+        />
       </main>
       <Footer />
     </>

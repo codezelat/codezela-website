@@ -1,5 +1,7 @@
 import { PortfolioDetailPage, type PortfolioDetail } from "@/components/pages/PortfolioDetailPage";
+import { getPortfolioFaqs } from "@/data/faqs";
 import portfolioDetailsJson from "@/data/portfolio-details.json";
+import { buildFaqPageSchema } from "@/lib/faq-schema";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -62,9 +64,22 @@ export default async function PortfolioDetailRoute({ params }: PortfolioRoutePro
 
   const url = `https://codezela.com/portfolio/${detail.slug}`;
   const description = detail.ogDescription || textDescription(detail.projectHtml);
+  const faqs = getPortfolioFaqs(detail.slug);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: detail.seoTitle,
+        description,
+        dateModified: `${detail.modified}+05:30`,
+        isPartOf: { "@id": "https://codezela.com/#website" },
+        about: { "@id": "https://codezela.com/#organization" },
+        primaryImageOfPage: { "@id": `${url}#creativework` },
+        inLanguage: "en-GB",
+      },
       {
         "@type": "CreativeWork",
         "@id": `${url}#creativework`,
@@ -85,12 +100,13 @@ export default async function PortfolioDetailRoute({ params }: PortfolioRoutePro
           { "@type": "ListItem", position: 3, name: detail.title, item: url },
         ],
       },
+      buildFaqPageSchema(url, faqs),
     ],
   };
 
   return (
     <>
-      <PortfolioDetailPage detail={detail} />
+      <PortfolioDetailPage detail={detail} faqs={faqs} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
@@ -98,4 +114,3 @@ export default async function PortfolioDetailRoute({ params }: PortfolioRoutePro
     </>
   );
 }
-

@@ -1,8 +1,12 @@
 import { Footer } from "@/components/home/Footer";
 import { Header } from "@/components/home/Header";
+import { DetailMetricsBand } from "@/components/shared/DetailMetricsBand";
+import { FaqSection } from "@/components/shared/FaqSection";
 import { MotionReveal } from "@/components/shared/MotionReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { ArrowRight, Minus, Plus, UserRound } from "lucide-react";
+import { getPortfolioMetrics } from "@/data/detail-metrics";
+import type { FaqItem } from "@/data/faqs";
+import { ArrowRight, UserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaFacebookF, FaLinkedinIn, FaWhatsapp, FaXTwitter } from "react-icons/fa6";
@@ -31,29 +35,6 @@ export type PortfolioDetail = {
   ogTitle: string;
   ogDescription: string;
 };
-
-const faqs = [
-  {
-    question: "What industries does Codezela Technologies specialise in?",
-    answer:
-      "Codezela Technologies specialises in a wide range of industries, including retail and e-commerce, healthcare, education, finance, real estate, hospitality, logistics, and more. Our solutions are tailored to meet the unique needs and challenges of each industry.",
-  },
-  {
-    question: "How do you ensure your solutions align with specific industry requirements?",
-    answer:
-      "We conduct in-depth research and collaborate closely with our clients to understand their industry standards, target audience, and business goals. Our team then crafts bespoke solutions that not only meet but exceed these requirements, ensuring compliance, scalability, and innovation.",
-  },
-  {
-    question: "Can Codezela Technologies cater to niche or emerging industries?",
-    answer:
-      "Absolutely! We excel in providing digital solutions for niche and emerging industries. Whether you’re a start-up in a new market or a unique business model, our adaptable and innovative approach ensures your needs are met with precision.",
-  },
-  {
-    question: "Do you provide ongoing support and updates for your solutions across industries?",
-    answer:
-      "Yes, we offer comprehensive post-project support, including maintenance, updates, and optimisation services. Our goal is to ensure your business remains competitive and keeps up with evolving industry trends and technological advancements.",
-  },
-] as const;
 
 type QuoteCardVariant = "client-testimonial" | "project-outcome" | "delivery-perspective";
 
@@ -91,56 +72,6 @@ function QuoteCard({
         </span>
       </div>
     </div>
-  );
-}
-
-function PerformanceBand() {
-  return (
-    <section className="bg-gradient-to-r from-[#6815bd] via-[#a71fdb] to-[#cf27ef] text-white">
-      <div className="site-shell grid min-h-[180px] items-center gap-8 py-9 min-[700px]:grid-cols-2 min-[700px]:py-0">
-        <MotionReveal className="flex items-center justify-center gap-5 min-[1025px]:gap-7">
-          <strong className="font-display text-[48px] leading-none min-[1025px]:text-[54px]">98%</strong>
-          <span className="max-w-[240px] text-[18px] font-semibold leading-[1.35] min-[1025px]:text-[20px]">
-            Page speed score with faster load times
-          </span>
-        </MotionReveal>
-        <MotionReveal className="flex items-center justify-center gap-5 min-[1025px]:gap-7" delay={0.06}>
-          <strong className="font-display text-[48px] leading-none min-[1025px]:text-[54px]">10x</strong>
-          <span className="max-w-[240px] text-[18px] font-semibold leading-[1.35] min-[1025px]:text-[20px]">
-            Visibility above competitors
-          </span>
-        </MotionReveal>
-      </div>
-    </section>
-  );
-}
-
-function PortfolioFaqs() {
-  return (
-    <section className="pb-[112px] pt-[106px] min-[1025px]:pb-[120px] min-[1025px]:pt-[108px]">
-      <div className="site-shell">
-        <SectionHeading
-          title="Get To Know More"
-          description="Navigating a digital landscape tailored to diverse industries, we specialize in crafting innovative solutions that drive success in healthcare. Let’s explore the client problem."
-        />
-        <div className="mt-[64px] grid items-start gap-5 min-[1025px]:grid-cols-2 min-[1025px]:gap-x-4 min-[1025px]:gap-y-[26px]">
-          {faqs.map((faq, index) => (
-            <MotionReveal key={faq.question} delay={index * 0.035}>
-              <details open className="group border border-[#eadfec] bg-white text-[#454545]">
-                <summary className="flex min-h-[86px] cursor-pointer list-none items-center justify-between gap-5 px-5 py-4 text-[18px] font-semibold leading-[1.45] marker:hidden [&::-webkit-details-marker]:hidden">
-                  <span>{faq.question}</span>
-                  <Minus aria-hidden="true" className="hidden h-5 w-5 shrink-0 group-open:block" />
-                  <Plus aria-hidden="true" className="block h-5 w-5 shrink-0 group-open:hidden" />
-                </summary>
-                <p className="border-t border-[#eadfec] px-5 pb-[26px] pt-[17px] text-[17px] leading-[1.4] text-[#767176]">
-                  {faq.answer}
-                </p>
-              </details>
-            </MotionReveal>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -193,8 +124,9 @@ function PortfolioCta({ url, title }: { url: string; title: string }) {
   );
 }
 
-export function PortfolioDetailPage({ detail }: { detail: PortfolioDetail }) {
+export function PortfolioDetailPage({ detail, faqs }: { detail: PortfolioDetail; faqs: readonly FaqItem[] }) {
   const pageUrl = `https://codezela.com/portfolio/${detail.slug}`;
+  const metrics = getPortfolioMetrics(detail.slug);
   const hasClientTestimonial = Boolean(detail.clientQuote?.trim());
   const clientFeatureText = hasClientTestimonial
     ? (detail.clientQuote ?? "")
@@ -255,7 +187,7 @@ export function PortfolioDetailPage({ detail }: { detail: PortfolioDetail }) {
           </div>
         </section>
 
-        <PerformanceBand />
+        <DetailMetricsBand metrics={metrics} ariaLabel="Project scope highlights" />
 
         <section className="bg-[#fffaff] pb-[118px] pt-[100px] min-[1025px]:pb-[132px] min-[1025px]:pt-[108px]">
           <div className="site-shell">
@@ -287,9 +219,10 @@ export function PortfolioDetailPage({ detail }: { detail: PortfolioDetail }) {
             <div className="overflow-hidden rounded-[12px] border border-[#161616] bg-white p-[14px] shadow-[0_22px_65px_rgba(27,12,34,0.13)] min-[1025px]:p-[52px]">
               <Image
                 src={detail.showcaseImage}
-                alt={`Full-page view of ${detail.title}`}
+                alt={`Website showcase for ${detail.title}`}
                 width={detail.showcaseWidth}
                 height={detail.showcaseHeight}
+                quality={85}
                 sizes="(max-width: 1024px) calc(100vw - 68px), 1176px"
                 className="h-auto w-full rounded-[8px] object-contain"
               />
@@ -297,7 +230,12 @@ export function PortfolioDetailPage({ detail }: { detail: PortfolioDetail }) {
           </MotionReveal>
         </section>
 
-        <PortfolioFaqs />
+        <FaqSection
+          id="faq"
+          className="min-[1025px]:!pb-[120px] min-[1025px]:!pt-[108px]"
+          description={`Project-specific answers about ${detail.title}, including the original requirements, delivered capabilities, and practical planning lessons.`}
+          faqs={faqs}
+        />
         <PortfolioCta url={pageUrl} title={detail.title} />
       </main>
       <Footer />

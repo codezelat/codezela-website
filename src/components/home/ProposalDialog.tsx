@@ -11,6 +11,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { trackGoogleEvent } from "@/lib/analytics";
 
 type ProposalDialogProps = {
   open: boolean;
@@ -295,6 +296,11 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
 
       setSubmissionReference(result?.reference || submissionId);
       setSubmissionStatus("success");
+      trackGoogleEvent("generate_lead", {
+        method: "proposal_form",
+        currency: "USD",
+        value: 1,
+      });
     } catch (error) {
       setSubmissionStatus("error");
       setSubmissionMessage(

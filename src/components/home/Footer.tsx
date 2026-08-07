@@ -10,6 +10,7 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
+import { CookiePreferencesButton } from "@/components/shared/CookiePreferencesButton";
 
 const services = [
   "Web Design & Development",
@@ -224,6 +225,7 @@ export function Footer() {
                 <Link className="hover:text-codezela-pink-on-dark" href="/terms-and-conditions" scroll={false}>
                   Terms &amp; Conditions
                 </Link>
+                <CookiePreferencesButton />
               </div>
             </div>
           </div>

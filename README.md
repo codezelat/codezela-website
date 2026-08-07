@@ -20,6 +20,7 @@ The application contains 66 indexable public routes:
 - Tailwind CSS 4
 - Next.js Image and Font optimisation
 - Motion, Embla Carousel, Lucide, and React Icons
+- Next.js Third Parties for performance-conscious Google measurement
 - Resend for proposal notifications and submitter confirmations
 - Zod for server-side form validation
 - Bun as the only package manager
@@ -70,6 +71,15 @@ Never commit `.env.local`, API keys, or provider credentials. The committed `.en
 
 Email delivery requires a verified sender domain and valid production environment variables. A local build verifies the code path but does not prove live provider delivery.
 
+## 📊 Analytics and consent
+
+The site preserves the existing Google Analytics 4 property (`G-NYCH8NBNH1`) and Google Ads destination (`AW-941011769`) through one Google tag integration. Consent Mode v2 defaults optional storage to denied, and measurement scripts load only after a visitor accepts optional cookies.
+
+- The consent preference is retained for 180 days and can be changed through **Cookie Preferences** in the footer.
+- Rejecting optional cookies keeps Google measurement scripts unloaded on a fresh visit and removes known first-party Google measurement cookies when possible.
+- Successful proposal delivery records a GA4 `generate_lead` event without names, email addresses, phone numbers, project descriptions, submission references, or other form values.
+- GA4 enhanced measurement handles normal page loads and browser-history page changes; do not add duplicate manual page-view events unless the GA property is reconfigured accordingly.
+
 ## ✅ Quality gate
 
 Run the complete local code gate before handing off a change:
@@ -101,7 +111,7 @@ public/
 
 ## 🔎 SEO and discoverability
 
-The site provides route-specific titles and descriptions, canonical URLs, Open Graph and X metadata, crawlable text, semantic headings, `robots.txt`, an XML sitemap, and JSON-LD for the relevant page type, breadcrumbs, projects, and visible FAQs.
+The site provides route-specific titles and descriptions, canonical URLs, Open Graph and X metadata, crawlable text, semantic headings, `robots.txt`, an XML sitemap, and JSON-LD for the relevant page type, breadcrumbs, projects, and visible FAQs. Legacy WordPress sitemap endpoints permanently redirect to the current `/sitemap.xml`, preserving compatibility with old submissions and crawler history.
 
 FAQ structured data must always match the questions and answers visitors can read. Structured data helps machines understand a page, but it is not a promise of a rich result or a search ranking.
 
@@ -120,8 +130,9 @@ Before a production release:
 2. Confirm all environment variables are configured on the intended deployment project.
 3. Verify the Resend sender domain and send one real end-to-end proposal test.
 4. Check canonical URLs, sitemap, robots, redirects, and social images on the deployed origin.
-5. Run Lighthouse and link crawling against the deployed URL; local scores do not prove production CDN or third-party performance.
-6. Confirm no secrets, local reports, screenshots, generated audits, or unrelated files are staged.
+5. Accept and reject optional cookies in a clean browser session, then confirm GA4 Realtime/DebugView and Google Ads receive only the expected consented events.
+6. Run Lighthouse and link crawling against the deployed URL; local scores do not prove production CDN or third-party performance.
+7. Confirm no secrets, local reports, screenshots, generated audits, or unrelated files are staged.
 
 ## 🤝 Repository rules
 

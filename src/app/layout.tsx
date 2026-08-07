@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins, Roboto } from "next/font/google";
+import Script from "next/script";
 import type { ReactNode } from "react";
+import { GoogleConsentManager } from "@/components/shared/GoogleConsent";
 import { RouteScrollTop } from "@/components/shared/RouteScrollTop";
 import "./globals.css";
 
@@ -93,8 +95,22 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en-GB" data-scroll-behavior="smooth">
       <body className={`${poppins.variable} ${roboto.variable} ${inter.variable}`}>
+        <Script id="codezela-google-consent-default" strategy="beforeInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){window.dataLayer.push(arguments);}
+window.gtag = window.gtag || gtag;
+window.gtag('consent', 'default', {
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  analytics_storage: 'denied',
+  wait_for_update: 500
+});
+window.gtag('set', 'ads_data_redaction', true);`}
+        </Script>
         <RouteScrollTop />
         {children}
+        <GoogleConsentManager />
       </body>
     </html>
   );

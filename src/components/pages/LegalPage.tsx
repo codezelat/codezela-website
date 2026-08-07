@@ -6,9 +6,10 @@ import Image from "next/image";
 type LegalPageProps = {
   title: string;
   html: string;
+  supplementalHtml?: string;
 };
 
-export function LegalPage({ title, html }: LegalPageProps) {
+export function LegalPage({ title, html, supplementalHtml = "" }: LegalPageProps) {
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -39,7 +40,7 @@ export function LegalPage({ title, html }: LegalPageProps) {
         <MotionReveal className="site-shell pb-[120px] pt-[36px] min-[1025px]:pb-[150px] min-[1025px]:pt-[54px]">
           <article
             className="legal-copy text-[17px] leading-[1.45] text-[#161616] [&_h2]:mb-[13px] [&_h2]:mt-[26px] [&_h2]:font-display [&_h2]:text-[31px] [&_h2]:font-medium [&_h2]:leading-[1.2] [&_h3]:mb-[13px] [&_h3]:mt-[28px] [&_h3]:font-display [&_h3]:text-[29px] [&_h3]:font-medium [&_h3]:leading-[1.2] [&_li]:mb-[6px] [&_p]:mb-[15px] [&_ul]:mb-[18px] [&_ul]:list-disc [&_ul]:pl-[28px] min-[1025px]:text-[18px]"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={{ __html: `${html}${supplementalHtml}` }}
           />
         </MotionReveal>
       </main>

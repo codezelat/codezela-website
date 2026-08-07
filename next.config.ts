@@ -14,6 +14,18 @@ const nextConfig: NextConfig = {
         destination: "https://cca.it.com/",
         permanent: true,
       },
+      ...[
+        "/sitemap_index.xml",
+        "/page-sitemap.xml",
+        "/industrie-sitemap.xml",
+        "/portfolio-sitemap.xml",
+        "/service1-sitemap.xml",
+        "/local-sitemap.xml",
+      ].map((source) => ({
+        source,
+        destination: "/sitemap.xml",
+        permanent: true,
+      })),
     ];
   },
   async headers() {

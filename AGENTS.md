@@ -40,6 +40,7 @@ This file is the working contract for contributors and coding agents. Apply thes
 - JSON-LD must use valid JSON, escape `<`, describe the page accurately, and match visible content. Never add fake ratings, reviews, business facts, or FAQ answers.
 - Write for people first. Use natural search language where it helps visitors; avoid keyword stuffing, hidden text, doorway content, ranking guarantees, and unsupported superlatives.
 - FAQ copy should answer route-specific decisions, integrations, risks, accessibility, performance, and international needs without claiming automatic legal or regulatory compliance.
+- Google Analytics and Ads must remain consent-first. Preserve Consent Mode v2 defaults, never load optional measurement before acceptance, do not send form values or other personal information, and avoid duplicate page-view tracking.
 
 ## 6. Forms and server security
 

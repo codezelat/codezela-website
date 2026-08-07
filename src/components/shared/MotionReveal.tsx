@@ -46,7 +46,10 @@ export function MotionReveal({
           },
         );
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.12 },
+      // A zero threshold also supports very tall elements (such as full-page
+      // portfolio captures) whose visible area can never reach a percentage
+      // threshold within a normal desktop viewport.
+      { rootMargin: "0px 0px -8% 0px", threshold: 0 },
     );
 
     observer.observe(element);
@@ -59,4 +62,3 @@ export function MotionReveal({
     </div>
   );
 }
-

@@ -109,6 +109,7 @@ function IndustrySegments() {
                 <div className="mt-[16px] h-px w-full bg-[#dedede]" aria-hidden="true" />
                 <Link
                   href={item.href ?? "/industries"}
+                  scroll={false}
                   className="mt-[25px] inline-flex h-[50px] w-[154px] items-center justify-center rounded-full border border-[#eadfed] bg-[#fbe6ff] text-[16px] font-medium leading-none text-[#8d3ccd] transition-all duration-200 hover:-translate-y-0.5 hover:border-codezela-purple hover:bg-codezela-purple hover:text-white"
                 >
                   Learn More<span className="sr-only"> about {item.title}</span>
@@ -162,7 +163,7 @@ export function IndustryDetailPage({ detail }: { detail: IndustryDetail }) {
       </a>
       <Header />
       <main id="main-content" className="overflow-x-clip bg-white">
-        <section className="min-h-[760px] pb-[64px] pt-[284px] min-[1025px]:min-h-[829px] min-[1025px]:pb-[70px] min-[1025px]:pt-[206px]">
+        <section className="min-h-[760px] pb-[64px] pt-[80px] min-[1025px]:min-h-[829px] min-[1025px]:pb-[70px] min-[1025px]:pt-[206px]">
           <div className="site-shell grid items-center gap-[90px] min-[1025px]:grid-cols-[0.9fr_1.1fr] min-[1025px]:gap-14">
             <MotionReveal className="relative min-[1025px]:top-[-74px]">
               <h1 className="max-w-[270px] font-display text-[48px] font-medium leading-[1.08] tracking-[-0.02em] text-codezela-title min-[1025px]:max-w-[520px] min-[1025px]:text-[52px]">

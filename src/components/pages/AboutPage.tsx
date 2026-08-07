@@ -34,7 +34,7 @@ function Hero() {
       <div className="site-shell grid items-start gap-[38px] min-[1025px]:grid-cols-[0.9fr_1.1fr] min-[1025px]:gap-[48px]">
         <MotionReveal distance={18}>
           <h1 className="max-w-[590px] font-display text-[40px] font-medium leading-[1.08] tracking-[-0.02em] text-codezela-title min-[1025px]:text-[52px] min-[1025px]:leading-[1.04]">
-            Our values are what ensures project success and client satisfaction
+            Our values are what ensure project success and client satisfaction
           </h1>
         </MotionReveal>
 
@@ -264,6 +264,7 @@ function ContactCallout() {
         </p>
         <Link
           href="/contact"
+          scroll={false}
           className="group mt-[50px] inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#843dcb] px-7 font-display text-[17px] font-semibold text-white shadow-[0_12px_28px_rgba(113,11,192,0.18)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-1 hover:bg-codezela-purple hover:shadow-[0_18px_36px_rgba(113,11,192,0.26)]"
         >
           Learn More About What We Do

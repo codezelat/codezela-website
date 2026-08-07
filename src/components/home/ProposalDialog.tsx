@@ -1,10 +1,11 @@
 "use client";
 
-import { X } from "lucide-react";
+import { CheckCircle2, LoaderCircle, MessageCircleMore, X } from "lucide-react";
 import {
   type ChangeEvent,
   type FormEvent,
   type MouseEvent,
+  useCallback,
   useEffect,
   useId,
   useRef,
@@ -31,6 +32,7 @@ type ProposalForm = {
 };
 
 type FieldErrors = Partial<Record<keyof ProposalForm, string>>;
+type SubmissionStatus = "idle" | "submitting" | "success" | "error";
 
 const initialForm: ProposalForm = {
   fullName: "",
@@ -110,15 +112,42 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
   const [step, setStep] = useState(1);
   const [form, setForm] = useState<ProposalForm>(initialForm);
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [botField, setBotField] = useState("");
+  const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>("idle");
+  const [submissionMessage, setSubmissionMessage] = useState("");
+  const [submissionReference, setSubmissionReference] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
+  const startedAtRef = useRef(0);
+  const submissionIdRef = useRef<string | null>(null);
+  const closeDialogRef = useRef<() => void>(() => undefined);
   const titleId = useId();
   const descriptionId = useId();
+
+  const closeDialog = useCallback(() => {
+    if (submissionStatus === "submitting") return;
+    if (submissionStatus === "success") {
+      setStep(1);
+      setForm(initialForm);
+      setErrors({});
+      setBotField("");
+      setSubmissionStatus("idle");
+      setSubmissionMessage("");
+      setSubmissionReference("");
+      submissionIdRef.current = null;
+    }
+    onClose();
+  }, [onClose, submissionStatus]);
+
+  useEffect(() => {
+    closeDialogRef.current = closeDialog;
+  }, [closeDialog]);
 
   useEffect(() => {
     if (!open) return;
 
     openerRef.current = document.activeElement as HTMLElement | null;
+    startedAtRef.current = Date.now();
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
@@ -129,7 +158,7 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
     const handleKeyboard = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        onClose();
+        closeDialogRef.current();
         return;
       }
 
@@ -160,7 +189,7 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
       document.body.style.overflow = previousOverflow;
       openerRef.current?.focus();
     };
-  }, [open, onClose]);
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -176,6 +205,10 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
     setErrors((current) => ({ ...current, [name]: undefined }));
+    if (submissionStatus === "error") {
+      setSubmissionStatus("idle");
+      setSubmissionMessage("");
+    }
   };
 
   const toggleSelection = (field: "services" | "goals", value: string) => {
@@ -186,6 +219,10 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
         : [...current[field], value],
     }));
     setErrors((current) => ({ ...current, [field]: undefined }));
+    if (submissionStatus === "error") {
+      setSubmissionStatus("idle");
+      setSubmissionMessage("");
+    }
   };
 
   const validateStep = () => {
@@ -212,7 +249,7 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
     return Object.keys(cleanedErrors).length === 0;
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validateStep()) return;
 
@@ -221,33 +258,55 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
       return;
     }
 
-    const body = [
-      "Hello Codezela Technologies,",
-      "",
-      "I would like to request a proposal with the following details:",
-      "",
-      `Name: ${form.fullName}`,
-      `Email: ${form.email}`,
-      `Phone: ${form.phone || "Not provided"}`,
-      `Company: ${form.company}`,
-      `Industry: ${form.industry}`,
-      `Website: ${form.website || "Not provided"}`,
-      `Services: ${form.services.join(", ")}`,
-      `Project goals: ${form.goals.join(", ")}`,
-      `Budget: ${form.budget}`,
-      `Timeline: ${form.timeline}`,
-      "",
-      "Project description:",
-      form.description,
-    ].join("\n");
+    setSubmissionStatus("submitting");
+    setSubmissionMessage("");
+    const submissionId = submissionIdRef.current ?? crypto.randomUUID();
+    submissionIdRef.current = submissionId;
+    const navigatorWithConnection = navigator as Navigator & {
+      connection?: { effectiveType?: string };
+    };
 
-    window.location.assign(
-      `mailto:info@codezela.com?subject=${encodeURIComponent(`Proposal request from ${form.fullName}`)}&body=${encodeURIComponent(body)}`,
-    );
+    try {
+      const response = await fetch("/api/proposals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          submissionId,
+          startedAt: startedAtRef.current,
+          botField,
+          clientContext: {
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "",
+            locale: navigator.language || "",
+            viewport: `${window.innerWidth}x${window.innerHeight}`,
+            screen: `${window.screen.width}x${window.screen.height}`,
+            pixelRatio: window.devicePixelRatio,
+            colorScheme: window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
+            touchPoints: navigator.maxTouchPoints,
+            connection: navigatorWithConnection.connection?.effectiveType || "",
+          },
+        }),
+      });
+      const result = await response.json().catch(() => null) as { message?: string; reference?: string } | null;
+
+      if (!response.ok) {
+        throw new Error(result?.message || "We could not send your proposal right now. Please try again.");
+      }
+
+      setSubmissionReference(result?.reference || submissionId);
+      setSubmissionStatus("success");
+    } catch (error) {
+      setSubmissionStatus("error");
+      setSubmissionMessage(
+        error instanceof Error
+          ? error.message
+          : "We could not send your proposal right now. Please check your connection and retry.",
+      );
+    }
   };
 
   const closeFromBackdrop = (event: MouseEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget) onClose();
+    if (event.target === event.currentTarget) closeDialog();
   };
 
   const fieldClass = (hasError: boolean) =>
@@ -270,9 +329,10 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
       >
         <button
           type="button"
-          onClick={onClose}
+          onClick={closeDialog}
+          disabled={submissionStatus === "submitting"}
           aria-label="Close proposal form"
-          className="absolute right-4 top-4 grid h-10 w-10 cursor-pointer place-items-center rounded-full text-[#6b5b70] transition-colors hover:bg-codezela-offwhite hover:text-codezela-purple"
+          className="absolute right-4 top-4 grid h-10 w-10 cursor-pointer place-items-center rounded-full text-[#6b5b70] transition-colors hover:bg-codezela-offwhite hover:text-codezela-purple disabled:cursor-not-allowed disabled:opacity-40"
         >
           <X aria-hidden="true" size={23} />
         </button>
@@ -284,6 +344,33 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
           We’ll get back to you within 24 hours after your request.
         </p>
 
+        {submissionStatus === "success" ? (
+          <div className="mt-8 text-center" role="status" aria-live="polite">
+            <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-[#f5e6fa] text-codezela-purple">
+              <CheckCircle2 aria-hidden="true" className="h-9 w-9" />
+            </span>
+            <h3 className="mt-5 font-display text-[26px] font-semibold text-codezela-title">Your request is safely on its way</h3>
+            <p className="mx-auto mt-3 max-w-[510px] text-[16px] leading-6 text-codezela-copy">
+              We sent a confirmation to <strong className="font-semibold text-[#3f3941]">{form.email}</strong>. Our team will review your requirements and reply within 24 hours.
+            </p>
+            <div className="mx-auto mt-5 max-w-[500px] rounded-[12px] border border-[#eadfed] bg-[#fffaff] px-4 py-3 text-left">
+              <span className="block text-[12px] font-semibold uppercase tracking-[0.1em] text-[#8c7f90]">Submission reference</span>
+              <code className="mt-1 block break-all text-[13px] text-codezela-purple">{submissionReference}</code>
+            </div>
+            <div className="mt-7 flex flex-col justify-center gap-3 min-[480px]:flex-row">
+              <a
+                href={`https://wa.me/codezela.t?text=${encodeURIComponent(`Hi Codezela, I just submitted a proposal request. My reference is ${submissionReference}. I’d like to add a few details.`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-full border border-codezela-purple bg-white px-6 font-display text-[15px] font-semibold text-codezela-purple transition-colors hover:bg-codezela-offwhite"
+              >
+                <MessageCircleMore aria-hidden="true" className="h-5 w-5" /> Continue on WhatsApp
+              </a>
+              <button type="button" onClick={closeDialog} className="pill-button h-[50px] cursor-pointer px-8 text-[16px]">Done</button>
+            </div>
+          </div>
+        ) : (
+          <>
         <div className="mt-6" aria-label={`Proposal form progress: ${step * 25}%`}>
           <div className="mb-2 flex items-center justify-between text-[13px] font-medium text-[#6b5b70]">
             <span>Step {step} of 4</span>
@@ -297,7 +384,13 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} noValidate className="mt-7">
+        <form onSubmit={handleSubmit} noValidate className="mt-7" aria-busy={submissionStatus === "submitting"}>
+          <div className="pointer-events-none absolute left-[-10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+            <label>
+              Leave this field empty
+              <input name="contact_website" value={botField} onChange={(event) => setBotField(event.target.value)} tabIndex={-1} autoComplete="off" />
+            </label>
+          </div>
           {step === 1 && (
             <div className="grid gap-5">
               <TextField label="Full Name" name="fullName" value={form.fullName} error={errors.fullName} onChange={setTextField} placeholder="Enter your full name" autoComplete="name" required className={fieldClass(Boolean(errors.fullName))} />
@@ -357,20 +450,34 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
                 <textarea name="description" value={form.description} onChange={setTextField} rows={5} aria-invalid={Boolean(errors.description)} aria-describedby={errors.description ? "description-error" : undefined} placeholder="Briefly describe your project, challenges, or any specific requirements" className={`${fieldClass(Boolean(errors.description))} resize-y py-3`} />
                 {errors.description && <ErrorMessage id="description-error">{errors.description}</ErrorMessage>}
               </label>
+              <p className="text-[12px] leading-[1.55] text-[#756d78]">
+                By submitting, you agree that Codezela may email the details you provide and basic request/device information to its team to process and protect your enquiry. See our{" "}
+                <a href="/privacy-policy" target="_blank" rel="noreferrer" className="font-semibold text-codezela-purple underline underline-offset-2">Privacy Policy</a>.
+              </p>
+            </div>
+          )}
+
+          {submissionStatus === "error" && (
+            <div role="alert" className="mt-5 rounded-[10px] border border-red-200 bg-red-50 px-4 py-3 text-[14px] leading-5 text-red-700">
+              {submissionMessage} Your details are still here, so you can retry without re-entering them.
             </div>
           )}
 
           <div className="mt-8 flex flex-col-reverse gap-3 min-[480px]:flex-row min-[480px]:justify-end">
             {step > 1 && (
-              <button type="button" onClick={() => { setStep((current) => current - 1); setErrors({}); }} className="h-[50px] cursor-pointer rounded-full border border-codezela-purple bg-white px-7 font-display text-[16px] font-semibold text-codezela-purple transition-colors hover:bg-codezela-offwhite">
+              <button type="button" disabled={submissionStatus === "submitting"} onClick={() => { setStep((current) => current - 1); setErrors({}); setSubmissionStatus("idle"); setSubmissionMessage(""); }} className="h-[50px] cursor-pointer rounded-full border border-codezela-purple bg-white px-7 font-display text-[16px] font-semibold text-codezela-purple transition-colors hover:bg-codezela-offwhite disabled:cursor-not-allowed disabled:opacity-50">
                 Previous
               </button>
             )}
-            <button type="submit" className="pill-button h-[50px] cursor-pointer px-8 text-[16px]">
-              {step === 4 ? "Request a Proposal" : "Next"}
+            <button type="submit" disabled={submissionStatus === "submitting"} className="pill-button h-[50px] cursor-pointer gap-2 px-8 text-[16px] disabled:cursor-not-allowed disabled:opacity-65">
+              {submissionStatus === "submitting" ? (
+                <><LoaderCircle aria-hidden="true" className="h-5 w-5 animate-spin" /> Sending securely…</>
+              ) : step === 4 ? "Request a Proposal" : "Next"}
             </button>
           </div>
         </form>
+          </>
+        )}
       </div>
     </div>
   );

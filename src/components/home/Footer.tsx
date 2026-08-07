@@ -70,6 +70,7 @@ export function Footer() {
           </p>
           <Link
             href="/contact"
+            scroll={false}
             className="mt-[34px] inline-flex h-[44px] w-[257px] items-center justify-center gap-2 rounded-full bg-white px-5 font-footer text-[18px] font-semibold text-codezela-purple transition-transform hover:-translate-y-0.5 min-[1025px]:min-h-[43px] min-[1025px]:w-fit min-[1025px]:text-[17px]"
           >
             Start the Conversation
@@ -131,6 +132,7 @@ export function Footer() {
                   <a
                     className={`transition-colors hover:text-codezela-pink-on-dark ${index === 0 ? "text-codezela-pink-on-dark" : ""}`}
                     href={href}
+                    {...(href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
                   >
                     {label}
                   </a>
@@ -154,7 +156,7 @@ export function Footer() {
         </div>
 
         <div className="mt-[60px] flex flex-col gap-[114px] md:mt-[94px] md:flex-row md:items-end md:justify-between md:gap-12">
-          <a href="https://wa.me/94727333577" target="_blank" rel="noreferrer" className="group inline-block w-fit">
+          <a href="https://wa.me/codezela.t" target="_blank" rel="noreferrer" className="group inline-block w-fit">
             <span className="block text-[14px] leading-[14px] md:leading-normal">Have a great idea?</span>
             <span className="mt-[8px] flex items-center gap-3 font-display text-[36px] font-medium leading-none md:mt-1 md:text-[38px]">
               Let’s Chat
@@ -211,15 +213,15 @@ export function Footer() {
             </div>
 
             <div className="order-1 text-center md:order-2 md:text-right">
-              <Link href="/" className="inline-flex items-center gap-3">
+              <Link href="/" scroll={false} className="inline-flex items-center gap-3">
                 <Image src="/images/Untitled-150x150.png" alt="" width={58} height={58} className="h-[45px] w-[45px] object-contain md:h-[50px] md:w-[50px]" />
                 <span className="font-display text-[34px] font-semibold leading-[45px] md:leading-normal">Codezela</span>
               </Link>
               <div className="mt-[22px] flex flex-col items-center gap-[9px] text-[14px] leading-5 text-[#eee5f1] md:mt-[26px] md:flex-row md:flex-wrap md:justify-end md:gap-x-[72px] md:gap-y-4 md:text-[15px]">
-                <Link className="hover:text-codezela-pink-on-dark" href="/privacy-policy">
+                <Link className="hover:text-codezela-pink-on-dark" href="/privacy-policy" scroll={false}>
                   Privacy Policy
                 </Link>
-                <Link className="hover:text-codezela-pink-on-dark" href="/terms-and-conditions">
+                <Link className="hover:text-codezela-pink-on-dark" href="/terms-and-conditions" scroll={false}>
                   Terms &amp; Conditions
                 </Link>
               </div>

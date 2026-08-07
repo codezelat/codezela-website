@@ -39,6 +39,8 @@ export function Hero() {
 
         <a
           href="https://cal.com/codezela/"
+          target="_blank"
+          rel="noreferrer"
           className="pill-button hero-action absolute left-0 top-[269px] h-[66px] w-full gap-[10px] whitespace-nowrap !border-codezela-pink !bg-codezela-pink px-[14px] text-center font-footer text-[15px] min-[360px]:text-[16px] md:left-[10px] md:top-[163px] md:h-[50px] md:w-[329px] md:gap-3 md:px-6 md:text-[17px]"
         >
           <CalendarDays size={19} strokeWidth={2.5} aria-hidden="true" className="hero-action__icon shrink-0" />
@@ -55,7 +57,7 @@ export function Hero() {
             Let’s Build Professional &amp; High Converting Software
           </h1>
           <p className="mb-0 mt-[20px] text-[16px] leading-[22.4px] text-codezela-copy md:mt-[20px] md:text-[18px] md:leading-[23.4px]">
-            We are an agency that help businesses to grow online with our expertise and creativity in software, design, development, AI and marketing.
+            We are an agency that helps businesses grow online through our expertise and creativity in software, design, development, AI, and marketing.
           </p>
         </div>
       </div>

@@ -28,11 +28,17 @@ export function Portfolio() {
 
             return (
               <MotionReveal key={project.title} delay={Math.min(index * 0.04, 0.12)}>
-                <article
-                  className={`project-card grid ${index < 2 ? "h-[668px]" : index === 2 ? "h-[703px]" : "h-[773px]"} overflow-hidden rounded-[16px] bg-[#fff7ff] md:h-auto md:min-h-[650px] lg:!h-[491px] lg:!min-h-[491px] lg:grid-cols-2 lg:rounded-[18px] ${
-                  index % 2 === 0 ? "lg:bg-[#fff7ff]" : "lg:bg-white"
-                }`}
+                <Link
+                  href={project.href}
+                  scroll={false}
+                  aria-label={`View ${project.title}`}
+                  className="group block rounded-[16px] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(80,8,136,0.1)] focus-visible:-translate-y-1 focus-visible:shadow-[0_20px_48px_rgba(80,8,136,0.1)] lg:rounded-[18px]"
                 >
+                  <article
+                    className={`project-card grid ${index < 2 ? "h-[668px]" : index === 2 ? "h-[703px]" : "h-[773px]"} overflow-hidden rounded-[16px] bg-[#fff7ff] md:h-auto md:min-h-[650px] lg:!h-[491px] lg:!min-h-[491px] lg:grid-cols-2 lg:rounded-[18px] ${
+                      index % 2 === 0 ? "lg:bg-[#fff7ff]" : "lg:bg-white"
+                    }`}
+                  >
                 <div
                   className={`order-2 flex min-h-0 flex-col items-start p-[10px] lg:min-h-[405px] lg:px-[38px] lg:py-[30px] ${
                     imageOnLeft ? "lg:order-2" : "lg:order-1"
@@ -41,10 +47,8 @@ export function Portfolio() {
                   <p className="order-1 flex h-[40px] w-full items-center justify-center rounded-full bg-[#fcebff] px-4 font-display text-[20px] font-medium leading-5 text-codezela-pink-ink lg:h-auto lg:w-fit lg:justify-start lg:bg-[#fde9ff] lg:py-[9px] lg:text-[16px] lg:font-semibold lg:leading-none">
                     {project.type}
                   </p>
-                  <h3 className="order-3 mt-[20px] max-w-[490px] font-display text-[32px] font-bold leading-[35.2px] text-[#161616] lg:order-2 lg:mt-[18px] lg:text-[31px] lg:font-semibold lg:leading-[1.08]">
-                    <Link className="transition-colors hover:text-codezela-title" href={project.href}>
-                      {project.title}
-                    </Link>
+                  <h3 className="order-3 mt-[20px] max-w-[490px] font-display text-[32px] font-bold leading-[35.2px] text-[#161616] transition-colors duration-300 group-hover:text-codezela-title lg:order-2 lg:mt-[18px] lg:text-[31px] lg:font-semibold lg:leading-[1.08]">
+                    {project.title}
                   </h3>
                   <p className="order-4 mt-[20px] max-w-[500px] text-[16px] leading-[22.4px] text-codezela-copy lg:order-3 lg:mt-[18px] lg:text-[17px] lg:leading-[1.32]">
                     {project.description}
@@ -54,10 +58,8 @@ export function Portfolio() {
                   </p>
                 </div>
 
-                <Link
-                  href={project.href}
-                  aria-label={`View ${project.title}`}
-                  className={`group order-1 flex h-[320px] items-center justify-center bg-[#fff7ff] p-[10px] lg:h-auto lg:min-h-[405px] lg:p-[18px] ${
+                <div
+                  className={`order-1 flex h-[320px] items-center justify-center bg-[#fff7ff] p-[10px] lg:h-auto lg:min-h-[405px] lg:p-[18px] ${
                     imageOnLeft ? "lg:order-1" : "lg:order-2"
                   }`}
                 >
@@ -71,8 +73,9 @@ export function Portfolio() {
                       className="h-auto max-h-[330px] w-full object-contain transition-transform duration-500 group-hover:scale-[1.025]"
                     />
                   </span>
+                </div>
+                  </article>
                 </Link>
-                </article>
               </MotionReveal>
             );
           })}
@@ -81,6 +84,7 @@ export function Portfolio() {
         <div className="mt-[60px] text-center">
           <Link
             href="/portfolio"
+            scroll={false}
             className="pill-button h-[44px] !min-h-[44px] gap-2 !bg-[#8d3ccd] !font-footer px-6 hover:!bg-codezela-purple"
           >
             View All Projects

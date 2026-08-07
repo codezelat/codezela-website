@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 
 const statItems = [
-  { value: 843, label: "Clients Worldwide" },
-  { value: 2389, label: "Projects Completed" },
-  { value: 13, label: "Years of Experience" },
+  { value: 1500, label: "Clients Worldwide" },
+  { value: 2600, label: "Projects Completed" },
+  { value: 15, label: "Years of Experience" },
 ] as const;
 
 const finalValues = statItems.map((item) => item.value);

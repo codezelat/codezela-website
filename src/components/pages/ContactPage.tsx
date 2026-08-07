@@ -20,7 +20,7 @@ import {
 
 const supportLines = [
   { label: "General Inquiries", value: "(+94) 11 485 8899", href: "tel:+94114858899" },
-  { label: "WhatsApp", value: "+94 72 733 3577", href: "https://wa.me/94727333577" },
+  { label: "WhatsApp", value: "codezela.t", href: "https://wa.me/codezela.t" },
   { label: "Sales Agent", value: "+94 74 067 8898", href: "tel:+94740678898" },
 ] as const;
 
@@ -40,7 +40,7 @@ const socials = [
   ["Threads", FaThreads, "https://www.threads.net/@codezela.t"],
   ["YouTube", FaYoutube, "https://www.youtube.com/@codezelatechnologies"],
   ["Behance", FaBehance, "https://www.behance.net/CodezelaTechnologies"],
-  ["WhatsApp", FaWhatsapp, "https://wa.me/94727333577"],
+  ["WhatsApp", FaWhatsapp, "https://wa.me/codezela.t"],
 ] as const;
 
 export function ContactPage() {
@@ -52,10 +52,10 @@ export function ContactPage() {
       <Header />
       <main id="main-content">
         <section aria-labelledby="contact-hero-title" className="overflow-hidden bg-white">
-          <div className="site-shell grid min-h-[752px] items-center gap-12 pb-12 pt-[336px] min-[1025px]:grid-cols-[1fr_1.08fr] min-[1025px]:pb-0 min-[1025px]:pt-[110px]">
+          <div className="site-shell grid min-h-[752px] items-center gap-12 pb-12 pt-[80px] min-[1025px]:grid-cols-[1fr_1.08fr] min-[1025px]:pb-0 min-[1025px]:pt-[110px]">
             <MotionReveal className="min-[1025px]:translate-y-[10px]">
               <h1 id="contact-hero-title" className="max-w-[520px] font-display text-[40px] font-medium leading-[1.05] text-codezela-title min-[1025px]:text-[52px]">
-                Getting in touch with our departments have never been easier
+                Getting in touch with our departments has never been easier
               </h1>
             </MotionReveal>
             <MotionReveal className="relative mx-auto mt-10 h-[390px] w-full max-w-[650px] min-[1025px]:mt-0 min-[1025px]:translate-y-[115px]" delay={0.08}>

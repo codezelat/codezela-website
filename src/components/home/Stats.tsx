@@ -1,9 +1,9 @@
 import { MotionReveal } from "@/components/shared/MotionReveal";
 
 const statistics = [
-  ["850+", "Clients Worldwide"],
-  ["2400+", "Projects Completed"],
-  ["14+", "Years of Experience"],
+  ["1500+", "Clients Worldwide"],
+  ["2600+", "Projects Completed"],
+  ["15+", "Years of Experience"],
 ] as const;
 
 export function Stats() {

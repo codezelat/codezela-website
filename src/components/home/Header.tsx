@@ -49,11 +49,12 @@ export function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="relative z-50 h-[100px] bg-white pt-[20px] min-[1025px]:h-[148px] min-[1025px]:pt-[48px]">
-      <div className="site-shell flex h-[70px] items-center justify-between rounded-full bg-white px-[20px] shadow-[0_2px_12px_rgba(69,0,83,0.13)] min-[1025px]:h-[90px] min-[1025px]:pl-[30px] min-[1025px]:pr-[40px]">
+    <header className="pointer-events-none sticky top-0 z-50 h-[100px] bg-transparent pt-[20px] min-[1025px]:h-[148px] min-[1025px]:pt-[48px]">
+      <div className="site-shell pointer-events-auto flex h-[70px] items-center justify-between rounded-full bg-white/95 px-[20px] shadow-[0_4px_18px_rgba(69,0,83,0.13)] backdrop-blur-xl transition-shadow duration-300 min-[1025px]:h-[90px] min-[1025px]:pl-[30px] min-[1025px]:pr-[40px]">
         <Link
           href="/"
           prefetch={false}
+          scroll={false}
           aria-label="Codezela Technologies home"
           className="relative block h-[50px] w-[142px] shrink-0 min-[1025px]:w-[154px]"
         >
@@ -74,6 +75,7 @@ export function Header() {
                   <Link
                     href={href}
                     prefetch={false}
+                    scroll={false}
                     aria-current={isCurrent(href) ? "page" : undefined}
                     className={`desktop-nav-link text-[18px] font-medium leading-5 ${
                       isCurrent(href) ? "text-codezela-pink-ink" : "text-[#161616]"
@@ -89,6 +91,7 @@ export function Header() {
           <Link
             href="/contact"
             prefetch={false}
+            scroll={false}
             className="pill-button group relative h-[50px] w-[140px] overflow-hidden"
           >
             <span className="absolute transition-transform duration-300 group-hover:-translate-y-[42px]">Let’s talk</span>
@@ -114,7 +117,7 @@ export function Header() {
         aria-label="Mobile navigation"
         aria-hidden={!menuOpen}
         inert={!menuOpen}
-        className={`absolute inset-x-0 top-[94px] rounded-b-[30px] bg-white shadow-[0_20px_34px_rgba(80,8,136,0.12)] transition-all duration-300 min-[1025px]:hidden ${
+        className={`pointer-events-auto absolute inset-x-0 top-[94px] rounded-b-[30px] bg-white shadow-[0_20px_34px_rgba(80,8,136,0.12)] transition-all duration-300 min-[1025px]:hidden ${
           menuOpen ? "visible translate-y-0 opacity-100" : "pointer-events-none invisible -translate-y-2 opacity-0"
         }`}
       >
@@ -124,6 +127,7 @@ export function Header() {
               <Link
                 href={href}
                 prefetch={false}
+                scroll={false}
                 aria-current={isCurrent(href) ? "page" : undefined}
                 onClick={() => setMenuOpen(false)}
                 className={`mobile-nav-link flex h-[44px] items-center justify-center font-display text-[18px] font-medium leading-6 ${

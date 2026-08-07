@@ -77,7 +77,7 @@ export function IndustriesPage() {
       <Header />
       <main id="main-content">
         <section aria-labelledby="industries-hero-title" className="overflow-hidden bg-white">
-          <div className="site-shell grid min-h-[752px] items-center gap-14 pb-16 pt-[330px] min-[1025px]:grid-cols-[0.95fr_1.05fr] min-[1025px]:pb-0 min-[1025px]:pt-[120px]">
+          <div className="site-shell grid min-h-[752px] items-center gap-14 pb-16 pt-[80px] min-[1025px]:grid-cols-[0.95fr_1.05fr] min-[1025px]:pb-0 min-[1025px]:pt-[120px]">
             <MotionReveal className="relative z-10 min-[1025px]:translate-y-[34px]">
               <h1 id="industries-hero-title" className="max-w-[560px] font-display text-[40px] font-medium leading-[1.05] text-codezela-title min-[1025px]:text-[52px]">
                 We utilize modern technologies to revolutionize industries

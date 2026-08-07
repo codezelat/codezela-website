@@ -16,7 +16,8 @@ export type PortfolioDetail = {
   heroWidth: number;
   heroHeight: number;
   projectHtml: string;
-  clientQuote: string;
+  clientQuote?: string;
+  projectOutcome?: string;
   clientName: string;
   clientRole: string;
   solutionHtml: string;
@@ -54,21 +55,39 @@ const faqs = [
   },
 ] as const;
 
-function QuoteCard({ quote, name, role }: { quote: string; name: string; role: string }) {
-  const publishedQuote = /^[-–—]*$/.test(quote.trim())
-    ? "Public client feedback is not available for this project."
-    : quote;
+type QuoteCardVariant = "client-testimonial" | "project-outcome" | "delivery-perspective";
+
+function QuoteCard({
+  text,
+  name,
+  role,
+  variant,
+}: {
+  text: string;
+  name: string;
+  role: string;
+  variant: QuoteCardVariant;
+}) {
+  const label = {
+    "client-testimonial": "Client testimonial",
+    "project-outcome": "Project outcome",
+    "delivery-perspective": "Delivery perspective",
+  }[variant];
+  const displayedRole = variant === "project-outcome" ? `${role} · Project partner` : role;
 
   return (
     <div className="flex min-h-[214px] w-full max-w-[400px] flex-col justify-between rounded-[15px] border border-[#e9e0eb] bg-white px-[34px] py-[34px] shadow-[0_12px_30px_rgba(72,20,91,0.035)] min-[1025px]:px-[38px]">
-      <p className="text-[17px] leading-[1.35] text-[#666166]">{publishedQuote}</p>
+      <div>
+        <p className="font-display text-[12px] font-semibold uppercase tracking-[0.12em] text-[#9a43cb]">{label}</p>
+        <p className="mt-3 text-[17px] leading-[1.35] text-[#666166]">{text}</p>
+      </div>
       <div className="mt-[24px] flex items-center gap-[20px] border-t border-[#e5e1e5] pt-[26px]">
         <span className="grid h-[54px] w-[54px] shrink-0 place-items-center rounded-full bg-[#c8c8c8] text-white">
           <UserRound aria-hidden="true" className="h-[34px] w-[34px]" fill="currentColor" />
         </span>
         <span>
           <strong className="block font-display text-[17px] font-semibold leading-5 text-[#454145]">{name}</strong>
-          <span className="mt-1 block text-[16px] italic leading-5 text-[#777277]">{role}</span>
+          <span className="mt-1 block text-[16px] italic leading-5 text-[#777277]">{displayedRole}</span>
         </span>
       </div>
     </div>
@@ -132,7 +151,7 @@ function PortfolioCta({ url, title }: { url: string; title: string }) {
     ["LinkedIn", `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, FaLinkedinIn],
     ["Facebook", `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, FaFacebookF],
     ["X", `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`, FaXTwitter],
-    ["WhatsApp", `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`, FaWhatsapp],
+    ["WhatsApp", "https://wa.me/codezela.t", FaWhatsapp],
   ] as const;
 
   return (
@@ -142,7 +161,7 @@ function PortfolioCta({ url, title }: { url: string; title: string }) {
           We know you are interested in our work. Let’s collaborate.
         </h2>
         <div className="mt-[36px] flex flex-col items-center justify-center gap-4 min-[640px]:flex-row">
-          <Link href="/portfolio" className="pill-button min-h-[50px] px-7">
+          <Link href="/portfolio" scroll={false} className="pill-button min-h-[50px] px-7">
             View More Projects <ArrowRight aria-hidden="true" className="ml-2 h-5 w-5" />
           </Link>
           <a
@@ -176,13 +195,17 @@ function PortfolioCta({ url, title }: { url: string; title: string }) {
 
 export function PortfolioDetailPage({ detail }: { detail: PortfolioDetail }) {
   const pageUrl = `https://codezela.com/portfolio/${detail.slug}`;
+  const hasClientTestimonial = Boolean(detail.clientQuote?.trim());
+  const clientFeatureText = hasClientTestimonial
+    ? (detail.clientQuote ?? "")
+    : detail.projectOutcome ?? "Codezela delivered the documented project scope and solution for this partner.";
 
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to content</a>
       <Header />
       <main id="main-content" className="overflow-x-clip bg-white">
-        <section className="min-h-[760px] pb-[64px] pt-[336px] min-[1025px]:min-h-[759px] min-[1025px]:pb-[70px] min-[1025px]:pt-[206px]">
+        <section className="min-h-[760px] pb-[64px] pt-[80px] min-[1025px]:min-h-[759px] min-[1025px]:pb-[70px] min-[1025px]:pt-[206px]">
           <div className="site-shell grid items-center gap-14 min-[1025px]:grid-cols-[0.92fr_1.08fr]">
             <MotionReveal className="relative min-[1025px]:top-[58px]">
               <h1 className="max-w-[590px] font-display text-[42px] font-medium leading-[1.08] tracking-[-0.02em] text-codezela-title min-[1025px]:text-[52px]">
@@ -211,7 +234,7 @@ export function PortfolioDetailPage({ detail }: { detail: PortfolioDetail }) {
           <div className="site-shell">
             <SectionHeading
               title="Project"
-              description="A brief overview of the client’s requirements and feedback, along with the context and scope of the project."
+              description="A brief overview of the client’s requirements, project scope, and verified feedback or delivery outcome."
             />
             <div className="mt-[68px] grid items-start gap-12 min-[1025px]:grid-cols-[1.2fr_0.8fr] min-[1025px]:gap-[74px]">
               <MotionReveal>
@@ -221,7 +244,12 @@ export function PortfolioDetailPage({ detail }: { detail: PortfolioDetail }) {
                 />
               </MotionReveal>
               <MotionReveal delay={0.07}>
-                <QuoteCard quote={detail.clientQuote} name={detail.clientName} role={detail.clientRole} />
+                <QuoteCard
+                  text={clientFeatureText}
+                  name={detail.clientName}
+                  role={detail.clientRole}
+                  variant={hasClientTestimonial ? "client-testimonial" : "project-outcome"}
+                />
               </MotionReveal>
             </div>
           </div>
@@ -237,7 +265,12 @@ export function PortfolioDetailPage({ detail }: { detail: PortfolioDetail }) {
             />
             <div className="mt-[72px] grid items-start gap-12 min-[1025px]:grid-cols-[0.8fr_1.2fr] min-[1025px]:gap-[120px]">
               <MotionReveal>
-                <QuoteCard quote={detail.developerQuote} name={detail.developerName} role={detail.developerRole} />
+                <QuoteCard
+                  text={detail.developerQuote}
+                  name={detail.developerName}
+                  role={detail.developerRole}
+                  variant="delivery-perspective"
+                />
               </MotionReveal>
               <MotionReveal delay={0.07}>
                 <div

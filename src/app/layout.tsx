@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins, Roboto } from "next/font/google";
 import type { ReactNode } from "react";
+import { RouteScrollTop } from "@/components/shared/RouteScrollTop";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -90,8 +91,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en-GB">
-      <body className={`${poppins.variable} ${roboto.variable} ${inter.variable}`}>{children}</body>
+    <html lang="en-GB" data-scroll-behavior="smooth">
+      <body className={`${poppins.variable} ${roboto.variable} ${inter.variable}`}>
+        <RouteScrollTop />
+        {children}
+      </body>
     </html>
   );
 }

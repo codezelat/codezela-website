@@ -181,7 +181,7 @@ function PortfolioHero() {
             id="portfolio-page-title"
             className="m-0 font-display text-[40px] font-medium leading-[1.05] tracking-[-0.02em] text-codezela-title min-[1025px]:text-[52px] min-[1025px]:leading-[1.04]"
           >
-            Our expertise, drives projects towards success and build conversions
+            Our expertise drives projects towards success and builds conversions
           </h1>
         </MotionReveal>
 
@@ -235,6 +235,7 @@ function ProjectRow({
     <MotionReveal delay={Math.min(index * 0.025, 0.1)} distance={22}>
       <Link
         href={project.href}
+        scroll={false}
         className="group grid overflow-hidden rounded-[22px] border border-[#faeffc] bg-[#fff8ff] shadow-[0_12px_35px_rgba(80,8,136,0)] transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-[#f1d8f6] hover:shadow-[0_18px_45px_rgba(80,8,136,0.09)] focus-visible:-translate-y-1 focus-visible:border-[#d891e5] focus-visible:shadow-[0_18px_45px_rgba(80,8,136,0.09)] min-[1025px]:min-h-[490px] min-[1025px]:grid-cols-2 min-[1025px]:rounded-[26px]"
       >
         <div

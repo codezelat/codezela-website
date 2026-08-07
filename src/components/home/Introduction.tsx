@@ -16,7 +16,7 @@ export function Introduction() {
           </p>
         </div>
 
-        <div className="relative mt-[40px] h-[300px] w-full md:ml-[18px] md:mt-[5px] lg:w-[526px]">
+        <div className="relative mt-[40px] h-[300px] w-full md:ml-[18px] md:mt-[5px] min-[1310px]:w-[526px]">
           <div className="relative h-[300px] w-full overflow-hidden rounded-[15px] lg:w-[400px]">
             <Image
               src="/images/meeting-2-768x534.jpg.webp"
@@ -26,7 +26,7 @@ export function Introduction() {
               className="object-cover"
             />
           </div>
-          <div className="absolute left-[264px] top-[25px] hidden h-[250px] w-[300px] overflow-hidden rounded-[15px] border-[3px] border-white lg:block">
+          <div className="absolute left-[264px] top-[25px] hidden h-[250px] w-[300px] overflow-hidden rounded-[15px] border-[3px] border-white min-[1310px]:block">
             <Image
               src="/images/meeting-1-768x459.jpg.webp"
               alt="Codezela team members discussing a digital project"

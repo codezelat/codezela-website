@@ -1,34 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Codezela Technologies Website
 
-## Getting Started
+Production-oriented Next.js implementation of the Codezela Technologies website. The current scope is the complete homepage; internal links continue to the existing production website until their local routes are implemented.
 
-First, run the development server:
+## Requirements
+
+- Bun 1.3.14 or newer
+- Node.js 20.9 or newer (required by Next.js 16)
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality gate
 
-## Learn More
+```bash
+bun run lint
+bun run typecheck
+bun run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Asset sync
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Homepage source assets are stored locally under `public/images` and SEO assets under `public/seo`. To refresh the configured homepage assets from the live source:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+bun run assets:sync
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The repository is Bun-only. Keep `bun.lock` as the sole package-manager lockfile.

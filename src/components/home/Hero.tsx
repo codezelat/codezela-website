@@ -52,18 +52,18 @@ export function Hero() {
 
           <a
             href="https://cal.com/codezela/"
-            className="pill-button absolute left-0 top-[269px] h-[66px] w-full px-[15px] text-center !font-footer text-[16px] md:left-[10px] md:top-[170px] md:h-[50px] md:w-[329px] md:px-6 md:text-[18px]"
+            className="pill-button absolute left-0 top-[269px] h-[66px] w-full gap-3 px-[15px] text-center !font-footer text-[16px] md:left-[10px] md:top-[170px] md:h-[50px] md:w-[329px] md:px-6 md:text-[18px]"
           >
-            <CalendarDays size={19} strokeWidth={2.5} aria-hidden="true" className="mr-2 shrink-0" />
+            <CalendarDays size={19} strokeWidth={2.5} aria-hidden="true" className="shrink-0" />
             Schedule a Free Consultation
           </a>
 
           <button
             type="button"
             onClick={() => setProposalOpen(true)}
-            className="pill-button absolute left-0 top-[355px] h-[70px] w-full cursor-pointer !bg-white px-[15px] !font-footer text-[18px] !text-codezela-pink hover:!bg-codezela-offwhite md:left-auto md:right-[70px] md:top-[433px] md:h-[52px] md:w-[243px] md:px-6"
+            className="pill-button absolute left-0 top-[355px] h-[70px] w-full cursor-pointer gap-3 !bg-white px-[15px] !font-footer text-[18px] !text-codezela-pink hover:!bg-codezela-offwhite md:left-auto md:right-[70px] md:top-[433px] md:h-[52px] md:w-[243px] md:px-6"
           >
-            <CirclePlus size={19} strokeWidth={2.5} aria-hidden="true" className="mr-2 shrink-0" />
+            <CirclePlus size={19} strokeWidth={2.5} aria-hidden="true" className="shrink-0" />
             Request a Proposal
           </button>
 

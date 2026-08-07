@@ -23,7 +23,7 @@ export function Awards() {
 
         <Carousel
           ariaLabel="Codezela Technologies industry awards"
-          className="mx-auto mt-[47px] max-w-[150px] md:absolute md:right-[32px] md:top-[87px] md:mt-0 md:w-[150px]"
+          className="relative z-10 mx-auto mt-[47px] max-w-[150px] md:absolute md:right-[32px] md:top-[-9px] md:mt-0 md:w-[150px]"
           controlsClassName="!hidden"
           delay={4500}
         >

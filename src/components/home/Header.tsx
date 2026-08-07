@@ -101,18 +101,21 @@ export function Header() {
       <nav
         id="mobile-navigation"
         aria-label="Mobile navigation"
-        hidden={!menuOpen}
-        className="absolute inset-x-0 top-full border-t border-[#f0e6f3] bg-white px-5 pb-7 pt-3 shadow-[0_18px_35px_rgba(80,8,136,0.12)] min-[1025px]:hidden"
+        aria-hidden={!menuOpen}
+        inert={!menuOpen}
+        className={`absolute inset-x-0 top-[94px] rounded-b-[30px] bg-white shadow-[0_20px_34px_rgba(80,8,136,0.12)] transition-all duration-300 min-[1025px]:hidden ${
+          menuOpen ? "visible translate-y-0 opacity-100" : "pointer-events-none invisible -translate-y-2 opacity-0"
+        }`}
       >
-        <ul className="mx-auto max-w-[350px]">
+        <ul className="mx-auto w-full">
           {mobileNavigation.map(([label, href], index) => (
-            <li key={label} className="border-b border-[#f1e9f3] last:border-b-0">
+            <li key={label}>
               <a
                 href={href}
                 aria-current={index === 0 ? "page" : undefined}
                 onClick={() => setMenuOpen(false)}
-                className={`block py-[13px] text-[17px] font-medium leading-6 ${
-                  index === 0 ? "text-codezela-pink" : "text-[#161616]"
+                className={`flex h-[44px] items-center justify-center font-display text-[18px] font-medium leading-6 transition-colors hover:bg-codezela-offwhite hover:text-codezela-pink ${
+                  index === 0 ? "bg-codezela-offwhite text-codezela-pink" : "text-codezela-purple"
                 }`}
               >
                 {label}

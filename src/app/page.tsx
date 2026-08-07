@@ -38,7 +38,15 @@ const jsonLd = {
       telephone: "+94114858899",
       description:
         "Codezela Technologies, our creative agency in Sri Lanka elevates your business with expert web development, mobile app solutions, digital marketing and more to help businesses grow online.",
-      address: { "@id": "https://codezela.com/#place" },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Level 12, Parkland Building, 33, Park St",
+        addressLocality: "Colombo",
+        addressRegion: "Western",
+        postalCode: "00200",
+        addressCountry: "LK",
+      },
+      location: { "@id": "https://codezela.com/#place" },
       logo: {
         "@type": "ImageObject",
         "@id": "https://codezela.com/#logo",
@@ -63,7 +71,9 @@ const jsonLd = {
         "https://www.linkedin.com/company/codezela-technologies/",
         "https://www.facebook.com/CodezelaTechnologies",
         "https://www.instagram.com/codezela.t/",
+        "https://www.tiktok.com/@codezela_t",
         "https://twitter.com/CodezelaT",
+        "https://www.threads.net/@codezela.t",
         "https://www.youtube.com/@codezelatechnologies",
       ],
     },

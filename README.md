@@ -1,6 +1,15 @@
 # Codezela Technologies Website
 
-Production-oriented Next.js implementation of the Codezela Technologies website. The current scope is the complete homepage; internal links continue to the existing production website until their local routes are implemented.
+Production-oriented Next.js implementation of the Codezela Technologies website. The local application includes the complete public top-navigation experience:
+
+- Home
+- Services
+- Portfolio
+- Industries
+- About
+- Contact
+
+Shared navigation stays inside the local application. Portfolio and industry detail links continue to their existing production pages until those deeper routes are implemented.
 
 ## Requirements
 
@@ -14,7 +23,7 @@ bun install
 bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000), or the next available port printed by Next.js if 3000 is already occupied.
 
 ## Quality gate
 
@@ -26,7 +35,7 @@ bun run build
 
 ## Asset sync
 
-Homepage source assets are stored locally under `public/images` and SEO assets under `public/seo`. To refresh the configured homepage assets from the live source:
+Source assets are stored locally under `public/images`, route-specific media under `public/images/<route>`, and SEO assets under `public/seo`. To refresh all configured assets from the live source:
 
 ```bash
 bun run assets:sync

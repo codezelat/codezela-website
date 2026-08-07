@@ -1,44 +1,48 @@
-# Codezela homepage topology
+# Codezela top-navigation route topology
 
-Reference: `https://codezela.com/`, captured 2026-08-07.
+Reference origin: `https://codezela.com/`. Desktop references are 1440 x 900 and mobile references are 390 x 844.
 
-## Viewports
+## Shared shell
 
-- Desktop: 1440 px wide, 50 px outer gutters, 1280 px content maximum.
-- Tablet: 768 px wide.
-- Mobile: 390 px wide, 20 px outer gutters.
+- Floating rounded white header with logo, five navigation links, active magenta state, and purple `Let’s talk` pill.
+- Mobile collapses to the rounded 70px header and centered menu overlay.
+- All pages end with the shared `Let’s Connect` panel and deep-purple footer already implemented for the homepage.
 
-## Section order and desktop geometry
+## Services
 
-| Region | Approximate top | Approximate height | Surface |
-| --- | ---: | ---: | --- |
-| Header | 0 | 148 | White |
-| Hero | 148 | 600 | White with pale logo watermark |
-| Stats | 748 | 182 | Purple-to-pink gradient |
-| Introduction | 930 | 470 | White |
-| Services | 1400 | 827 | `#fef7ff` |
-| Why we are special | 2228 | 583 | `#710bc0` |
-| Industries | 2811 | 824 | White |
-| Technology grid | 3635 | 1002 | `#fef7ff` |
-| Portfolio | 4637 | 2490 | White |
-| Clients | 7127 | 560 | `#fef7ff` |
-| Awards/testimonials | 7687 | 1161 | White |
-| Footer | after main | variable | Purple and near-black blocks |
+1. Workflow hero: left 52px purple headline; right four-step vertical timeline on desktop, stacked headline-first on mobile.
+2. `Our Services` intro.
+3. Eight bordered service rows. Each row has an icon/summary, three clickable service tabs, and one detail panel.
+4. Shared footer.
 
-## Mobile geometry
+## Portfolio
 
-The header is 100 px. Main section tops are approximately: hero 100, stats 803, introduction 1132, services 2005, special 2780, industries 3788, technology 4686, portfolio 6263, clients 9578, testimonials 10099. The mobile page uses single-column cards and two-column technology tiles.
+1. Hero: left 52px headline; right pale concentric target with three purple benefit pills.
+2. Fifteen alternating project rows with pale lavender media panels and text panels.
+3. Shared footer.
 
-## Typography and color
+## Industries
 
-- Poppins: headings, buttons, and card titles.
-- Roboto: navigation and primary body copy.
-- Inter: supporting footer copy.
-- Title purple: `#500888`; deep purple: `#710bc0`; pink: `#d300ff`.
-- Body: `#636363`; card copy: `#454545`; off-white section: `#fef7ff`.
-- Desktop section headings: 40/44, weight 600. Mobile: 34/37.4, weight 600.
-- Desktop body: 18/25.2. Mobile body: 16/22.4.
+1. Hero: left 52px headline; right pale target with a 4 x 3 technology icon grid.
+2. `Our Industry Expertise` intro.
+3. Five-item industry selector on the left and the active industry story on the right.
+4. Shared footer.
 
-## Layout contract
+## About
 
-The homepage has one H1. Every content section has a centered heading and supporting line except the introduction and portfolio rows. Carousels show three cards on desktop and one on mobile. Portfolio rows alternate text and artwork on desktop and stack on mobile. The footer preserves all current company, industry, contact, social, policy, and directory links.
+1. Hero: left 52px headline; right pale nested-square field with Design, Engineer, and Data bubbles.
+2. Gradient statistics strip.
+3. `Who We Are` copy with two overlapping meeting images.
+4. Full-width purple Vision and Mission split.
+5. Four-step horizontal process.
+6. Core values with layered community images.
+7. Three-person leadership grid.
+8. Contact CTA and locations selector/detail area.
+9. Shared footer.
+
+## Contact
+
+1. Hero: left 52px headline; right pale headset illustration with schedule and proposal pills.
+2. Contact intro.
+3. Support lines, general email, four office locations, and social links separated by thin purple rules.
+4. Shared footer.

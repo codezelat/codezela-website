@@ -79,7 +79,7 @@ export function Portfolio() {
 
         <div className="mt-[60px] text-center">
           <a
-            href="https://codezela.com/portfolio/"
+            href="/portfolio/"
             className="pill-button h-[44px] !min-h-[44px] gap-2 !bg-[#8d3ccd] !font-footer px-6 hover:!bg-codezela-purple"
           >
             View All Projects

@@ -1,39 +1,36 @@
-# Homepage behavior inventory
+# Codezela route behavior map
 
-Reference behavior inspected on the live homepage on 2026-08-07.
+## Shared behaviors
 
-## Header and navigation
+- Header links use a magenta active state and a quick color transition on hover.
+- `Let’s talk` swaps its two labels vertically on hover. The mobile menu opens with a short fade/translate transition, traps no page layout width, closes on link click or Escape, and exposes `aria-expanded`.
+- Content sections use a single consistent fade-up reveal when first intersecting the viewport. Reduced-motion users receive the final state immediately.
+- Buttons rise 2px on hover, keyboard focus remains visible, and cards use small shadow/translate micro-interactions without changing their geometry.
 
-- Desktop header shows logo, five links, and a pink `Let’s talk` CTA.
-- Mobile header shows logo and menu control. The menu expands inline and exposes Home, Services, Industries, About, Portfolio, and Contact.
-- Links for pages not in this homepage milestone remain absolute production URLs so they do not masquerade as implemented local pages.
+## Services
 
-## Calls to action
+- Interaction model: click-driven tabs, independent per service card.
+- Each card opens on its first tab. Activating a tab changes the purple active label and the right-side title/description with a short opacity transition.
+- Tabs support mouse, Enter/Space, and arrow-key navigation semantics.
 
-- `Schedule a Free Consultation` opens the existing external scheduling URL.
-- `Request a Proposal` opens an accessible modal dialog.
-- `Let’s talk`, portfolio, industry, footer, and social destinations retain the live URLs.
+## Portfolio
 
-## Proposal dialog
+- Interaction model: link/hover driven.
+- Rows alternate media-right/media-left on desktop and become image-first stacked cards on mobile.
+- Hovering a project subtly scales its image and raises the row. Each row remains one accessible link.
 
-The dialog has a close control, Escape dismissal, focus-safe controls, validation, and four progress steps:
+## Industries
 
-1. Full name, email, and optional phone.
-2. Company name, required industry, and optional website.
-3. Multi-select services and project goals.
-4. Estimated budget, timeline, and project description.
+- Interaction model: click-driven selector with previous/next controls.
+- Selecting one of five industry cards updates the title, long description, icon, and detail link. Active card becomes solid purple with white text.
 
-The local milestone does not invent a private form API. Final submission opens a fully composed email to `info@codezela.com` with the entered proposal details, keeping the flow functional without silently discarding user data.
+## About
 
-## Carousels and motion
+- Interaction model: scroll reveal plus click-driven location selector.
+- Stats animate from zero once when visible unless reduced motion is requested.
+- Location cards update the office title, city, description, address, and supporting image.
 
-- Services, industries, clients, and awards have previous/next controls and autoplay.
-- Autoplay pauses on pointer interaction and respects reduced-motion preferences.
-- Card counts respond at mobile, tablet, and desktop breakpoints.
+## Contact
 
-## Quality constraints
-
-- Images load locally from `public/images` and reserve their layout dimensions.
-- Interactive controls are keyboard reachable and visibly focused.
-- No runtime dependency on Elementor, WordPress JavaScript, or the live media host.
-- Local validation includes desktop/mobile screenshots, console review, link/control checks, reduced-motion handling, lint, types, and production build.
+- Interaction model: links only. Telephone, WhatsApp, email, Calendly, proposal dialog, and social controls navigate or open their intended targets.
+- No contact form is visible on the live reference page.

@@ -1,29 +1,35 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const desktopNavigation = [
-  ["Home", "https://codezela.com/"],
-  ["Services", "https://codezela.com/services/"],
-  ["Portfolio", "https://codezela.com/portfolio/"],
-  ["Industries", "https://codezela.com/industries/"],
-  ["About", "https://codezela.com/about/"],
+  ["Home", "/"],
+  ["Services", "/services/"],
+  ["Portfolio", "/portfolio/"],
+  ["Industries", "/industries/"],
+  ["About", "/about/"],
 ] as const;
 
 const mobileNavigation = [
-  ["Home", "https://codezela.com/"],
-  ["Services", "https://codezela.com/services/"],
-  ["Industries", "https://codezela.com/industries/"],
-  ["About", "https://codezela.com/about/"],
-  ["Portfolio", "https://codezela.com/portfolio/"],
-  ["Contact", "https://codezela.com/contact/"],
+  ["Home", "/"],
+  ["Services", "/services/"],
+  ["Industries", "/industries/"],
+  ["About", "/about/"],
+  ["Portfolio", "/portfolio/"],
+  ["Contact", "/contact/"],
 ] as const;
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
+
+  const isCurrent = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href.slice(0, -1) || pathname.startsWith(href);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -42,8 +48,8 @@ export function Header() {
   return (
     <header className="relative z-50 h-[100px] bg-white pt-[20px] min-[1025px]:h-[148px] min-[1025px]:pt-[48px]">
       <div className="site-shell flex h-[70px] items-center justify-between rounded-full bg-white px-[20px] shadow-[0_2px_12px_rgba(69,0,83,0.13)] min-[1025px]:h-[90px] min-[1025px]:pl-[30px] min-[1025px]:pr-[40px]">
-        <a
-          href="https://codezela.com/"
+        <Link
+          href="/"
           aria-label="Codezela Technologies home"
           className="relative block h-[50px] w-[142px] shrink-0 min-[1025px]:w-[154px]"
         >
@@ -54,34 +60,34 @@ export function Header() {
             sizes="(max-width: 899px) 142px, 154px"
             className="object-contain"
           />
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-[87px] min-[1025px]:flex">
           <nav aria-label="Primary navigation">
             <ul className="flex items-center gap-[40px]">
-              {desktopNavigation.map(([label, href], index) => (
+              {desktopNavigation.map(([label, href]) => (
                 <li key={label}>
-                  <a
+                  <Link
                     href={href}
-                    aria-current={index === 0 ? "page" : undefined}
+                    aria-current={isCurrent(href) ? "page" : undefined}
                     className={`desktop-nav-link text-[18px] font-medium leading-5 ${
-                      index === 0 ? "text-codezela-pink-ink" : "text-[#161616]"
+                      isCurrent(href) ? "text-codezela-pink-ink" : "text-[#161616]"
                     }`}
                   >
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <a
-            href="https://codezela.com/contact/"
+          <Link
+            href="/contact/"
             className="pill-button group relative h-[50px] w-[140px] overflow-hidden"
           >
             <span className="absolute transition-transform duration-300 group-hover:-translate-y-[42px]">Let’s talk</span>
             <span className="absolute translate-y-[42px] transition-transform duration-300 group-hover:translate-y-0">Click Me</span>
-          </a>
+          </Link>
         </div>
 
         <button
@@ -107,18 +113,18 @@ export function Header() {
         }`}
       >
         <ul className="mx-auto w-full">
-          {mobileNavigation.map(([label, href], index) => (
+          {mobileNavigation.map(([label, href]) => (
             <li key={label}>
-              <a
+              <Link
                 href={href}
-                aria-current={index === 0 ? "page" : undefined}
+                aria-current={isCurrent(href) ? "page" : undefined}
                 onClick={() => setMenuOpen(false)}
                 className={`mobile-nav-link flex h-[44px] items-center justify-center font-display text-[18px] font-medium leading-6 ${
-                  index === 0 ? "bg-codezela-offwhite text-codezela-pink-ink" : "text-codezela-purple"
+                  isCurrent(href) ? "bg-codezela-offwhite text-codezela-pink-ink" : "text-codezela-purple"
                 }`}
               >
                 {label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

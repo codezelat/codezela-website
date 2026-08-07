@@ -6,11 +6,11 @@ export type CardItem = {
 };
 
 export const navItems = [
-  ["Home", "https://codezela.com/"],
-  ["Services", "https://codezela.com/services/"],
-  ["Portfolio", "https://codezela.com/portfolio/"],
-  ["Industries", "https://codezela.com/industries/"],
-  ["About", "https://codezela.com/about/"],
+  ["Home", "/"],
+  ["Services", "/services/"],
+  ["Portfolio", "/portfolio/"],
+  ["Industries", "/industries/"],
+  ["About", "/about/"],
 ] as const;
 
 export const services: CardItem[] = [

@@ -1,5 +1,6 @@
 import { ArrowRight, Send } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   FaFacebookF,
   FaInstagram,
@@ -24,12 +25,12 @@ const services = [
 ] as const;
 
 const companyLinks = [
-  ["Home", "https://codezela.com/"],
-  ["Services", "https://codezela.com/services/"],
-  ["Portfolio", "https://codezela.com/portfolio/"],
-  ["Industries", "https://codezela.com/industries/"],
+  ["Home", "/"],
+  ["Services", "/services/"],
+  ["Portfolio", "/portfolio/"],
+  ["Industries", "/industries/"],
   ["Career Accelerator", "https://cca.it.com/"],
-  ["About", "https://codezela.com/about/"],
+  ["About", "/about/"],
 ] as const;
 
 const industryLinks = [
@@ -37,7 +38,7 @@ const industryLinks = [
   ["Finance & Banking", "https://codezela.com/industry/financial-technology-fintech/"],
   ["E-commerce and Retail", "https://codezela.com/industry/ecommerce-and-retail/"],
   ["Technology & IT Services", "https://codezela.com/industry/technology-and-software-development/"],
-  ["And more...", "https://codezela.com/industries/"],
+  ["And more...", "/industries/"],
 ] as const;
 
 const socialLinks = [
@@ -50,7 +51,7 @@ const socialLinks = [
   ["YouTube", FaYoutube, "https://www.youtube.com/@codezelatechnologies"],
 ] as const;
 
-const serviceHref = "https://codezela.com/services/";
+const serviceHref = "/services/";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -65,13 +66,13 @@ export function Footer() {
           <p className="mt-[20px] max-w-[555px] font-footer text-[18px] font-medium leading-[24px] min-[1025px]:mt-[22px] min-[1025px]:leading-[1.32]">
             Share Your Vision. We’re Here to Listen and Transform Ideas into Digital Realities
           </p>
-          <a
-            href="https://codezela.com/contact/"
+          <Link
+            href="/contact/"
             className="mt-[34px] inline-flex h-[44px] w-[257px] items-center justify-center gap-2 rounded-full bg-white px-5 font-footer text-[18px] font-semibold text-codezela-purple transition-transform hover:-translate-y-0.5 min-[1025px]:min-h-[43px] min-[1025px]:w-fit min-[1025px]:text-[17px]"
           >
             Start the Conversation
             <ArrowRight size={20} strokeWidth={2.5} aria-hidden="true" />
-          </a>
+          </Link>
         </div>
 
         <div className="flex h-[304px] flex-col items-center bg-[#fff8ff] px-5 pt-[60px] text-center min-[1025px]:h-[354px] min-[1025px]:justify-center min-[1025px]:py-12">
@@ -204,10 +205,10 @@ export function Footer() {
             </div>
 
             <div className="order-1 text-center md:order-2 md:text-right">
-              <a href="https://codezela.com/" className="inline-flex items-center gap-3">
+              <Link href="/" className="inline-flex items-center gap-3">
                 <Image src="/images/Untitled-150x150.png" alt="" width={58} height={58} className="h-[45px] w-[45px] object-contain md:h-[50px] md:w-[50px]" />
                 <span className="font-display text-[34px] font-semibold leading-[45px] md:leading-normal">Codezela</span>
-              </a>
+              </Link>
               <div className="mt-[22px] flex flex-col items-center gap-[9px] text-[14px] leading-5 text-[#eee5f1] md:mt-[26px] md:flex-row md:flex-wrap md:justify-end md:gap-x-[72px] md:gap-y-4 md:text-[15px]">
                 <a className="hover:text-codezela-pink-on-dark" href="https://codezela.com/privacy-policy/">
                   Privacy Policy

@@ -1,0 +1,149 @@
+- region "We value your privacy"
+- link "Skip to content":
+  - /url: "#content"
+- banner:
+  - link "site_logo":
+    - /url: https://codezela.com
+    - img "site_logo"
+  - link "Let’s talk Click Me":
+    - /url: https://codezela.com/contact/
+    - generic: Let’s talk
+    - generic: Click Me
+  - navigation "Menu":
+    - list:
+      - link "Home":
+        - /url: https://codezela.com/
+      - link "Services":
+        - /url: https://codezela.com/services/
+      - link "Portfolio":
+        - /url: https://codezela.com/portfolio/
+      - link "Industries":
+        - /url: https://codezela.com/industries/
+      - link "About":
+        - /url: https://codezela.com/about/
+- paragraph: We utilize modern technologies to revolutionize industries
+- img "Group 207"
+- heading "Our Industry Expertise" [level=1]
+- paragraph: Navigating a digital landscape tailored to diverse industries, we specialize in crafting innovative solutions that drive success in healthcare, finance, e-commerce, education, and beyond.
+- list:
+  - img "Bank 1669617"
+  - generic: Finance and Banking
+  - img "Online store"
+  - generic: E-commerce and Retail
+  - img "Health insurance"
+  - generic: Healthcare and Medical
+  - img "Online education"
+  - generic: Education and E-learning
+  - img "House"
+  - generic: Real Estate and Property Management
+- navigation "Pagination":
+  - text: Previous
+  - link "Next":
+    - /url: https://codezela.com/industries/?e-page-e60c90d=2
+- list:
+  - paragraph: Finance and Banking
+  - paragraph: Transforming Finance and Banking with Innovative Technology
+  - generic: Empower your financial institution with cutting-edge digital solutions that streamline operations, enhance customer experiences, and ensure compliance. At Codezela Technologies, we offer secure banking platforms, digital payment gateways, and advanced fraud detection systems to keep your operations efficient and protected. With our expertise, we modernise legacy systems and introduce seamless fintech innovations to meet evolving regulatory requirements. Stay ahead of industry trends with our bespoke solutions for finance management, mobile banking, and wealth management. From blockchain integration to AI-driven financial analysis, we help you navigate the complexities of modern banking with ease. Let us handle the technology, so you can focus on growing your financial services.
+  - paragraph:
+    - link "Learn more about how we can help you excel above your competitors ->":
+      - /url: https://codezela.com/industry/finance-and-banking/
+- contentinfo:
+  - heading "Let's Connect" [level=2]
+  - paragraph: Share Your Vision. We’re Here to Listen and Transform Ideas into Digital Realities
+  - link "Start the Conversation":
+    - /url: https://codezela.com/contact/
+    - generic: Start the Conversation
+  - heading "Email Us" [level=2]
+  - paragraph:
+    - link "info@codezela.com":
+      - /url: mailto:info@codezela.com
+  - heading "Call Us" [level=2]
+  - paragraph:
+    - link "+94 11 485 8899":
+      - /url: tel:+94114858899
+  - link "Schedule a Call":
+    - /url: http://calendly.com/codezela/consult
+    - generic: Schedule a Call
+  - heading "Services" [level=2]
+  - heading "Web Design & Development" [level=2]
+  - heading "Branding & Content Designing" [level=2]
+  - heading "E-commerce Solutions" [level=2]
+  - heading "Digital Marketing" [level=2]
+  - heading "SEO & Content Writing" [level=2]
+  - heading "Cybersecurity Solutions" [level=2]
+  - heading "Computer Vision Solutions" [level=2]
+  - heading "IT Consulting and Strategy" [level=2]
+  - heading "Data Analytics and Business Intelligence" [level=2]
+  - heading "And more..." [level=2]:
+    - link "And more...":
+      - /url: https://codezela.com/services/
+  - heading "Company" [level=2]
+  - navigation "Menu":
+    - list:
+      - link "Home":
+        - /url: https://codezela.com/
+      - link "Services":
+        - /url: https://codezela.com/services/
+      - link "Portfolio":
+        - /url: https://codezela.com/portfolio/
+      - link "Industries":
+        - /url: https://codezela.com/industries/
+      - link "Career Accelerator":
+        - /url: https://cca.it.com/
+      - link "About":
+        - /url: https://codezela.com/about/
+  - heading "Industries" [level=2]
+  - heading "Healthcare" [level=2]:
+    - link "Healthcare":
+      - /url: https://codezela.com/industry/health-and-wellness/
+  - heading "Finance & Banking" [level=2]:
+    - link "Finance & Banking":
+      - /url: https://codezela.com/industry/financial-technology-fintech/
+  - heading "Ecommerce and Retail" [level=2]:
+    - link "Ecommerce and Retail":
+      - /url: https://codezela.com/industry/ecommerce-and-retail/
+  - heading "Technology & IT Serviceas" [level=2]:
+    - link "Technology & IT Serviceas":
+      - /url: https://codezela.com/industry/technology-and-software-development/
+  - heading "And more..." [level=2]:
+    - link "And more...":
+      - /url: https://codezela.com/industries/
+  - heading "Have a great idea?" [level=2]
+  - link "Let’s Chat":
+    - /url: https://wa.me/codezela
+    - heading "Let’s Chat" [level=2]
+  - link:
+    - /url: https://techbehemoths.com/company/codezela-technologies
+  - list:
+    - link "Linkedin":
+      - /url: https://www.linkedin.com/company/codezela-technologies/
+      - generic: Linkedin
+    - link "Facebook":
+      - /url: https://www.facebook.com/CodezelaTechnologies
+      - generic: Facebook
+    - link "Instagram":
+      - /url: https://www.instagram.com/codezela.t/
+      - generic: Instagram
+    - link "Tiktok":
+      - /url: https://www.tiktok.com/@codezela_t
+      - generic: Tiktok
+    - link "X-twitter":
+      - /url: https://twitter.com/CodezelaT
+      - generic: X-twitter
+    - link "Threads":
+      - /url: https://www.threads.net/@codezela.t
+      - generic: Threads
+    - link "Youtube":
+      - /url: https://www.youtube.com/@codezelatechnologies
+      - generic: Youtube
+  - paragraph: Copyright © 2020 -2025 | Codezela Technologies
+  - link "CodeZela":
+    - /url: https://codezela.com
+    - paragraph: CodeZela
+  - paragraph:
+    - link "Privacy Policy":
+      - /url: https://codezela.com/privacy-policy/
+  - paragraph:
+    - link "Terms & Conditions":
+      - /url: https://codezela.com/terms-and-conditions/
+- generic: desktop

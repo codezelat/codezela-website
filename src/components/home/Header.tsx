@@ -53,7 +53,6 @@ export function Header() {
             fill
             sizes="(max-width: 899px) 142px, 154px"
             className="object-contain"
-            preload
           />
         </a>
 
@@ -65,8 +64,8 @@ export function Header() {
                   <a
                     href={href}
                     aria-current={index === 0 ? "page" : undefined}
-                    className={`text-[18px] font-medium leading-5 transition-colors hover:text-codezela-pink ${
-                      index === 0 ? "text-codezela-pink" : "text-[#161616]"
+                    className={`desktop-nav-link text-[18px] font-medium leading-5 ${
+                      index === 0 ? "text-codezela-pink-ink" : "text-[#161616]"
                     }`}
                   >
                     {label}
@@ -114,8 +113,8 @@ export function Header() {
                 href={href}
                 aria-current={index === 0 ? "page" : undefined}
                 onClick={() => setMenuOpen(false)}
-                className={`flex h-[44px] items-center justify-center font-display text-[18px] font-medium leading-6 transition-colors hover:bg-codezela-offwhite hover:text-codezela-pink ${
-                  index === 0 ? "bg-codezela-offwhite text-codezela-pink" : "text-codezela-purple"
+                className={`mobile-nav-link flex h-[44px] items-center justify-center font-display text-[18px] font-medium leading-6 ${
+                  index === 0 ? "bg-codezela-offwhite text-codezela-pink-ink" : "text-codezela-purple"
                 }`}
               >
                 {label}

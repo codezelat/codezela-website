@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { industries } from "@/data/home";
 import { Carousel } from "@/components/shared/Carousel";
+import { MotionReveal } from "@/components/shared/MotionReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 const carouselControlStyles = [
@@ -28,21 +29,22 @@ export function Industries() {
           />
         </div>
 
-        <Carousel
-          ariaLabel="Industries served by Codezela Technologies"
-          className="mt-[54px] px-[10px] [&_.overflow-hidden>div]:gap-[30px]"
-          controlsClassName={carouselControlStyles}
-          delay={5400}
-        >
-          {industries.map((item, index) => {
-            const titleId = `industry-title-${index}`;
+        <MotionReveal className="mt-[54px] px-[10px]" delay={0.06}>
+          <Carousel
+            ariaLabel="Industries served by Codezela Technologies"
+            className="[&_.overflow-hidden>div]:gap-[30px]"
+            controlsClassName={carouselControlStyles}
+            delay={5400}
+          >
+            {industries.map((item, index) => {
+              const titleId = `industry-title-${index}`;
 
-            return (
-              <article
-                key={item.title}
-                className="flex h-[407px] min-w-0 shrink-0 grow-0 basis-full flex-col items-center rounded-[8px] border border-[#f0dff2] bg-[#fffdff] px-[10px] pt-[58px] text-center md:h-[392px] md:basis-[calc((100%_-_30px)/2)] md:pt-[52px] xl:basis-[calc((100%_-_60px)/3)]"
-                aria-labelledby={titleId}
-              >
+              return (
+                <article
+                  key={item.title}
+                  className="interactive-card flex h-[407px] min-w-0 shrink-0 grow-0 basis-full flex-col items-center rounded-[8px] border border-[#f0dff2] bg-[#fffdff] px-[10px] pt-[58px] text-center md:h-[392px] md:basis-[calc((100%_-_30px)/2)] md:pt-[52px] xl:basis-[calc((100%_-_60px)/3)]"
+                  aria-labelledby={titleId}
+                >
                 <Image
                   className="size-[40px] object-contain"
                   src={item.icon}
@@ -61,17 +63,18 @@ export function Industries() {
                   {item.description}
                 </p>
                 <div className="mt-[16px] h-px w-full bg-[#dedede]" aria-hidden="true" />
-                <a
-                  className="mt-[25px] inline-flex h-[50px] w-[154px] items-center justify-center rounded-full border border-[#eadfed] bg-[#fbe6ff] text-[16px] leading-none font-medium text-[#8d3ccd] transition-colors duration-200 hover:border-codezela-purple hover:bg-codezela-purple hover:text-white"
-                  href={item.href}
-                  aria-label={`Learn more about ${item.title} solutions`}
-                >
-                  Learn More
-                </a>
-              </article>
-            );
-          })}
-        </Carousel>
+                  <a
+                    className="mt-[25px] inline-flex h-[50px] w-[154px] items-center justify-center rounded-full border border-[#eadfed] bg-[#fbe6ff] text-[16px] leading-none font-medium text-[#8d3ccd] transition-colors duration-200 hover:border-codezela-purple hover:bg-codezela-purple hover:text-white"
+                    href={item.href}
+                    aria-label={`Learn more about ${item.title} solutions`}
+                  >
+                    Learn More<span className="sr-only"> about {item.title}</span>
+                  </a>
+                </article>
+              );
+            })}
+          </Carousel>
+        </MotionReveal>
       </div>
     </section>
   );

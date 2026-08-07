@@ -34,7 +34,7 @@ export function Awards() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${name} on TechBehemoths`}
-                className="rounded-[10px] transition-transform duration-300 hover:scale-[1.04]"
+                className="interactive-logo inline-block rounded-[10px]"
               >
                 <Image
                   src={`/images/${fileName}`}

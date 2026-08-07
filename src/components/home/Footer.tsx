@@ -75,14 +75,14 @@ export function Footer() {
         </div>
 
         <div className="flex h-[304px] flex-col items-center bg-[#fff8ff] px-5 pt-[60px] text-center min-[1025px]:h-[354px] min-[1025px]:justify-center min-[1025px]:py-12">
-          <p className="font-footer text-[20px] font-semibold leading-5 text-[#969096] min-[1025px]:text-[19px]">Email Us</p>
+          <p className="font-footer text-[20px] font-semibold leading-5 text-[#706a70] min-[1025px]:text-[19px]">Email Us</p>
           <a
             href="mailto:info@codezela.com"
             className="mt-[5px] font-display text-[28px] font-semibold leading-[34px] text-codezela-title transition-colors hover:text-codezela-pink min-[1025px]:text-[34px]"
           >
             info@codezela.com
           </a>
-          <p className="mt-[23px] font-footer text-[20px] font-semibold leading-5 text-[#969096] min-[1025px]:mt-[26px] min-[1025px]:text-[19px]">Call Us</p>
+          <p className="mt-[23px] font-footer text-[20px] font-semibold leading-5 text-[#706a70] min-[1025px]:mt-[26px] min-[1025px]:text-[19px]">Call Us</p>
           <a
             href="tel:+94114858899"
             className="mt-[6px] font-footer text-[20px] font-bold leading-6 text-codezela-title transition-colors hover:text-codezela-pink"
@@ -108,7 +108,7 @@ export function Footer() {
             <ul className="mt-[20px] grid gap-x-14 gap-y-[20px] text-[16px] leading-[22.4px] text-[#eee5f1] md:mt-[36px] md:grid-flow-col md:grid-cols-2 md:grid-rows-5 md:gap-y-[22px] md:text-[18px]">
               {services.map((service, index) => (
                 <li key={service} className={index === 5 ? "mt-[20px] md:mt-0" : undefined}>
-                  <a className="transition-colors hover:text-codezela-pink" href={serviceHref}>
+                  <a className="transition-colors hover:text-codezela-pink-on-dark" href={serviceHref}>
                     {service}
                   </a>
                 </li>
@@ -122,7 +122,7 @@ export function Footer() {
               {companyLinks.map(([label, href], index) => (
                 <li key={label}>
                   <a
-                    className={`transition-colors hover:text-codezela-pink ${index === 0 ? "text-codezela-pink" : ""}`}
+                    className={`transition-colors hover:text-codezela-pink-on-dark ${index === 0 ? "text-codezela-pink-on-dark" : ""}`}
                     href={href}
                   >
                     {label}
@@ -137,7 +137,7 @@ export function Footer() {
             <ul className="mt-[20px] space-y-[20px] text-[16px] leading-[22.4px] text-[#eee5f1] md:mt-[36px] md:space-y-[22px] md:text-[18px]">
               {industryLinks.map(([label, href]) => (
                 <li key={label}>
-                  <a className="transition-colors hover:text-codezela-pink" href={href}>
+                  <a className="transition-colors hover:text-codezela-pink-on-dark" href={href}>
                     {label}
                   </a>
                 </li>
@@ -192,7 +192,7 @@ export function Footer() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={label}
-                    className="flex h-[32px] min-w-[28px] items-center justify-center text-[25px] font-bold leading-none text-white transition-colors hover:text-codezela-pink md:h-[30px]"
+                    className="social-link flex h-[32px] min-w-[28px] items-center justify-center text-[25px] font-bold leading-none text-white hover:text-codezela-pink-on-dark md:h-[30px]"
                   >
                     <Icon aria-hidden="true" />
                   </a>
@@ -209,10 +209,10 @@ export function Footer() {
                 <span className="font-display text-[34px] font-semibold leading-[45px] md:leading-normal">Codezela</span>
               </a>
               <div className="mt-[22px] flex flex-col items-center gap-[9px] text-[14px] leading-5 text-[#eee5f1] md:mt-[26px] md:flex-row md:flex-wrap md:justify-end md:gap-x-[72px] md:gap-y-4 md:text-[15px]">
-                <a className="hover:text-codezela-pink" href="https://codezela.com/privacy-policy/">
+                <a className="hover:text-codezela-pink-on-dark" href="https://codezela.com/privacy-policy/">
                   Privacy Policy
                 </a>
-                <a className="hover:text-codezela-pink" href="https://codezela.com/terms-and-conditions/">
+                <a className="hover:text-codezela-pink-on-dark" href="https://codezela.com/terms-and-conditions/">
                   Terms &amp; Conditions
                 </a>
               </div>

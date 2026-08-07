@@ -1,4 +1,5 @@
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { MotionReveal } from "@/components/shared/MotionReveal";
 
 const differentiators = [
   { metric: "2X", label: "Faster Delivery" },
@@ -21,11 +22,11 @@ export function WhySpecial() {
           />
         </div>
 
-        <div className="mt-[55px] grid gap-[20px] md:mt-[80px] md:grid-cols-3">
+        <MotionReveal className="mt-[55px] grid gap-[20px] md:mt-[80px] md:grid-cols-3" delay={0.06}>
           {differentiators.map(({ metric, label }) => (
             <article
               key={metric}
-              className="flex h-[182px] flex-col items-center justify-center rounded-[8px] bg-white px-[20px] text-center"
+              className="interactive-card flex h-[182px] flex-col items-center justify-center rounded-[8px] border border-white/10 bg-white px-[20px] text-center"
             >
               <p className="font-display text-[60px] leading-[60px] font-bold text-codezela-purple">
                 {metric}
@@ -35,7 +36,7 @@ export function WhySpecial() {
               </h3>
             </article>
           ))}
-        </div>
+        </MotionReveal>
       </div>
     </section>
   );

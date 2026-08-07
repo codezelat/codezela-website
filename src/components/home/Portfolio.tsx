@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { portfolioItems } from "@/data/home";
 
+import { MotionReveal } from "../shared/MotionReveal";
 import { SectionHeading } from "../shared/SectionHeading";
 
 const subtitle =
@@ -25,18 +26,18 @@ export function Portfolio() {
             const imageOnLeft = index % 2 === 1;
 
             return (
-              <article
-                key={project.title}
-                className={`grid ${index < 2 ? "h-[668px]" : index === 2 ? "h-[703px]" : "h-[773px]"} overflow-hidden rounded-[16px] bg-[#fff7ff] md:h-auto md:min-h-[650px] lg:!h-[491px] lg:!min-h-[491px] lg:grid-cols-2 lg:rounded-[18px] ${
+              <MotionReveal key={project.title} delay={Math.min(index * 0.04, 0.12)}>
+                <article
+                  className={`project-card grid ${index < 2 ? "h-[668px]" : index === 2 ? "h-[703px]" : "h-[773px]"} overflow-hidden rounded-[16px] bg-[#fff7ff] md:h-auto md:min-h-[650px] lg:!h-[491px] lg:!min-h-[491px] lg:grid-cols-2 lg:rounded-[18px] ${
                   index % 2 === 0 ? "lg:bg-[#fff7ff]" : "lg:bg-white"
                 }`}
-              >
+                >
                 <div
                   className={`order-2 flex min-h-0 flex-col items-start p-[10px] lg:min-h-[405px] lg:px-[38px] lg:py-[30px] ${
                     imageOnLeft ? "lg:order-2" : "lg:order-1"
                   }`}
                 >
-                  <p className="order-1 flex h-[40px] w-full items-center justify-center rounded-full bg-[#fcebff] px-4 font-display text-[20px] font-medium leading-5 text-codezela-pink lg:h-auto lg:w-fit lg:justify-start lg:bg-[#fde9ff] lg:py-[9px] lg:text-[16px] lg:font-semibold lg:leading-none">
+                  <p className="order-1 flex h-[40px] w-full items-center justify-center rounded-full bg-[#fcebff] px-4 font-display text-[20px] font-medium leading-5 text-codezela-pink-ink lg:h-auto lg:w-fit lg:justify-start lg:bg-[#fde9ff] lg:py-[9px] lg:text-[16px] lg:font-semibold lg:leading-none">
                     {project.type}
                   </p>
                   <h3 className="order-3 mt-[20px] max-w-[490px] font-display text-[32px] font-bold leading-[35.2px] text-[#161616] lg:order-2 lg:mt-[18px] lg:text-[31px] lg:font-semibold lg:leading-[1.08]">
@@ -47,7 +48,7 @@ export function Portfolio() {
                   <p className="order-4 mt-[20px] max-w-[500px] text-[16px] leading-[22.4px] text-codezela-copy lg:order-3 lg:mt-[18px] lg:text-[17px] lg:leading-[1.32]">
                     {project.description}
                   </p>
-                  <p className="order-2 mt-[20px] text-[18px] font-medium leading-[18px] text-[#949494]/50 lg:order-4 lg:mt-auto lg:pt-8 lg:text-[16px] lg:leading-normal lg:text-[#d0cbd2]">
+                  <p className="order-2 mt-[20px] text-[18px] font-medium leading-[18px] text-[#675f69] lg:order-4 lg:mt-auto lg:pt-8 lg:text-[16px] lg:leading-normal lg:text-[#675f69]">
                     {project.category}
                   </p>
                 </div>
@@ -70,7 +71,8 @@ export function Portfolio() {
                     />
                   </span>
                 </a>
-              </article>
+                </article>
+              </MotionReveal>
             );
           })}
         </div>

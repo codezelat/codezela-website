@@ -15,13 +15,9 @@ export function Hero() {
         className="hero-section relative h-[703px] overflow-hidden bg-white md:h-[600px]"
       >
         <div className="site-shell relative h-full">
-          <Image
-            src="/images/Group-202-768x768.png"
-            alt=""
-            width={300}
-            height={300}
+          <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[48px] h-[220px] w-[220px] -translate-x-1/2 select-none object-contain md:top-[170px] md:h-[300px] md:w-[300px]"
+            className="hero-mark-halo pointer-events-none absolute left-1/2 top-[48px] h-[220px] w-[220px] -translate-x-1/2 select-none object-contain md:top-[170px] md:h-[300px] md:w-[300px]"
           />
           <Image
             src="/images/Untitled-1.png.webp"
@@ -29,7 +25,7 @@ export function Hero() {
             height={184}
             alt=""
             aria-hidden="true"
-            className="absolute left-1/2 top-[65px] h-[184px] w-[184px] -translate-x-1/2 object-contain md:top-[228px]"
+            className="hero-mark-core absolute left-1/2 top-[65px] h-[184px] w-[184px] -translate-x-1/2 object-contain md:top-[228px]"
           />
 
           <Image
@@ -52,18 +48,18 @@ export function Hero() {
 
           <a
             href="https://cal.com/codezela/"
-            className="pill-button absolute left-0 top-[269px] h-[66px] w-full gap-3 px-[15px] text-center !font-footer text-[16px] md:left-[10px] md:top-[170px] md:h-[50px] md:w-[329px] md:px-6 md:text-[18px]"
+            className="pill-button hero-action absolute left-0 top-[269px] h-[66px] w-full gap-[10px] whitespace-nowrap !border-codezela-pink !bg-codezela-pink px-[14px] text-center font-footer text-[15px] min-[360px]:text-[16px] md:left-[10px] md:top-[163px] md:h-[50px] md:w-[329px] md:gap-3 md:px-6 md:text-[17px]"
           >
-            <CalendarDays size={19} strokeWidth={2.5} aria-hidden="true" className="shrink-0" />
+            <CalendarDays size={19} strokeWidth={2.5} aria-hidden="true" className="hero-action__icon shrink-0" />
             Schedule a Free Consultation
           </a>
 
           <button
             type="button"
             onClick={() => setProposalOpen(true)}
-            className="pill-button absolute left-0 top-[355px] h-[70px] w-full cursor-pointer gap-3 !bg-white px-[15px] !font-footer text-[18px] !text-codezela-pink hover:!bg-codezela-offwhite md:left-auto md:right-[70px] md:top-[433px] md:h-[52px] md:w-[243px] md:px-6"
+            className="pill-button hero-action hero-action--secondary absolute left-0 top-[355px] h-[70px] w-full cursor-pointer gap-[10px] whitespace-nowrap px-[14px] font-footer text-[17px] md:left-auto md:right-[70px] md:top-[433px] md:h-[52px] md:w-[243px] md:gap-3 md:px-6"
           >
-            <CirclePlus size={19} strokeWidth={2.5} aria-hidden="true" className="shrink-0" />
+            <CirclePlus size={19} strokeWidth={2.5} aria-hidden="true" className="hero-action__icon shrink-0" />
             Request a Proposal
           </button>
 
@@ -78,6 +74,7 @@ export function Hero() {
               We are an agency that help businesses to grow online with our expertise and creativity in software, design, development, AI and marketing.
             </p>
           </div>
+
         </div>
       </section>
 

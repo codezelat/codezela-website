@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { technologyLogos } from "@/data/home";
 
+import { MotionReveal } from "../shared/MotionReveal";
 import { SectionHeading } from "../shared/SectionHeading";
 
 const subtitle =
@@ -19,23 +20,25 @@ export function Technology() {
           <SectionHeading title="Our Tech Expertise" description={subtitle} />
         </div>
 
-        <ul className="mx-auto mt-[66px] grid max-w-[960px] grid-cols-2 gap-[18px] md:mt-[64px] md:grid-cols-4">
-          {technologyLogos.map(([name, fileName]) => (
-            <li
-              key={name}
-              className="flex h-[136px] items-center justify-center overflow-hidden rounded-[8px] bg-white px-6 py-7 shadow-[0_7px_18px_rgba(72,20,91,0.07)] md:h-[141px]"
-            >
-              <Image
-                src={`/images/${fileName}`}
-                alt={`${name} technology logo`}
-                width={190}
-                height={88}
-                sizes="(max-width: 767px) 130px, 190px"
-                className="h-[76px] w-full max-w-[170px] object-contain grayscale opacity-60 transition duration-300 hover:grayscale-0 hover:opacity-100"
-              />
-            </li>
-          ))}
-        </ul>
+        <MotionReveal delay={0.06}>
+          <ul className="mx-auto mt-[66px] grid max-w-[960px] grid-cols-2 gap-[18px] md:mt-[64px] md:grid-cols-4">
+            {technologyLogos.map(([name, fileName]) => (
+              <li
+                key={name}
+                className="interactive-logo flex h-[136px] items-center justify-center overflow-hidden rounded-[8px] bg-white px-6 py-7 shadow-[0_7px_18px_rgba(72,20,91,0.07)] md:h-[141px]"
+              >
+                <Image
+                  src={`/images/${fileName}`}
+                  alt={`${name} technology logo`}
+                  width={190}
+                  height={88}
+                  sizes="(max-width: 767px) 130px, 190px"
+                  className="h-[76px] w-full max-w-[170px] object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100"
+                />
+              </li>
+            ))}
+          </ul>
+        </MotionReveal>
       </div>
     </section>
   );

@@ -6,6 +6,7 @@ export const proposalSubmissionSchema = z.object({
   submissionId: z.uuid(),
   startedAt: z.number().int().positive(),
   botField: optionalText(200),
+  turnstileToken: z.string().trim().min(1).max(2048),
   fullName: z.string().trim().min(2).max(120),
   email: z.email().max(254),
   phone: optionalText(40),
@@ -33,4 +34,3 @@ export const proposalSubmissionSchema = z.object({
 });
 
 export type ProposalSubmission = z.infer<typeof proposalSubmissionSchema>;
-

@@ -115,52 +115,48 @@ export function GoogleConsentManager() {
           aria-modal="false"
           aria-labelledby="cookie-preferences-title"
           aria-describedby="cookie-preferences-description"
-          className="fixed right-4 bottom-4 left-4 z-[100] mx-auto max-w-[760px] rounded-[22px] border border-[#eadcf0] bg-white/95 p-5 shadow-[0_20px_65px_rgba(45,0,70,0.22)] backdrop-blur-xl md:bottom-6 md:p-6"
+          className="fixed right-3 bottom-3 left-3 z-[100] mx-auto max-w-[920px] rounded-[18px] border border-[#eadcf0] bg-white/95 px-4 py-3.5 shadow-[0_18px_55px_rgba(45,0,70,0.2)] backdrop-blur-xl md:bottom-5"
         >
-          {choice !== null && (
-            <button
-              type="button"
-              onClick={() => setPreferencesOpen(false)}
-              aria-label="Close cookie preferences"
-              className="absolute top-3 right-3 grid h-10 w-10 cursor-pointer place-items-center rounded-full text-[#6d6370] transition-colors hover:bg-[#f8effb] hover:text-codezela-purple"
-            >
-              <X size={19} aria-hidden="true" />
-            </button>
-          )}
-
-          <div className="flex items-start gap-3.5 pr-8">
-            <span className="mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#f7eafb] text-codezela-purple" aria-hidden="true">
-              <Cookie size={20} />
+          <div className="flex flex-col gap-3 md:flex-row md:items-center">
+            <span className="hidden h-9 w-9 shrink-0 place-items-center rounded-full bg-[#f7eafb] text-codezela-purple sm:grid" aria-hidden="true">
+              <Cookie size={18} />
             </span>
-            <div>
-              <h2 id="cookie-preferences-title" className="font-display text-[18px] font-semibold text-codezela-title md:text-[20px]">
-                Your privacy choices
-              </h2>
-              <p id="cookie-preferences-description" className="mt-1.5 max-w-[610px] text-[14px] leading-5 text-[#625c64] md:text-[15px] md:leading-[22px]">
-                We use essential storage to remember your choice. With permission, Google Analytics and Google Ads help us understand visits and improve campaigns. Read our{" "}
+            <div className="min-w-0 flex-1">
+              <h2 id="cookie-preferences-title" className="sr-only">Your privacy choices</h2>
+              <p id="cookie-preferences-description" className="text-[13px] leading-[19px] text-[#625c64] md:text-[14px] md:leading-5">
+                With permission, Google Analytics and Ads help us measure visits and improve campaigns. Read our{" "}
                 <Link href="/privacy-policy" scroll={false} className="font-semibold text-codezela-purple underline decoration-codezela-purple/30 underline-offset-2 hover:decoration-codezela-purple">
                   Privacy Policy
                 </Link>
                 .
               </p>
             </div>
-          </div>
-
-          <div className="mt-5 flex flex-col-reverse gap-2.5 sm:flex-row sm:justify-end">
-            <button
-              type="button"
-              onClick={() => saveChoice("rejected")}
-              className="min-h-11 cursor-pointer rounded-full border border-[#c9b7d0] bg-white px-5 font-display text-[14px] font-semibold text-codezela-title transition-[background-color,border-color,transform] hover:border-codezela-purple hover:bg-[#fbf6fc] active:scale-[0.98]"
-            >
-              Reject optional
-            </button>
-            <button
-              type="button"
-              onClick={() => saveChoice("accepted")}
-              className="min-h-11 cursor-pointer rounded-full border border-codezela-purple bg-codezela-purple px-5 font-display text-[14px] font-semibold text-white shadow-[0_8px_20px_rgba(113,11,192,0.18)] transition-[background-color,transform,box-shadow] hover:bg-[#5f099f] hover:shadow-[0_10px_24px_rgba(113,11,192,0.25)] active:scale-[0.98]"
-            >
-              Accept optional
-            </button>
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                type="button"
+                onClick={() => saveChoice("rejected")}
+                className="min-h-10 flex-1 cursor-pointer whitespace-nowrap rounded-full border border-[#c9b7d0] bg-white px-4 font-display text-[12px] font-semibold text-codezela-title transition-[background-color,border-color,transform] hover:border-codezela-purple hover:bg-[#fbf6fc] active:scale-[0.98] sm:flex-none"
+              >
+                Reject optional
+              </button>
+              <button
+                type="button"
+                onClick={() => saveChoice("accepted")}
+                className="min-h-10 flex-1 cursor-pointer whitespace-nowrap rounded-full border border-codezela-purple bg-codezela-purple px-4 font-display text-[12px] font-semibold text-white shadow-[0_6px_16px_rgba(113,11,192,0.16)] transition-[background-color,transform,box-shadow] hover:bg-[#5f099f] hover:shadow-[0_8px_20px_rgba(113,11,192,0.22)] active:scale-[0.98] sm:flex-none"
+              >
+                Accept optional
+              </button>
+              {choice !== null && (
+                <button
+                  type="button"
+                  onClick={() => setPreferencesOpen(false)}
+                  aria-label="Close cookie preferences"
+                  className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full text-[#6d6370] transition-colors hover:bg-[#f8effb] hover:text-codezela-purple"
+                >
+                  <X size={18} aria-hidden="true" />
+                </button>
+              )}
+            </div>
           </div>
         </section>
       )}

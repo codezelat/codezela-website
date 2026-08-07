@@ -11,6 +11,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { TurnstileWidget } from "@/components/shared/TurnstileWidget";
 import { trackGoogleEvent } from "@/lib/analytics";
 
 type ProposalDialogProps = {
@@ -34,6 +35,8 @@ type ProposalForm = {
 
 type FieldErrors = Partial<Record<keyof ProposalForm, string>>;
 type SubmissionStatus = "idle" | "submitting" | "success" | "error";
+
+const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
 
 const initialForm: ProposalForm = {
   fullName: "",
@@ -117,6 +120,9 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
   const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>("idle");
   const [submissionMessage, setSubmissionMessage] = useState("");
   const [submissionReference, setSubmissionReference] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileError, setTurnstileError] = useState("");
+  const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
   const dialogRef = useRef<HTMLDivElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
   const startedAtRef = useRef(0);
@@ -127,6 +133,9 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
 
   const closeDialog = useCallback(() => {
     if (submissionStatus === "submitting") return;
+    setTurnstileToken("");
+    setTurnstileError("");
+    setTurnstileResetSignal(0);
     if (submissionStatus === "success") {
       setStep(1);
       setForm(initialForm);
@@ -139,6 +148,15 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
     }
     onClose();
   }, [onClose, submissionStatus]);
+
+  const handleTurnstileToken = useCallback((token: string) => {
+    setTurnstileToken(token);
+    if (token) setTurnstileError("");
+  }, []);
+
+  const handleTurnstileError = useCallback((message: string) => {
+    setTurnstileError(message);
+  }, []);
 
   useEffect(() => {
     closeDialogRef.current = closeDialog;
@@ -259,6 +277,16 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
       return;
     }
 
+    if (!turnstileSiteKey) {
+      setTurnstileError("Security verification is temporarily unavailable. Please contact info@codezela.com.");
+      return;
+    }
+
+    if (!turnstileToken) {
+      setTurnstileError("Please wait for the security verification to finish, then submit again.");
+      return;
+    }
+
     setSubmissionStatus("submitting");
     setSubmissionMessage("");
     const submissionId = submissionIdRef.current ?? crypto.randomUUID();
@@ -276,6 +304,7 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
           submissionId,
           startedAt: startedAtRef.current,
           botField,
+          turnstileToken,
           clientContext: {
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "",
             locale: navigator.language || "",
@@ -302,6 +331,8 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
         value: 1,
       });
     } catch (error) {
+      setTurnstileToken("");
+      setTurnstileResetSignal((current) => current + 1);
       setSubmissionStatus("error");
       setSubmissionMessage(
         error instanceof Error
@@ -460,6 +491,19 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
                 By submitting, you agree that Codezela may email the details you provide and basic request/device information to its team to process and protect your enquiry. See our{" "}
                 <a href="/privacy-policy" target="_blank" rel="noreferrer" className="font-semibold text-codezela-purple underline underline-offset-2">Privacy Policy</a>.
               </p>
+              <div>
+                <TurnstileWidget
+                  siteKey={turnstileSiteKey}
+                  resetSignal={turnstileResetSignal}
+                  onTokenChange={handleTurnstileToken}
+                  onError={handleTurnstileError}
+                />
+                {turnstileError && (
+                  <p role="status" className="mt-2 text-[13px] leading-5 text-red-700">
+                    {turnstileError}
+                  </p>
+                )}
+              </div>
             </div>
           )}
 
@@ -471,7 +515,7 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
 
           <div className="mt-8 flex flex-col-reverse gap-3 min-[480px]:flex-row min-[480px]:justify-end">
             {step > 1 && (
-              <button type="button" disabled={submissionStatus === "submitting"} onClick={() => { setStep((current) => current - 1); setErrors({}); setSubmissionStatus("idle"); setSubmissionMessage(""); }} className="h-[50px] cursor-pointer rounded-full border border-codezela-purple bg-white px-7 font-display text-[16px] font-semibold text-codezela-purple transition-colors hover:bg-codezela-offwhite disabled:cursor-not-allowed disabled:opacity-50">
+              <button type="button" disabled={submissionStatus === "submitting"} onClick={() => { setStep((current) => current - 1); setErrors({}); setSubmissionStatus("idle"); setSubmissionMessage(""); setTurnstileToken(""); setTurnstileError(""); setTurnstileResetSignal(0); }} className="h-[50px] cursor-pointer rounded-full border border-codezela-purple bg-white px-7 font-display text-[16px] font-semibold text-codezela-purple transition-colors hover:bg-codezela-offwhite disabled:cursor-not-allowed disabled:opacity-50">
                 Previous
               </button>
             )}

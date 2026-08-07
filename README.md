@@ -59,17 +59,21 @@ cp .env.example .env.local
 | --- | --- |
 | `RESEND_API_KEY` | Server-only Resend credential used by the proposal API |
 | `PROPOSAL_FROM_EMAIL` | Verified sender identity for notification and confirmation emails |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Public Cloudflare Turnstile widget key used on the final proposal step |
+| `TURNSTILE_SECRET_KEY` | Server-only Turnstile key used by the proposal API for Siteverify validation |
 
 Never commit `.env.local`, API keys, or provider credentials. The committed `.env.example` contains names and safe placeholders only.
 
 ## ✉️ Proposal delivery
 
-`POST /api/proposals` validates requests on the server, rejects oversized or invalid payloads, applies bot and same-site checks, rate-limits known IP addresses, and sends two clean emails through Resend:
+`POST /api/proposals` validates requests on the server, rejects oversized or invalid payloads, applies honeypot and same-site checks, rate-limits known IP addresses, validates a single-use Cloudflare Turnstile token, and sends two clean emails through Resend:
 
 - An internal notification to `info@codezela.com` and `sayuru@codezela.com`, with reply-to set to the submitter
 - A confirmation to the submitter, with reply-to set to `info@codezela.com`
 
 Email delivery requires a verified sender domain and valid production environment variables. A local build verifies the code path but does not prove live provider delivery.
+
+Turnstile is explicitly rendered only on the final proposal step. Tokens are checked through Cloudflare Siteverify with the visitor IP when available, the `proposal_submit` action, the request hostname, an eight-second timeout, one safe retry, and a per-submission idempotency key. Expired, rejected, or consumed tokens are refreshed without discarding the visitor’s form details.
 
 ## 📊 Analytics and consent
 
@@ -129,10 +133,11 @@ Before a production release:
 1. Run the full quality gate and rendered browser checks.
 2. Confirm all environment variables are configured on the intended deployment project.
 3. Verify the Resend sender domain and send one real end-to-end proposal test.
-4. Check canonical URLs, sitemap, robots, redirects, and social images on the deployed origin.
-5. Accept and reject optional cookies in a clean browser session, then confirm GA4 Realtime/DebugView and Google Ads receive only the expected consented events.
-6. Run Lighthouse and link crawling against the deployed URL; local scores do not prove production CDN or third-party performance.
-7. Confirm no secrets, local reports, screenshots, generated audits, or unrelated files are staged.
+4. Restrict the production Turnstile widget to `codezela.com` and `www.codezela.com`, then complete one real challenge and confirm a valid Siteverify event in Turnstile Analytics.
+5. Check canonical URLs, sitemap, robots, redirects, and social images on the deployed origin.
+6. Accept and reject optional cookies in a clean browser session, then confirm GA4 Realtime/DebugView and Google Ads receive only the expected consented events.
+7. Run Lighthouse and link crawling against the deployed URL; local scores do not prove production CDN or third-party performance.
+8. Confirm no secrets, local reports, screenshots, generated audits, or unrelated files are staged.
 
 ## 🤝 Repository rules
 

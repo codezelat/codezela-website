@@ -47,6 +47,7 @@ This file is the working contract for contributors and coding agents. Apply thes
 - Validate untrusted input on the server and enforce size, rate, bot, and same-site controls before provider calls.
 - Keep Resend credentials and sender configuration server-only. Do not expose them through `NEXT_PUBLIC_*` variables.
 - Internal notifications reply to the submitter; submitter confirmations reply to the official Codezela address.
+- Keep Turnstile secrets server-only. Render the widget on the final proposal step, validate every non-honeypot token through Siteverify before email delivery, and reset single-use or expired tokens without clearing the visitor’s form.
 - Return understandable success and retry messages without leaking provider details, request headers, IP data, or stack traces.
 - Local mocks and build success do not prove production provider delivery. State that boundary clearly.
 

@@ -16,8 +16,22 @@ const REPLY_ADDRESS = "Codezela Technologies <info@codezela.com>";
 const MAX_BODY_BYTES = 30_000;
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
+const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const TURNSTILE_ACTION = "proposal_submit";
+const TURNSTILE_TIMEOUT_MS = 8_000;
 
 type RateBucket = { count: number; resetsAt: number };
+
+type TurnstileResponse = {
+  success?: boolean;
+  action?: string;
+  hostname?: string;
+  "error-codes"?: string[];
+};
+
+type TurnstileValidation =
+  | { valid: true }
+  | { valid: false; reason: "configuration" | "rejected" | "unavailable" };
 
 declare global {
   var codezelaProposalRateBuckets: Map<string, RateBucket> | undefined;
@@ -105,6 +119,76 @@ function sameSiteRequest(request: Request) {
   return !fetchSite || fetchSite === "same-origin" || fetchSite === "same-site" || fetchSite === "none";
 }
 
+function expectedTurnstileHostnames(request: Request) {
+  const forwardedHost = safeHeader(request.headers, "x-forwarded-host", 255).split(",")[0]?.trim();
+  const hostHeader = safeHeader(request.headers, "host", 255).split(",")[0]?.trim();
+  const hostname = (forwardedHost || hostHeader || new URL(request.url).hostname)
+    .replace(/^\[/, "")
+    .replace(/\](?::\d+)?$/, "")
+    .replace(/:\d+$/, "")
+    .toLowerCase();
+  const allowed = new Set([hostname]);
+
+  if (hostname === "codezela.com") allowed.add("www.codezela.com");
+  if (hostname === "www.codezela.com") allowed.add("codezela.com");
+  return allowed;
+}
+
+async function validateTurnstile(
+  request: Request,
+  token: string,
+  remoteIp: string,
+  idempotencyKey: string,
+): Promise<TurnstileValidation> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) return { valid: false, reason: "configuration" };
+
+  const expectedHostnames = expectedTurnstileHostnames(request);
+  const body = new URLSearchParams({
+    secret,
+    response: token,
+    idempotency_key: idempotencyKey,
+  });
+  if (remoteIp !== "Unknown") body.set("remoteip", remoteIp);
+
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), TURNSTILE_TIMEOUT_MS);
+
+    try {
+      const response = await fetch(TURNSTILE_VERIFY_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
+        cache: "no-store",
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        if (attempt === 0 && response.status >= 500) continue;
+        return { valid: false, reason: "unavailable" };
+      }
+
+      const result = (await response.json()) as TurnstileResponse;
+      const internalError = result["error-codes"]?.includes("internal-error");
+      if (!result.success && internalError && attempt === 0) continue;
+      if (!result.success) return { valid: false, reason: "rejected" };
+      if (result.action !== TURNSTILE_ACTION) return { valid: false, reason: "rejected" };
+      if (!result.hostname || !expectedHostnames.has(result.hostname.toLowerCase())) {
+        return { valid: false, reason: "rejected" };
+      }
+
+      return { valid: true };
+    } catch {
+      if (attempt === 1) return { valid: false, reason: "unavailable" };
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  return { valid: false, reason: "unavailable" };
+}
+
 export async function POST(request: Request) {
   if (!sameSiteRequest(request)) {
     return NextResponse.json({ ok: false, message: "This request could not be verified." }, { status: 403 });
@@ -152,6 +236,28 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { ok: false, message: "Too many proposal requests were sent from this connection. Please try again in 15 minutes." },
       { status: 429, headers: { "Retry-After": "900" } },
+    );
+  }
+
+  const turnstile = await validateTurnstile(
+    request,
+    submission.turnstileToken,
+    context.ipAddress,
+    submission.submissionId,
+  );
+  if (!turnstile.valid) {
+    const configurationFailure = turnstile.reason === "configuration";
+    const unavailable = turnstile.reason === "unavailable";
+    return NextResponse.json(
+      {
+        ok: false,
+        message: configurationFailure
+          ? "Security verification is temporarily unavailable. Please contact info@codezela.com."
+          : unavailable
+            ? "Security verification could not be reached. Please check your connection and retry."
+            : "Security verification expired or was not accepted. It has been refreshed; please try again.",
+      },
+      { status: configurationFailure || unavailable ? 503 : 403 },
     );
   }
 

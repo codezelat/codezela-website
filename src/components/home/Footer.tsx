@@ -51,7 +51,7 @@ export function Footer() {
       <section aria-labelledby="connect-heading" className="grid min-h-[354px] md:grid-cols-2">
         <div className="flex min-h-[330px] flex-col justify-center bg-codezela-purple px-5 py-14 md:min-h-[354px] md:px-[80px]">
           <h2 id="connect-heading" className="font-display text-[40px] font-bold leading-none md:text-[48px]">
-            Let&apos;s Connect
+            Let’s Connect
           </h2>
           <p className="mt-[22px] max-w-[555px] font-footer text-[17px] font-medium leading-[1.32] md:text-[18px]">
             Share Your Vision. We&apos;re Here to Listen and Transform Ideas into Digital Realities
@@ -141,7 +141,7 @@ export function Footer() {
           <a href="https://wa.me/codezela" target="_blank" rel="noreferrer" className="group inline-block w-fit">
             <span className="block text-[14px]">Have a great idea?</span>
             <span className="mt-1 flex items-center gap-3 font-display text-[36px] font-medium leading-none md:text-[38px]">
-              Let&apos;s Chat
+              Let’s Chat
               <Send className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" size={32} fill="currentColor" aria-hidden="true" />
             </span>
           </a>

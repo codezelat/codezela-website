@@ -41,7 +41,7 @@ export function Header() {
 
   return (
     <header className="relative z-50 h-[100px] bg-white pt-[20px] min-[1025px]:h-[148px] min-[1025px]:pt-[48px]">
-      <div className="site-shell flex h-[70px] items-center justify-between rounded-full bg-white px-[20px] shadow-[0_2px_12px_rgba(69,0,83,0.13)] min-[1025px]:h-[90px] min-[1025px]:pl-[40px] min-[1025px]:pr-[40px]">
+      <div className="site-shell flex h-[70px] items-center justify-between rounded-full bg-white px-[20px] shadow-[0_2px_12px_rgba(69,0,83,0.13)] min-[1025px]:h-[90px] min-[1025px]:pl-[30px] min-[1025px]:pr-[40px]">
         <a
           href="https://codezela.com/"
           aria-label="Codezela Technologies home"
@@ -57,9 +57,9 @@ export function Header() {
           />
         </a>
 
-        <div className="hidden items-center gap-[30px] min-[1025px]:flex">
+        <div className="hidden items-center gap-[87px] min-[1025px]:flex">
           <nav aria-label="Primary navigation">
-            <ul className="flex items-center gap-[30px]">
+            <ul className="flex items-center gap-[40px]">
               {desktopNavigation.map(([label, href], index) => (
                 <li key={label}>
                   <a
@@ -78,9 +78,10 @@ export function Header() {
 
           <a
             href="https://codezela.com/contact/"
-            className="pill-button h-[50px] w-[140px]"
+            className="pill-button group relative h-[50px] w-[140px] overflow-hidden"
           >
-            Let&apos;s talk
+            <span className="absolute transition-transform duration-300 group-hover:-translate-y-[42px]">Let’s talk</span>
+            <span className="absolute translate-y-[42px] transition-transform duration-300 group-hover:translate-y-0">Click Me</span>
           </a>
         </div>
 
@@ -91,7 +92,7 @@ export function Header() {
           aria-controls="mobile-navigation"
           aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
           onClick={() => setMenuOpen((current) => !current)}
-          className="grid h-12 w-12 cursor-pointer place-items-center rounded-full border border-[#ead9ef] bg-white text-codezela-purple transition-colors hover:bg-codezela-offwhite min-[1025px]:hidden"
+          className="grid h-11 w-11 cursor-pointer place-items-center rounded-full bg-transparent text-codezela-purple transition-colors hover:bg-codezela-offwhite min-[1025px]:hidden"
         >
           {menuOpen ? <X aria-hidden="true" size={25} /> : <Menu aria-hidden="true" size={27} />}
         </button>

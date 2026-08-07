@@ -4,6 +4,7 @@ import { awards } from "@/data/home";
 
 import { Carousel } from "../shared/Carousel";
 import { SectionHeading } from "../shared/SectionHeading";
+import { VideoTestimonials } from "./VideoTestimonials";
 
 const subtitle =
   "Highlighting trust, excellence, and recognition through client testimonials and industry certifications.";
@@ -13,7 +14,7 @@ export function Awards() {
     <section
       id="testimonials"
       aria-labelledby="testimonials-heading"
-      className="min-h-[927px] bg-white py-[72px] md:min-h-[1161px] md:py-[110px]"
+      className="min-h-[2527px] bg-white pt-[70px] pb-[167px] md:min-h-[1161px] md:py-[96px]"
     >
       <div className="site-shell relative">
         <div id="testimonials-heading">
@@ -22,8 +23,8 @@ export function Awards() {
 
         <Carousel
           ariaLabel="Codezela Technologies industry awards"
-          className="mx-auto mt-[52px] max-w-[150px] md:absolute md:right-[32px] md:top-[87px] md:mt-0 md:w-[150px]"
-          controlsClassName="hidden"
+          className="mx-auto mt-[47px] max-w-[150px] md:absolute md:right-[32px] md:top-[87px] md:mt-0 md:w-[150px]"
+          controlsClassName="!hidden"
           delay={4500}
         >
           {awards.map(([name, fileName]) => (
@@ -46,6 +47,8 @@ export function Awards() {
             </div>
           ))}
         </Carousel>
+
+        <VideoTestimonials />
       </div>
     </section>
   );

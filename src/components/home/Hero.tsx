@@ -12,21 +12,16 @@ export function Hero() {
     <>
       <section
         aria-labelledby="home-hero-title"
-        className="relative h-[703px] overflow-hidden bg-white md:h-[600px]"
+        className="hero-section relative h-[703px] overflow-hidden bg-white md:h-[600px]"
       >
-        <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[88px] -translate-x-1/2 select-none whitespace-nowrap font-display text-[82px] font-bold leading-none text-[#fff5ff] md:top-[120px] md:text-[300px]">
-          codezela
-        </span>
-
         <div className="site-shell relative h-full">
           <Image
             src="/images/Group-202-768x768.png"
             alt=""
-            width={350}
-            height={350}
+            width={300}
+            height={300}
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[48px] h-[220px] w-[220px] -translate-x-1/2 select-none object-contain md:top-[145px] md:h-[350px] md:w-[350px]"
-            preload
+            className="pointer-events-none absolute left-1/2 top-[48px] h-[220px] w-[220px] -translate-x-1/2 select-none object-contain md:top-[170px] md:h-[300px] md:w-[300px]"
           />
           <Image
             src="/images/Untitled-1.png.webp"
@@ -57,7 +52,7 @@ export function Hero() {
 
           <a
             href="https://cal.com/codezela/"
-            className="pill-button absolute left-0 top-[269px] h-[66px] w-full px-[15px] text-center text-[16px] md:left-[10px] md:top-[170px] md:h-[50px] md:w-[329px] md:px-6 md:text-[18px]"
+            className="pill-button absolute left-0 top-[269px] h-[66px] w-full px-[15px] text-center !font-footer text-[16px] md:left-[10px] md:top-[170px] md:h-[50px] md:w-[329px] md:px-6 md:text-[18px]"
           >
             <CalendarDays size={19} strokeWidth={2.5} aria-hidden="true" className="mr-2 shrink-0" />
             Schedule a Free Consultation
@@ -66,7 +61,7 @@ export function Hero() {
           <button
             type="button"
             onClick={() => setProposalOpen(true)}
-            className="pill-button absolute left-0 top-[355px] h-[70px] w-full cursor-pointer !bg-white px-[15px] text-[18px] !text-codezela-pink hover:!bg-codezela-offwhite md:left-auto md:right-[70px] md:top-[433px] md:h-[52px] md:w-[243px] md:px-6"
+            className="pill-button absolute left-0 top-[355px] h-[70px] w-full cursor-pointer !bg-white px-[15px] !font-footer text-[18px] !text-codezela-pink hover:!bg-codezela-offwhite md:left-auto md:right-[70px] md:top-[433px] md:h-[52px] md:w-[243px] md:px-6"
           >
             <CirclePlus size={19} strokeWidth={2.5} aria-hidden="true" className="mr-2 shrink-0" />
             Request a Proposal

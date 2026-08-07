@@ -5,6 +5,8 @@ const uploadBase = "https://codezela.com/wp-content/uploads";
 
 const assets = [
   "/2024/02/Frame-12.png",
+  "/2024/11/Group-326-1024x245.png",
+  "/2024/11/Group-326-768x184.png",
   "/2024/08/Group-202-768x768.png",
   "/2024/08/Group-323.png.webp",
   "/2024/08/Untitled-1.png.webp",

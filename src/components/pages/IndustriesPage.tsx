@@ -5,6 +5,7 @@ import { Header } from "@/components/home/Header";
 import { FaqSection } from "@/components/shared/FaqSection";
 import { industries } from "@/data/home";
 import { industriesPageFaqs } from "@/data/faqs";
+import { industryVisuals } from "@/data/industry-visuals";
 import { MotionReveal } from "@/components/shared/MotionReveal";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -67,6 +68,8 @@ export function IndustriesPage() {
   );
   const active = pageItems[activeIndex] ?? pageItems[0];
   const globalIndex = page * pageSize + activeIndex;
+  const activeSlug = active.href?.replace("/industry/", "") ?? "finance-and-banking";
+  const activeVisual = industryVisuals[activeSlug];
 
   const movePage = (direction: number) => {
     setPage((current) => Math.min(pageCount - 1, Math.max(0, current + direction)));
@@ -99,7 +102,7 @@ export function IndustriesPage() {
           </div>
         </section>
 
-        <section aria-labelledby="industry-expertise-title" className="pb-[120px] pt-[86px]">
+        <section aria-labelledby="industry-expertise-title" className="pb-[72px] pt-[86px] min-[1025px]:pb-[88px]">
           <div className="site-shell">
             <MotionReveal>
               <h2 id="industry-expertise-title" className="section-heading">Our Industry Expertise</h2>
@@ -155,6 +158,18 @@ export function IndustriesPage() {
                     Learn more about how we can help you excel above your competitors
                     <ChevronRight size={18} aria-hidden="true" />
                   </a>
+                  <div className="relative mt-8 aspect-[16/9] w-full max-w-[810px] overflow-hidden rounded-[10px] border border-[#eadfec] bg-[#fffaff] shadow-[0_18px_44px_rgba(72,20,91,0.08)]">
+                    <Image
+                      key={activeVisual.src}
+                      src={activeVisual.src}
+                      alt={activeVisual.alt}
+                      fill
+                      sizes="(max-width: 1024px) calc(100vw - 40px), 810px"
+                      quality={75}
+                      className="animate-[fade-in_360ms_ease-out] object-cover transition-transform duration-500 hover:scale-[1.025]"
+                    />
+                    <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_65%,rgba(34,10,44,0.18)_100%)]" />
+                  </div>
                 </div>
               </MotionReveal>
             </div>
@@ -163,7 +178,7 @@ export function IndustriesPage() {
 
         <FaqSection
           id="faq"
-          className="bg-[#fffaff]"
+          className="bg-[#fffaff] !pt-[72px] min-[1025px]:!pt-[92px]"
           description="Practical answers for organisations comparing industry-specific websites, portals, mobile apps, integrations, and custom software for local or international use."
           faqs={industriesPageFaqs}
         />

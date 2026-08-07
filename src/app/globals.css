@@ -279,18 +279,6 @@ a {
   transform: translateY(0);
 }
 
-.hero-section::before {
-  position: absolute;
-  inset: 0;
-  background-image: url("/images/hero-wordmark-mobile.webp");
-  background-position: 0 18%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  content: "";
-  opacity: 0.74;
-  pointer-events: none;
-}
-
 .hero-mark-halo {
   border-radius: 50%;
   background: radial-gradient(
@@ -471,13 +459,6 @@ a {
     line-height: 1.4;
   }
 
-}
-
-@media (min-width: 768px) {
-  .hero-section::before {
-    background-image: url("/images/hero-wordmark-desktop.webp");
-    background-position: 0 37%;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

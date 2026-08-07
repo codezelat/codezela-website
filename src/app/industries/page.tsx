@@ -3,7 +3,7 @@ import { IndustriesPage } from "@/components/pages/IndustriesPage";
 import { PageJsonLd } from "@/components/shared/PageJsonLd";
 import { industriesPageFaqs } from "@/data/faqs";
 
-const title = "Industries - Codezela Technologies";
+const title = "Industry Web Development & Software Solutions | Codezela";
 const description = "Discover the diverse industries Codezela Technologies serves, including retail, healthcare, education, finance, and hospitality. We provide tailored web development, branding, and marketing solutions to meet industry-specific needs.";
 
 export const metadata: Metadata = {
@@ -24,6 +24,7 @@ export default function IndustriesRoute() {
         description={description}
         pageType="CollectionPage"
         faqs={industriesPageFaqs}
+        breadcrumbName="Industries"
       />
     </>
   );

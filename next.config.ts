@@ -7,6 +7,15 @@ const nextConfig: NextConfig = {
   images: {
     qualities: [60, 70, 75, 85],
   },
+  async redirects() {
+    return [
+      {
+        source: "/ca",
+        destination: "https://cca.it.com/",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

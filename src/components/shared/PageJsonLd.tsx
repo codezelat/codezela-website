@@ -7,6 +7,7 @@ type PageJsonLdProps = {
   description: string;
   pageType?: "AboutPage" | "CollectionPage" | "ContactPage" | "WebPage";
   faqs?: readonly FaqItem[];
+  breadcrumbName?: string;
 };
 
 export function PageJsonLd({
@@ -15,6 +16,7 @@ export function PageJsonLd({
   description,
   pageType = "WebPage",
   faqs = [],
+  breadcrumbName,
 }: PageJsonLdProps) {
   const url = `https://codezela.com${path}`;
   const jsonLd = {
@@ -44,7 +46,7 @@ export function PageJsonLd({
           {
             "@type": "ListItem",
             position: 2,
-            name: title.replace(" - Codezela Technologies", ""),
+            name: breadcrumbName ?? title.replace(" - Codezela Technologies", "").replace(" | Codezela", ""),
             item: url,
           },
         ],

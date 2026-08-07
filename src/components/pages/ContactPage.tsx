@@ -1,11 +1,9 @@
-"use client";
-
 import { Footer } from "@/components/home/Footer";
 import { Header } from "@/components/home/Header";
-import ProposalDialog from "@/components/home/ProposalDialog";
+import { ContactHeroActions } from "@/components/pages/contact/ContactHeroActions";
 import { MotionReveal } from "@/components/shared/MotionReveal";
-import { CalendarDays, Mail, MapPin, MessageSquareText, Phone, UsersRound } from "lucide-react";
-import { useState } from "react";
+import { Mail, MapPin, Phone, UsersRound } from "lucide-react";
+import { preload } from "react-dom";
 import {
   FaBehance,
   FaFacebookF,
@@ -44,7 +42,10 @@ const socials = [
 ] as const;
 
 export function ContactPage() {
-  const [proposalOpen, setProposalOpen] = useState(false);
+  preload("/images/contact/contact-page-hero-rightside-bg.png.webp", {
+    as: "image",
+    fetchPriority: "high",
+  });
 
   return (
     <>
@@ -58,15 +59,7 @@ export function ContactPage() {
                 Getting in touch with our departments has never been easier
               </h1>
             </MotionReveal>
-            <MotionReveal className="relative mx-auto mt-10 h-[390px] w-full max-w-[650px] min-[1025px]:mt-0 min-[1025px]:translate-y-[115px]" delay={0.08}>
-              <div aria-hidden="true" className="absolute inset-0 bg-[url('/images/contact/contact-page-hero-rightside-bg.png.webp')] bg-contain bg-center bg-no-repeat opacity-80" />
-              <a href="https://calendly.com/codezela/consult" target="_blank" rel="noreferrer" className="pill-button absolute left-0 top-[58px] h-[54px] w-[332px] max-w-[92%] gap-3 bg-[#8840c8] text-[17px]">
-                <CalendarDays size={20} aria-hidden="true" /> Schedule a Call
-              </a>
-              <button type="button" onClick={() => setProposalOpen(true)} className="pill-button absolute bottom-[58px] right-0 h-[54px] w-[365px] max-w-[92%] cursor-pointer gap-3 bg-[#8840c8] text-[17px]">
-                <MessageSquareText size={20} aria-hidden="true" /> Request a Proposal
-              </button>
-            </MotionReveal>
+            <ContactHeroActions />
           </div>
         </section>
 
@@ -120,7 +113,6 @@ export function ContactPage() {
         </section>
       </main>
       <Footer />
-      <ProposalDialog open={proposalOpen} onClose={() => setProposalOpen(false)} />
     </>
   );
 }

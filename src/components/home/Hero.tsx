@@ -1,10 +1,35 @@
 import Image from "next/image";
 import { CalendarDays } from "lucide-react";
+import { preload } from "react-dom";
 import { ProposalLauncher } from "./ProposalLauncher";
 
 export function Hero() {
+  preload("/images/hero-wordmark-mobile.webp", {
+    as: "image",
+    fetchPriority: "high",
+    media: "(max-width: 767px)",
+  });
+  preload("/images/hero-wordmark-desktop.webp", {
+    as: "image",
+    fetchPriority: "high",
+    media: "(min-width: 768px)",
+  });
+
   return (
     <section aria-labelledby="home-hero-title" className="hero-section relative h-[703px] overflow-hidden bg-white md:h-[600px]">
+      <picture>
+        <source media="(min-width: 768px)" srcSet="/images/hero-wordmark-desktop.webp" />
+        <img
+          src="/images/hero-wordmark-mobile.webp"
+          alt=""
+          width={480}
+          height={115}
+          loading="eager"
+          fetchPriority="high"
+          decoding="sync"
+          className="pointer-events-none absolute left-0 top-[18%] h-auto w-full -translate-y-[18%] select-none opacity-[0.74] md:top-[37%] md:-translate-y-[37%]"
+        />
+      </picture>
       <div className="site-shell relative h-full">
         <div
           aria-hidden="true"

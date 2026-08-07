@@ -11,6 +11,10 @@ type IndustryRouteProps = {
   params: Promise<{ slug: string }>;
 };
 
+function industryPageTitle(title: string) {
+  return `Web Development for ${title} | Codezela`;
+}
+
 export function generateStaticParams() {
   return industryDetails.map(({ slug }) => ({ slug }));
 }
@@ -22,9 +26,10 @@ export async function generateMetadata({ params }: IndustryRouteProps): Promise<
 
   const path = `/industry/${detail.slug}`;
   const description = detail.ogDescription || detail.summary;
+  const title = industryPageTitle(detail.title);
 
   return {
-    title: detail.seoTitle,
+    title,
     description,
     alternates: { canonical: path },
     openGraph: {
@@ -32,7 +37,7 @@ export async function generateMetadata({ params }: IndustryRouteProps): Promise<
       locale: "en_GB",
       url: path,
       siteName: "Codezela Technologies",
-      title: detail.ogTitle || detail.seoTitle,
+      title,
       description,
       modifiedTime: `${detail.modified}+05:30`,
       images: [{ url: detail.icon, alt: detail.title }],
@@ -41,7 +46,7 @@ export async function generateMetadata({ params }: IndustryRouteProps): Promise<
       card: "summary_large_image",
       site: "@CodezelaT",
       creator: "@codezelaT",
-      title: detail.ogTitle || detail.seoTitle,
+      title,
       description,
       images: [detail.icon],
     },
@@ -55,6 +60,7 @@ export default async function IndustryRoute({ params }: IndustryRouteProps) {
 
   const url = `https://codezela.com/industry/${detail.slug}`;
   const description = detail.ogDescription || detail.summary;
+  const title = industryPageTitle(detail.title);
   const faqs = getIndustryFaqs(detail.slug, detail.title);
   const jsonLd = {
     "@context": "https://schema.org",
@@ -63,7 +69,7 @@ export default async function IndustryRoute({ params }: IndustryRouteProps) {
         "@type": "WebPage",
         "@id": `${url}#webpage`,
         url,
-        name: detail.seoTitle,
+        name: title,
         description,
         dateModified: `${detail.modified}+05:30`,
         isPartOf: { "@id": "https://codezela.com/#website" },

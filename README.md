@@ -9,7 +9,15 @@ Production-oriented Next.js implementation of the Codezela Technologies website.
 - About
 - Contact
 
-Shared navigation stays inside the local application. Portfolio and industry detail links continue to their existing production pages until those deeper routes are implemented.
+Shared navigation stays inside the local application.
+
+The application also includes the complete local detail surface discovered from the live canonical content:
+
+- 40 industry detail routes under `/industry/<slug>`
+- 18 portfolio case-study routes under `/portfolio/<slug>`
+- Privacy Policy and Terms and Conditions
+
+All public navigation, collection cards, legal links, industry links, and portfolio links remain inside the local application.
 
 ## Requirements
 
@@ -33,12 +41,8 @@ bun run typecheck
 bun run build
 ```
 
-## Asset sync
+## Local content and assets
 
-Source assets are stored locally under `public/images`, route-specific media under `public/images/<route>`, and SEO assets under `public/seo`. To refresh all configured assets from the live source:
-
-```bash
-bun run assets:sync
-```
+All public content and media are stored in this repository under `src/data`, `public/images`, and `public/seo`. The application has no runtime dependency on the previous website or its WordPress media library.
 
 The repository is Bun-only. Keep `bun.lock` as the sole package-manager lockfile.

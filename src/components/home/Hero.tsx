@@ -1,85 +1,65 @@
-"use client";
-
 import Image from "next/image";
-import { CalendarDays, CirclePlus } from "lucide-react";
-import { useState } from "react";
-import ProposalDialog from "./ProposalDialog";
+import { CalendarDays } from "lucide-react";
+import { ProposalLauncher } from "./ProposalLauncher";
 
 export function Hero() {
-  const [proposalOpen, setProposalOpen] = useState(false);
-
   return (
-    <>
-      <section
-        aria-labelledby="home-hero-title"
-        className="hero-section relative h-[703px] overflow-hidden bg-white md:h-[600px]"
-      >
-        <div className="site-shell relative h-full">
-          <div
-            aria-hidden="true"
-            className="hero-mark-halo pointer-events-none absolute left-1/2 top-[48px] h-[220px] w-[220px] -translate-x-1/2 select-none object-contain md:top-[170px] md:h-[300px] md:w-[300px]"
-          />
-          <Image
-            src="/images/Untitled-1.png.webp"
-            width={184}
-            height={184}
-            alt=""
-            aria-hidden="true"
-            className="hero-mark-core absolute left-1/2 top-[65px] h-[184px] w-[184px] -translate-x-1/2 object-contain md:top-[228px]"
-          />
+    <section aria-labelledby="home-hero-title" className="hero-section relative h-[703px] overflow-hidden bg-white md:h-[600px]">
+      <div className="site-shell relative h-full">
+        <div
+          aria-hidden="true"
+          className="hero-mark-halo pointer-events-none absolute left-1/2 top-[48px] h-[220px] w-[220px] -translate-x-1/2 select-none object-contain md:top-[170px] md:h-[300px] md:w-[300px]"
+        />
+        <Image
+          src="/images/Untitled-1.png.webp"
+          width={184}
+          height={184}
+          alt=""
+          aria-hidden="true"
+          className="hero-mark-core absolute left-1/2 top-[65px] h-[184px] w-[184px] -translate-x-1/2 object-contain md:top-[228px]"
+        />
 
-          <Image
-            src="/images/Group-323.png.webp"
-            width={98}
-            height={18}
-            alt=""
-            aria-hidden="true"
-            className="absolute left-[28.125%] top-[175px] hidden h-[18px] w-[98px] object-contain md:block"
-          />
+        <Image
+          src="/images/Group-323.png.webp"
+          width={98}
+          height={18}
+          alt=""
+          aria-hidden="true"
+          className="absolute left-[28.125%] top-[175px] hidden h-[18px] w-[98px] object-contain md:block"
+        />
 
-          <Image
-            src="/images/Group-328.png.webp"
-            width={98}
-            height={18}
-            alt=""
-            aria-hidden="true"
-            className="absolute left-[65.625%] top-[451px] hidden h-[18px] w-[98px] object-contain md:block"
-          />
+        <Image
+          src="/images/Group-328.png.webp"
+          width={98}
+          height={18}
+          alt=""
+          aria-hidden="true"
+          className="absolute left-[65.625%] top-[451px] hidden h-[18px] w-[98px] object-contain md:block"
+        />
 
-          <a
-            href="https://cal.com/codezela/"
-            className="pill-button hero-action absolute left-0 top-[269px] h-[66px] w-full gap-[10px] whitespace-nowrap !border-codezela-pink !bg-codezela-pink px-[14px] text-center font-footer text-[15px] min-[360px]:text-[16px] md:left-[10px] md:top-[163px] md:h-[50px] md:w-[329px] md:gap-3 md:px-6 md:text-[17px]"
+        <a
+          href="https://cal.com/codezela/"
+          className="pill-button hero-action absolute left-0 top-[269px] h-[66px] w-full gap-[10px] whitespace-nowrap !border-codezela-pink !bg-codezela-pink px-[14px] text-center font-footer text-[15px] min-[360px]:text-[16px] md:left-[10px] md:top-[163px] md:h-[50px] md:w-[329px] md:gap-3 md:px-6 md:text-[17px]"
+        >
+          <CalendarDays size={19} strokeWidth={2.5} aria-hidden="true" className="hero-action__icon shrink-0" />
+          Schedule a Free Consultation
+        </a>
+
+        <ProposalLauncher />
+
+        <div className="absolute left-0 top-[455px] w-full md:top-[395px] md:w-[55%] lg:w-[640px]">
+          <h1
+            id="home-hero-title"
+            className="m-0 font-display text-[30px] font-semibold leading-[36px] text-[#161616] md:text-[32px] md:leading-[44px]"
           >
-            <CalendarDays size={19} strokeWidth={2.5} aria-hidden="true" className="hero-action__icon shrink-0" />
-            Schedule a Free Consultation
-          </a>
-
-          <button
-            type="button"
-            onClick={() => setProposalOpen(true)}
-            className="pill-button hero-action hero-action--secondary absolute left-0 top-[355px] h-[70px] w-full cursor-pointer gap-[10px] whitespace-nowrap px-[14px] font-footer text-[17px] md:left-auto md:right-[70px] md:top-[433px] md:h-[52px] md:w-[243px] md:gap-3 md:px-6"
-          >
-            <CirclePlus size={19} strokeWidth={2.5} aria-hidden="true" className="hero-action__icon shrink-0" />
-            Request a Proposal
-          </button>
-
-          <div className="absolute left-0 top-[455px] w-full md:top-[395px] md:w-[55%] lg:w-[640px]">
-            <h1
-              id="home-hero-title"
-              className="m-0 font-display text-[30px] font-semibold leading-[36px] text-[#161616] md:text-[32px] md:leading-[44px]"
-            >
-              Let’s Build Professional &amp; High Converting Software
-            </h1>
-            <p className="mb-0 mt-[20px] text-[16px] leading-[22.4px] text-codezela-copy md:mt-[20px] md:text-[18px] md:leading-[23.4px]">
-              We are an agency that help businesses to grow online with our expertise and creativity in software, design, development, AI and marketing.
-            </p>
-          </div>
-
+            Let’s Build Professional &amp; High Converting Software
+          </h1>
+          <p className="mb-0 mt-[20px] text-[16px] leading-[22.4px] text-codezela-copy md:mt-[20px] md:text-[18px] md:leading-[23.4px]">
+            We are an agency that help businesses to grow online with our expertise and creativity in software, design, development, AI and marketing.
+          </p>
         </div>
-      </section>
-
-      <ProposalDialog open={proposalOpen} onClose={() => setProposalOpen(false)} />
-    </>
+      </div>
+    </section>
   );
 }
 

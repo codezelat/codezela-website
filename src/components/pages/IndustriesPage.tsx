@@ -38,11 +38,11 @@ const technologyIcons = [
 ] as const;
 
 const firstPageIcons = [
-  "/images/industries/bank_1669617.svg",
-  "/images/industries/online-store.svg",
-  "/images/industries/health-insurance.svg",
-  "/images/industries/online-education.svg",
-  "/images/industries/house.svg",
+  "/images/bank_1669617.svg",
+  "/images/online-store.svg",
+  "/images/health-insurance.svg",
+  "/images/online-education.svg",
+  "/images/house.svg",
 ] as const;
 
 const financeDescription =

@@ -24,7 +24,8 @@ export function Introduction() {
               src="/images/meeting-2-768x534.jpg.webp"
               alt="Codezela team collaborating during a strategy meeting"
               fill
-              sizes="(max-width: 899px) calc(100vw - 40px), 400px"
+              sizes="(max-width: 899px) 320px, 400px"
+              quality={70}
               className="object-cover"
             />
           </div>

@@ -40,7 +40,7 @@ const socials = [
   ["Threads", FaThreads, "https://www.threads.net/@codezela.t"],
   ["YouTube", FaYoutube, "https://www.youtube.com/@codezelatechnologies"],
   ["Behance", FaBehance, "https://www.behance.net/CodezelaTechnologies"],
-  ["WhatsApp", FaWhatsapp, "https://wa.me/codezela"],
+  ["WhatsApp", FaWhatsapp, "https://wa.me/94727333577"],
 ] as const;
 
 export function ContactPage() {

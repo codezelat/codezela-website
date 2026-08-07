@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { portfolioItems } from "@/data/home";
 
@@ -41,9 +42,9 @@ export function Portfolio() {
                     {project.type}
                   </p>
                   <h3 className="order-3 mt-[20px] max-w-[490px] font-display text-[32px] font-bold leading-[35.2px] text-[#161616] lg:order-2 lg:mt-[18px] lg:text-[31px] lg:font-semibold lg:leading-[1.08]">
-                    <a className="transition-colors hover:text-codezela-title" href={project.href}>
+                    <Link className="transition-colors hover:text-codezela-title" href={project.href}>
                       {project.title}
-                    </a>
+                    </Link>
                   </h3>
                   <p className="order-4 mt-[20px] max-w-[500px] text-[16px] leading-[22.4px] text-codezela-copy lg:order-3 lg:mt-[18px] lg:text-[17px] lg:leading-[1.32]">
                     {project.description}
@@ -53,7 +54,7 @@ export function Portfolio() {
                   </p>
                 </div>
 
-                <a
+                <Link
                   href={project.href}
                   aria-label={`View ${project.title}`}
                   className={`group order-1 flex h-[320px] items-center justify-center bg-[#fff7ff] p-[10px] lg:h-auto lg:min-h-[405px] lg:p-[18px] ${
@@ -70,7 +71,7 @@ export function Portfolio() {
                       className="h-auto max-h-[330px] w-full object-contain transition-transform duration-500 group-hover:scale-[1.025]"
                     />
                   </span>
-                </a>
+                </Link>
                 </article>
               </MotionReveal>
             );
@@ -78,13 +79,13 @@ export function Portfolio() {
         </div>
 
         <div className="mt-[60px] text-center">
-          <a
-            href="/portfolio/"
+          <Link
+            href="/portfolio"
             className="pill-button h-[44px] !min-h-[44px] gap-2 !bg-[#8d3ccd] !font-footer px-6 hover:!bg-codezela-purple"
           >
             View All Projects
             <ArrowRight size={20} strokeWidth={2.5} aria-hidden="true" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

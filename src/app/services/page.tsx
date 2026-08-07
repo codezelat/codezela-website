@@ -11,11 +11,11 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/services/" },
+  alternates: { canonical: "/services" },
   openGraph: {
     type: "website",
     locale: "en_GB",
-    url: "/services/",
+    url: "/services",
     siteName: "Codezela Technologies",
     title,
     description,
@@ -44,7 +44,7 @@ export default function ServicesRoute() {
       <a className="skip-link" href="#content">
         Skip to content
       </a>
-      <PageJsonLd path="/services/" title={title} description={description} />
+      <PageJsonLd path="/services" title={title} description={description} />
       <Header />
       <ServicesPage />
       <Footer />

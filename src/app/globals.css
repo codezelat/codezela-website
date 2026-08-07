@@ -282,13 +282,8 @@ a {
 .hero-section::before {
   position: absolute;
   inset: 0;
-  background-image: url("/images/Group-326-1024x245.png");
-  background-image: image-set(
-    url("/images/Group-326-1024x245.avif") type("image/avif"),
-    url("/images/Group-326-1024x245.webp") type("image/webp"),
-    url("/images/Group-326-1024x245.png") type("image/png")
-  );
-  background-position: 0 37%;
+  background-image: url("/images/hero-wordmark-mobile.webp");
+  background-position: 0 18%;
   background-repeat: no-repeat;
   background-size: contain;
   content: "";
@@ -369,61 +364,6 @@ a {
   will-change: opacity, transform;
 }
 
-.page-loading {
-  display: grid;
-  min-height: 100svh;
-  place-content: center;
-  place-items: center;
-  gap: 24px;
-  background:
-    radial-gradient(circle at 50% 45%, rgb(211 0 255 / 8%), transparent 30%),
-    #ffffff;
-}
-
-.page-loading__mark {
-  display: grid;
-  width: 168px;
-  height: 82px;
-  place-items: center;
-  border: 1px solid rgb(211 0 255 / 12%);
-  border-radius: 999px;
-  background: #ffffff;
-  box-shadow: 0 14px 36px rgb(113 11 192 / 12%);
-  animation: loading-mark 1.6s var(--ease-out-expo) infinite;
-}
-
-.page-loading__bar {
-  position: relative;
-  width: 150px;
-  height: 4px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: rgb(113 11 192 / 10%);
-}
-
-.page-loading__bar::after {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--purple), var(--pink));
-  content: "";
-  transform: translateX(-72%);
-  animation: loading-bar 1.15s ease-in-out infinite;
-}
-
-@keyframes loading-mark {
-  0%,
-  100% {
-    box-shadow: 0 14px 36px rgb(113 11 192 / 12%);
-    transform: translateY(0) scale(1);
-  }
-
-  50% {
-    box-shadow: 0 20px 44px rgb(113 11 192 / 20%);
-    transform: translateY(-5px) scale(1.03);
-  }
-}
-
 @keyframes video-loading-sheen {
   0%,
   15% {
@@ -446,20 +386,6 @@ a {
   50% {
     box-shadow: 0 0 0 12px rgb(255 255 255 / 0%);
     transform: scale(1.04);
-  }
-}
-
-@keyframes loading-bar {
-  0% {
-    transform: translateX(-100%) scaleX(0.45);
-  }
-
-  50% {
-    transform: translateX(10%) scaleX(0.72);
-  }
-
-  100% {
-    transform: translateX(100%) scaleX(0.45);
   }
 }
 
@@ -529,12 +455,6 @@ a {
   }
 }
 
-@media (max-width: 1024px) {
-  .hero-section::before {
-    background-position: 0 34%;
-  }
-}
-
 @media (max-width: 767px) {
   :root {
     --page-gutter: 20px;
@@ -551,14 +471,12 @@ a {
     line-height: 1.4;
   }
 
+}
+
+@media (min-width: 768px) {
   .hero-section::before {
-    background-image: url("/images/Group-326-768x184.png");
-    background-image: image-set(
-      url("/images/Group-326-768x184.avif") type("image/avif"),
-      url("/images/Group-326-768x184.webp") type("image/webp"),
-      url("/images/Group-326-768x184.png") type("image/png")
-    );
-    background-position: 0 18%;
+    background-image: url("/images/hero-wordmark-desktop.webp");
+    background-position: 0 37%;
   }
 }
 

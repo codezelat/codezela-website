@@ -24,21 +24,23 @@ const services = [
   "And more...",
 ] as const;
 
+const serviceGroups = [services.slice(0, 5), services.slice(5)] as const;
+
 const companyLinks = [
   ["Home", "/"],
-  ["Services", "/services/"],
-  ["Portfolio", "/portfolio/"],
-  ["Industries", "/industries/"],
+  ["Services", "/services"],
+  ["Portfolio", "/portfolio"],
+  ["Industries", "/industries"],
   ["Career Accelerator", "https://cca.it.com/"],
-  ["About", "/about/"],
+  ["About", "/about"],
 ] as const;
 
 const industryLinks = [
-  ["Healthcare", "https://codezela.com/industry/health-and-wellness/"],
-  ["Finance & Banking", "https://codezela.com/industry/financial-technology-fintech/"],
-  ["E-commerce and Retail", "https://codezela.com/industry/ecommerce-and-retail/"],
-  ["Technology & IT Services", "https://codezela.com/industry/technology-and-software-development/"],
-  ["And more...", "/industries/"],
+  ["Healthcare", "/industry/health-and-wellness"],
+  ["Finance & Banking", "/industry/financial-technology-fintech"],
+  ["E-commerce and Retail", "/industry/ecommerce-and-retail"],
+  ["Technology & IT Services", "/industry/technology-and-software-development"],
+  ["And more...", "/industries"],
 ] as const;
 
 const socialLinks = [
@@ -51,7 +53,7 @@ const socialLinks = [
   ["YouTube", FaYoutube, "https://www.youtube.com/@codezelatechnologies"],
 ] as const;
 
-const serviceHref = "/services/";
+const serviceHref = "/services";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -67,7 +69,7 @@ export function Footer() {
             Share Your Vision. We’re Here to Listen and Transform Ideas into Digital Realities
           </p>
           <Link
-            href="/contact/"
+            href="/contact"
             className="mt-[34px] inline-flex h-[44px] w-[257px] items-center justify-center gap-2 rounded-full bg-white px-5 font-footer text-[18px] font-semibold text-codezela-purple transition-transform hover:-translate-y-0.5 min-[1025px]:min-h-[43px] min-[1025px]:w-fit min-[1025px]:text-[17px]"
           >
             Start the Conversation
@@ -91,7 +93,7 @@ export function Footer() {
             +94 11 485 8899
           </a>
           <a
-            href="http://calendly.com/codezela/consult"
+            href="https://calendly.com/codezela/consult"
             target="_blank"
             rel="noreferrer"
             className="mt-[30px] inline-flex h-[42px] items-center gap-2 rounded-full border border-codezela-pink px-5 font-footer text-[16px] font-semibold text-codezela-purple transition-colors hover:bg-codezela-pink hover:text-white min-[1025px]:min-h-[43px]"
@@ -106,15 +108,19 @@ export function Footer() {
         <div className="grid gap-[40px] md:grid-cols-[1.75fr_0.72fr_0.95fr] md:gap-16">
           <nav aria-label="Services">
             <h2 className="text-[20px] font-bold leading-5">Services</h2>
-            <ul className="mt-[20px] grid gap-x-14 gap-y-[20px] text-[16px] leading-[22.4px] text-[#eee5f1] md:mt-[36px] md:grid-flow-col md:grid-cols-2 md:grid-rows-5 md:gap-y-[22px] md:text-[18px]">
-              {services.map((service, index) => (
-                <li key={service} className={index === 5 ? "mt-[20px] md:mt-0" : undefined}>
-                  <a className="transition-colors hover:text-codezela-pink-on-dark" href={serviceHref}>
-                    {service}
-                  </a>
-                </li>
+            <div className="mt-[20px] grid gap-x-14 gap-y-[20px] text-[16px] leading-[22.4px] text-[#eee5f1] md:mt-[36px] md:grid-cols-2 md:text-[18px]">
+              {serviceGroups.map((group, groupIndex) => (
+                <ul key={groupIndex} className="space-y-[20px] md:space-y-[22px]">
+                  {group.map((service) => (
+                    <li key={service}>
+                      <a className="transition-colors hover:text-codezela-pink-on-dark" href={serviceHref}>
+                        {service}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               ))}
-            </ul>
+            </div>
           </nav>
 
           <nav aria-label="Company">
@@ -148,7 +154,7 @@ export function Footer() {
         </div>
 
         <div className="mt-[60px] flex flex-col gap-[114px] md:mt-[94px] md:flex-row md:items-end md:justify-between md:gap-12">
-          <a href="https://wa.me/codezela" target="_blank" rel="noreferrer" className="group inline-block w-fit">
+          <a href="https://wa.me/94727333577" target="_blank" rel="noreferrer" className="group inline-block w-fit">
             <span className="block text-[14px] leading-[14px] md:leading-normal">Have a great idea?</span>
             <span className="mt-[8px] flex items-center gap-3 font-display text-[36px] font-medium leading-none md:mt-1 md:text-[38px]">
               Let’s Chat
@@ -210,12 +216,12 @@ export function Footer() {
                 <span className="font-display text-[34px] font-semibold leading-[45px] md:leading-normal">Codezela</span>
               </Link>
               <div className="mt-[22px] flex flex-col items-center gap-[9px] text-[14px] leading-5 text-[#eee5f1] md:mt-[26px] md:flex-row md:flex-wrap md:justify-end md:gap-x-[72px] md:gap-y-4 md:text-[15px]">
-                <a className="hover:text-codezela-pink-on-dark" href="https://codezela.com/privacy-policy/">
+                <Link className="hover:text-codezela-pink-on-dark" href="/privacy-policy">
                   Privacy Policy
-                </a>
-                <a className="hover:text-codezela-pink-on-dark" href="https://codezela.com/terms-and-conditions/">
+                </Link>
+                <Link className="hover:text-codezela-pink-on-dark" href="/terms-and-conditions">
                   Terms &amp; Conditions
-                </a>
+                </Link>
               </div>
             </div>
           </div>

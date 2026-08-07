@@ -8,19 +8,19 @@ import { useEffect, useRef, useState } from "react";
 
 const desktopNavigation = [
   ["Home", "/"],
-  ["Services", "/services/"],
-  ["Portfolio", "/portfolio/"],
-  ["Industries", "/industries/"],
-  ["About", "/about/"],
+  ["Services", "/services"],
+  ["Portfolio", "/portfolio"],
+  ["Industries", "/industries"],
+  ["About", "/about"],
 ] as const;
 
 const mobileNavigation = [
   ["Home", "/"],
-  ["Services", "/services/"],
-  ["Industries", "/industries/"],
-  ["About", "/about/"],
-  ["Portfolio", "/portfolio/"],
-  ["Contact", "/contact/"],
+  ["Services", "/services"],
+  ["Industries", "/industries"],
+  ["About", "/about"],
+  ["Portfolio", "/portfolio"],
+  ["Contact", "/contact"],
 ] as const;
 
 export function Header() {
@@ -28,8 +28,11 @@ export function Header() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
 
-  const isCurrent = (href: string) =>
-    href === "/" ? pathname === "/" : pathname === href.slice(0, -1) || pathname.startsWith(href);
+  const isCurrent = (href: string) => {
+    if (href === "/") return pathname === "/";
+    if (href === "/industries" && pathname.startsWith("/industry/")) return true;
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -50,6 +53,7 @@ export function Header() {
       <div className="site-shell flex h-[70px] items-center justify-between rounded-full bg-white px-[20px] shadow-[0_2px_12px_rgba(69,0,83,0.13)] min-[1025px]:h-[90px] min-[1025px]:pl-[30px] min-[1025px]:pr-[40px]">
         <Link
           href="/"
+          prefetch={false}
           aria-label="Codezela Technologies home"
           className="relative block h-[50px] w-[142px] shrink-0 min-[1025px]:w-[154px]"
         >
@@ -69,6 +73,7 @@ export function Header() {
                 <li key={label}>
                   <Link
                     href={href}
+                    prefetch={false}
                     aria-current={isCurrent(href) ? "page" : undefined}
                     className={`desktop-nav-link text-[18px] font-medium leading-5 ${
                       isCurrent(href) ? "text-codezela-pink-ink" : "text-[#161616]"
@@ -82,7 +87,8 @@ export function Header() {
           </nav>
 
           <Link
-            href="/contact/"
+            href="/contact"
+            prefetch={false}
             className="pill-button group relative h-[50px] w-[140px] overflow-hidden"
           >
             <span className="absolute transition-transform duration-300 group-hover:-translate-y-[42px]">Let’s talk</span>
@@ -117,6 +123,7 @@ export function Header() {
             <li key={label}>
               <Link
                 href={href}
+                prefetch={false}
                 aria-current={isCurrent(href) ? "page" : undefined}
                 onClick={() => setMenuOpen(false)}
                 className={`mobile-nav-link flex h-[44px] items-center justify-center font-display text-[18px] font-medium leading-6 ${

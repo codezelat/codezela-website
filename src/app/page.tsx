@@ -91,7 +91,7 @@ const jsonLd = {
       url: "https://codezela.com/",
       name: "Codezela Technologies - No.1 Web Development And Marketing Agency",
       datePublished: "2024-02-01T00:00:00+00:00",
-      dateModified: "2026-08-07T00:00:00+00:00",
+      dateModified: "2026-08-08T00:00:00+00:00",
       isPartOf: { "@id": "https://codezela.com/#website" },
       about: { "@id": "https://codezela.com/#organization" },
       primaryImageOfPage: { "@id": "https://codezela.com/#logo" },

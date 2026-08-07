@@ -8,8 +8,8 @@ const description = "Get in touch with Codezela Technologies today. Let's discus
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/contact/" },
-  openGraph: { url: "/contact/", title, description, images: ["/seo/og-codezela.png"] },
+  alternates: { canonical: "/contact" },
+  openGraph: { url: "/contact", title, description, images: ["/seo/og-codezela.png"] },
   twitter: { card: "summary_large_image", title, description, images: ["/seo/og-codezela.png"] },
 };
 
@@ -17,7 +17,7 @@ export default function ContactRoute() {
   return (
     <>
       <ContactPage />
-      <PageJsonLd path="/contact/" title={title} description={description} pageType="ContactPage" />
+      <PageJsonLd path="/contact" title={title} description={description} pageType="ContactPage" />
     </>
   );
 }

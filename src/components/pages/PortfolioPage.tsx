@@ -1,11 +1,12 @@
 import { Check } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { MotionReveal } from "@/components/shared/MotionReveal";
 
 const portfolioProjects = [
   {
-    href: "https://codezela.com/portfolio/evergreen-lighting/",
+    href: "/portfolio/evergreen-lighting",
     image: "/images/portfolio/evergreen-e1733334384902-768x448.png.webp",
     title: "Evergreen Lighting Malaysia Website",
     description:
@@ -13,7 +14,7 @@ const portfolioProjects = [
     industry: "Industrial",
   },
   {
-    href: "https://codezela.com/portfolio/ceylon-eco/",
+    href: "/portfolio/ceylon-eco",
     image: "/images/portfolio/CeylonEcoSpices-e1733333457314-768x443.png.webp",
     title: "Ceylon Eco Spices Website",
     description:
@@ -21,7 +22,7 @@ const portfolioProjects = [
     industry: "E-commerce",
   },
   {
-    href: "https://codezela.com/portfolio/smart-network-earning/",
+    href: "/portfolio/smart-network-earning",
     image: "/images/portfolio/Smart-Network-Earning-min-768x446.png.webp",
     title: "Smart Network Earning Solutions Website",
     description:
@@ -29,7 +30,7 @@ const portfolioProjects = [
     industry: "Job Listing",
   },
   {
-    href: "https://codezela.com/portfolio/saumika-senanayake/",
+    href: "/portfolio/saumika-senanayake",
     image: "/images/portfolio/Saumika-Senanayake-min-768x450.png.webp",
     title: "Saumika Senanayake Learning Management System",
     description:
@@ -37,7 +38,7 @@ const portfolioProjects = [
     industry: "Education",
   },
   {
-    href: "https://codezela.com/portfolio/photolamp-ecommerce/",
+    href: "/portfolio/photolamp-ecommerce",
     image: "/images/portfolio/plp-mockup-1024x682.png-768x512.webp",
     title: "Photolamp eCommerce Website",
     description:
@@ -45,7 +46,7 @@ const portfolioProjects = [
     industry: "E-commerce",
   },
   {
-    href: "https://codezela.com/portfolio/smarit-academy/",
+    href: "/portfolio/smarit-academy",
     image: "/images/portfolio/sita-mockup-1024x682.png-768x512.webp",
     title: "Smart IT Academy Learning Management Website",
     description:
@@ -53,7 +54,7 @@ const portfolioProjects = [
     industry: "Education",
   },
   {
-    href: "https://codezela.com/portfolio/tharusha-san/",
+    href: "/portfolio/tharusha-san",
     image: "/images/portfolio/Tharusha-San-min-768x446.png.webp",
     title: "Tharusha San Portfolio Website",
     description:
@@ -61,7 +62,7 @@ const portfolioProjects = [
     industry: "Portfolio",
   },
   {
-    href: "https://codezela.com/portfolio/tech-shorts/",
+    href: "/portfolio/tech-shorts",
     image: "/images/portfolio/tshorts-mockup-1024x682.png-768x512.webp",
     title: "Tech Shorts News Blog Development",
     description:
@@ -69,7 +70,7 @@ const portfolioProjects = [
     industry: "Blogging",
   },
   {
-    href: "https://codezela.com/portfolio/viduvin-holdings/",
+    href: "/portfolio/viduvin-holdings",
     image: "/images/portfolio/viduvin-mockup-1024x682.png-768x512.webp",
     title: "Viduvin Holdings Website Development",
     description:
@@ -77,7 +78,7 @@ const portfolioProjects = [
     industry: "Corporate",
   },
   {
-    href: "https://codezela.com/portfolio/sitc-campus/",
+    href: "/portfolio/sitc-campus",
     image: "/images/portfolio/SITC-Campus-min-768x448.png.webp",
     title: "SITC Campus Website Development",
     description:
@@ -85,7 +86,7 @@ const portfolioProjects = [
     industry: "Education",
   },
   {
-    href: "https://codezela.com/portfolio/xpara-gen/",
+    href: "/portfolio/xpara-gen",
     image: "/images/portfolio/xparagen-mockup-1024x682.png-768x512.webp",
     title: "XParaGen Website Development",
     description:
@@ -93,7 +94,7 @@ const portfolioProjects = [
     industry: "Corporate",
   },
   {
-    href: "https://codezela.com/portfolio/pixel-design-portfolio/",
+    href: "/portfolio/pixel-design-portfolio",
     image: "/images/portfolio/Pixel-Design-Portfolio-e1733867459982-768x445.png",
     title: "Pixel Design Portfolio",
     description:
@@ -101,7 +102,7 @@ const portfolioProjects = [
     industry: "Portfolio",
   },
   {
-    href: "https://codezela.com/portfolio/donate-srilanka/",
+    href: "/portfolio/donate-srilanka",
     image: "/images/portfolio/donatesl-mockup-1024x682.png-768x512.webp",
     title: "Donate SriLanka Fundraiser Website Development",
     description:
@@ -109,7 +110,7 @@ const portfolioProjects = [
     industry: "Charity",
   },
   {
-    href: "https://codezela.com/portfolio/nirmalab-me/",
+    href: "/portfolio/nirmalab-me",
     image: "/images/portfolio/nirmalab-mockup-1024x682.png-768x512.webp",
     title: "Nirmalab.me Portfolio Development",
     description:
@@ -117,7 +118,7 @@ const portfolioProjects = [
     industry: "Portfolio",
   },
   {
-    href: "https://codezela.com/portfolio/national-youth-film-festival-website/",
+    href: "/portfolio/national-youth-film-festival-website",
     image: "/images/portfolio/National-Youth-Film-2-768x456.png.webp",
     title: "National Youth Film Festival Website",
     description:
@@ -135,8 +136,8 @@ const benefits = [
 const portfolioJsonLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "@id": "https://codezela.com/portfolio/#webpage",
-  url: "https://codezela.com/portfolio/",
+  "@id": "https://codezela.com/portfolio#webpage",
+  url: "https://codezela.com/portfolio",
   name: "Portfolio - Codezela Technologies",
   description:
     "Browse our portfolio at Codezela Technologies to see our successful projects in web design, app development, brand identity, and digital marketing. Discover how we deliver innovative solutions to empower businesses.",
@@ -149,7 +150,7 @@ const portfolioJsonLd = {
     itemListElement: portfolioProjects.map((project, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: project.href,
+      url: new URL(project.href, "https://codezela.com").href,
       name: project.title,
     })),
   },
@@ -232,7 +233,7 @@ function ProjectRow({
 
   return (
     <MotionReveal delay={Math.min(index * 0.025, 0.1)} distance={22}>
-      <a
+      <Link
         href={project.href}
         className="group grid overflow-hidden rounded-[22px] border border-[#faeffc] bg-[#fff8ff] shadow-[0_12px_35px_rgba(80,8,136,0)] transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-[#f1d8f6] hover:shadow-[0_18px_45px_rgba(80,8,136,0.09)] focus-visible:-translate-y-1 focus-visible:border-[#d891e5] focus-visible:shadow-[0_18px_45px_rgba(80,8,136,0.09)] min-[1025px]:min-h-[490px] min-[1025px]:grid-cols-2 min-[1025px]:rounded-[26px]"
       >
@@ -273,7 +274,7 @@ function ProjectRow({
             {project.industry}
           </p>
         </article>
-      </a>
+      </Link>
     </MotionReveal>
   );
 }

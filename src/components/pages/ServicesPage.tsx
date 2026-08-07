@@ -1,10 +1,10 @@
 "use client";
 
 import { MotionReveal } from "@/components/shared/MotionReveal";
-import tabStatesJson from "../../../docs/research/codezela/services-tab-states.json";
+import tabStatesJson from "@/data/services-tab-states.json";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 
 type ServiceDefinition = {
   title: string;
@@ -57,57 +57,47 @@ const services: ServiceDefinition[] = [
     title: "Mobile Application Development (iOS, Android)",
     summary:
       "Creating sleek and functional iOS applications tailored to meet your business goals.",
-    icon: "/images/services/app-development-1.svg",
+    icon: "/images/app-development-1.svg",
   },
   {
     title: "Custom Software Development",
     summary:
       "Designing tailored software solutions that meet the specific needs of your business.",
-    icon: "/images/services/coding.svg",
+    icon: "/images/coding.svg",
   },
   {
     title: "Artificial Intelligence, Machine Learning, and NLP Solutions Development",
     summary:
       "Implementing AI solutions that automate tasks and improve decision-making through data-driven insights.",
-    icon: "/images/services/artificial-intelligence_900961-1.svg",
+    icon: "/images/artificial-intelligence_900961-1.svg",
   },
   {
     title: "UI/UX Design and Product Development",
     summary:
       "Focusing on user-centric design to create interfaces that are intuitive and engaging.",
-    icon: "/images/services/web-site_1073508.svg",
+    icon: "/images/web-site_1073508.svg",
   },
   {
     title: "E-commerce Solutions",
     summary:
       "Building custom e-commerce websites designed to convert visitors into customers.",
-    icon: "/images/services/shopping-bag.svg",
+    icon: "/images/shopping-bag.svg",
   },
   {
     title: "Content Management Systems (CMS) Development",
     summary:
       "Building responsive and customisable WordPress websites that empower businesses to manage content easily.",
-    icon: "/images/services/digital-content.svg",
+    icon: "/images/digital-content.svg",
   },
   {
     title: "Enterprise Software and Cloud-based Solutions",
     summary:
       "Designing cloud-based software that supports large-scale enterprise operations.",
-    icon: "/images/services/building.svg",
+    icon: "/images/building.svg",
   },
 ];
 
-const liveEcommerceTypo = "Custom E-commerce Website Development i";
-const correctedEcommerceLabel = "Custom E-commerce Website Development";
-const tabStates = (tabStatesJson as TabState[]).map((state) =>
-  state.card === 5 && state.tab === liveEcommerceTypo
-    ? {
-        ...state,
-        tab: correctedEcommerceLabel,
-        panel: state.panel.replace(liveEcommerceTypo, correctedEcommerceLabel),
-      }
-    : state,
-);
+const tabStates = tabStatesJson as TabState[];
 const serviceTabs = services.map((_, cardIndex) =>
   tabStates.filter(({ card }) => card === cardIndex),
 );
@@ -122,8 +112,58 @@ function splitPanel(panel: string) {
 }
 
 function WorkflowTimeline() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const markerRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const timeline = timelineRef.current;
+    const marker = markerRef.current;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!timeline || !marker || reducedMotion.matches) return;
+
+    let animationFrame = 0;
+
+    const updateMarker = () => {
+      animationFrame = 0;
+
+      const rect = timeline.getBoundingClientRect();
+      const desktop = window.matchMedia("(min-width: 1025px)").matches;
+      const viewportHeight = window.innerHeight;
+      const timelineTop = rect.top + window.scrollY;
+      const baseTop = desktop ? 30 : -4;
+      const markerSize = desktop ? 74 : 54;
+      const lineBottom = desktop ? 41 : 34;
+      const endTop = timeline.offsetHeight - lineBottom - markerSize / 2;
+      const travel = Math.max(0, endTop - baseTop);
+      const startScroll = Math.max(0, timelineTop - viewportHeight * 0.56);
+      const scrollRange = timeline.offsetHeight + viewportHeight * 0.39;
+      const progress = Math.min(
+        1,
+        Math.max(0, (window.scrollY - startScroll) / Math.max(1, scrollRange)),
+      );
+
+      marker.style.transform = `translate3d(0, ${travel * progress}px, 0)`;
+    };
+
+    const requestUpdate = () => {
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(updateMarker);
+    };
+
+    updateMarker();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    };
+  }, []);
+
   return (
     <div
+      ref={timelineRef}
       className="relative grid gap-12 pl-[70px] min-[1025px]:gap-0 min-[1025px]:pl-0"
       aria-label="Our professional workflow"
     >
@@ -132,25 +172,25 @@ function WorkflowTimeline() {
         className="absolute bottom-[34px] left-[25px] top-[30px] w-[2px] bg-[#9341d1] min-[1025px]:bottom-[41px] min-[1025px]:left-[279px] min-[1025px]:top-0"
       />
 
-      {processSteps.map((step, index) => (
+      <span
+        ref={markerRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-[-2px] top-[-4px] z-[1] h-[54px] w-[54px] will-change-transform min-[1025px]:left-[243px] min-[1025px]:top-[30px] min-[1025px]:h-[74px] min-[1025px]:w-[74px]"
+      >
+        <Image
+          src="/images/services/circle-svg.svg"
+          alt=""
+          width={88}
+          height={88}
+          className="h-full w-full"
+        />
+      </span>
+
+      {processSteps.map((step) => (
         <div
           key={step.title}
           className="relative min-h-[172px] min-[1025px]:grid min-[1025px]:min-h-[157px] min-[1025px]:grid-cols-[240px_160px_1fr] min-[1025px]:items-start"
         >
-          <Image
-            src="/images/services/circle-svg.svg"
-            alt=""
-            width={88}
-            height={88}
-            aria-hidden="true"
-            className={`absolute -left-[70px] top-[-4px] z-[1] h-[54px] w-[54px] min-[1025px]:left-[243px] min-[1025px]:h-[74px] min-[1025px]:w-[74px] ${
-              index === 0
-                ? "block min-[1025px]:top-[30px]"
-                : index === processSteps.length - 1
-                  ? "block min-[1025px]:top-[-44px]"
-                  : "hidden"
-            }`}
-          />
           <h2 className="max-w-[220px] font-display text-[27px] font-medium leading-[1.22] text-[#3d3a3d] min-[1025px]:pt-[19px] min-[1025px]:text-[30px] min-[1025px]:leading-[1.25]">
             {step.title}
           </h2>

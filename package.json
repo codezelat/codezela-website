@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit",
-    "assets:sync": "bun scripts/download-assets.mjs && bun scripts/download-route-assets.mjs"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "embla-carousel-autoplay": "^8.6.0",

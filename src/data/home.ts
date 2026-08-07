@@ -7,10 +7,10 @@ export type CardItem = {
 
 export const navItems = [
   ["Home", "/"],
-  ["Services", "/services/"],
-  ["Portfolio", "/portfolio/"],
-  ["Industries", "/industries/"],
-  ["About", "/about/"],
+  ["Services", "/services"],
+  ["Portfolio", "/portfolio"],
+  ["Industries", "/industries"],
+  ["About", "/about"],
 ] as const;
 
 export const services: CardItem[] = [
@@ -29,7 +29,7 @@ export const services: CardItem[] = [
 const industry = (title: string, slug: string, description: string, icon: string): CardItem => ({
   title,
   description,
-  href: `https://codezela.com/industry/${slug}/`,
+  href: `/industry/${slug}`,
   icon: `/images/${icon}.svg`,
 });
 
@@ -96,10 +96,10 @@ export const technologyLogos = [
 ] as const;
 
 export const portfolioItems = [
-  { href: "https://codezela.com/portfolio/evergreen-lighting/", image: "/images/evergreen-e1733334384902-768x448.png", type: "Web Development", title: "Evergreen Lighting Malaysia Website", description: "Evergreen Lighting Malaysia needed a responsive website to showcase their wide range of lighting products, including indoor, outdoor, stage, and customized lights, with a user-friendly inquiry system for customers.", category: "Industrial" },
-  { href: "https://codezela.com/portfolio/ceylon-eco/", image: "/images/CeylonEcoSpices-e1733333457314-768x443.png", type: "Web Development", title: "Ceylon Eco Spices Website", description: "The website showcases a wide range of premium spices, featuring a detailed product catalog, a secure bulk-ordering system, and a responsive design for a seamless browsing experience across devices", category: "E-commerce" },
-  { href: "https://codezela.com/portfolio/smart-network-earning/", image: "/images/Smart-Network-Earning-min-768x446.png", type: "Web Development", title: "Smart Network Earning Solutions Website", description: "Users can seamlessly apply for jobs and purchase application credits through a clean, responsive platform. A customized dashboard offers efficient management of applications and applicants, enhancing the overall experience.", category: "Job Listing" },
-  { href: "https://codezela.com/portfolio/saumika-senanayake/", image: "/images/Saumika-Senanayake-min-768x450.png", type: "Web Development", title: "Saumika Senanayake Learning Management System", description: "Focused on enhancing the learning experience, the platform offers easy student registration, secure video access, and a dashboard to manage courses, lessons, and media—all designed with simplicity and responsiveness in mind.", category: "Education" },
+  { href: "/portfolio/evergreen-lighting", image: "/images/evergreen-e1733334384902-768x448.png", type: "Web Development", title: "Evergreen Lighting Malaysia Website", description: "Evergreen Lighting Malaysia needed a responsive website to showcase their wide range of lighting products, including indoor, outdoor, stage, and customized lights, with a user-friendly inquiry system for customers.", category: "Industrial" },
+  { href: "/portfolio/ceylon-eco", image: "/images/CeylonEcoSpices-e1733333457314-768x443.png", type: "Web Development", title: "Ceylon Eco Spices Website", description: "The website showcases a wide range of premium spices, featuring a detailed product catalog, a secure bulk-ordering system, and a responsive design for a seamless browsing experience across devices", category: "E-commerce" },
+  { href: "/portfolio/smart-network-earning", image: "/images/Smart-Network-Earning-min-768x446.png", type: "Web Development", title: "Smart Network Earning Solutions Website", description: "Users can seamlessly apply for jobs and purchase application credits through a clean, responsive platform. A customized dashboard offers efficient management of applications and applicants, enhancing the overall experience.", category: "Job Listing" },
+  { href: "/portfolio/saumika-senanayake", image: "/images/Saumika-Senanayake-min-768x450.png", type: "Web Development", title: "Saumika Senanayake Learning Management System", description: "Focused on enhancing the learning experience, the platform offers easy student registration, secure video access, and a dashboard to manage courses, lessons, and media—all designed with simplicity and responsiveness in mind.", category: "Education" },
 ] as const;
 
 export const clients = [

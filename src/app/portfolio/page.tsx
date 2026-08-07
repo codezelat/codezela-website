@@ -11,11 +11,11 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/portfolio/" },
+  alternates: { canonical: "/portfolio" },
   openGraph: {
     type: "website",
     locale: "en_GB",
-    url: "/portfolio/",
+    url: "/portfolio",
     siteName: "Codezela Technologies",
     title,
     description,

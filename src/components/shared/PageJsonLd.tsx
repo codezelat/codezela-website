@@ -24,7 +24,7 @@ export function PageJsonLd({
         isPartOf: { "@id": "https://codezela.com/#website" },
         about: { "@id": "https://codezela.com/#organization" },
         inLanguage: "en-GB",
-        dateModified: "2026-08-07T00:00:00+05:30",
+        dateModified: "2026-08-08T00:00:00+05:30",
       },
       {
         "@type": "BreadcrumbList",

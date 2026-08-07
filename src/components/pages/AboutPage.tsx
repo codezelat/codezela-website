@@ -7,7 +7,8 @@ import { MotionReveal } from "@/components/shared/MotionReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { AboutStats } from "./about/AboutStats";
 import { Locations } from "./about/Locations";
-import { coreValues, leaders, processSteps, sectionDescription } from "./about/data";
+import { ProcessTimeline } from "./about/ProcessTimeline";
+import { coreValues, leaders, sectionDescription } from "./about/data";
 
 const heroBubbles = [
   {
@@ -100,7 +101,7 @@ function WhoWeAre() {
             <div className="relative mx-auto h-[330px] w-full max-w-[530px]">
               <div className="absolute left-0 top-0 h-[84%] w-[70%] overflow-hidden rounded-[15px] bg-[#f5eef7] shadow-[0_16px_38px_rgba(72,20,91,0.10)]">
                 <Image
-                  src="/images/about/meeting-2-768x534.jpg.webp"
+                  src="/images/meeting-2-768x534.jpg.webp"
                   alt="Codezela team members collaborating in a meeting"
                   fill
                   sizes="(max-width: 1024px) 68vw, 370px"
@@ -109,7 +110,7 @@ function WhoWeAre() {
               </div>
               <div className="absolute bottom-0 right-0 h-[66%] w-[58%] overflow-hidden rounded-[15px] border-[4px] border-white bg-[#f5eef7] shadow-[0_18px_42px_rgba(72,20,91,0.12)]">
                 <Image
-                  src="/images/about/meeting-1-768x459.jpg.webp"
+                  src="/images/meeting-1-768x459.jpg.webp"
                   alt="Codezela leadership meeting with the development team"
                   fill
                   sizes="(max-width: 1024px) 58vw, 310px"
@@ -164,44 +165,7 @@ function Process() {
         <SectionHeading title="Bringing Your Idea To Life Is Easy" description={sectionDescription} />
 
         <MotionReveal className="mt-[74px] min-[1025px]:mt-[82px]">
-          <ol className="relative hidden grid-cols-4 gap-9 min-[1025px]:grid">
-            <span aria-hidden="true" className="absolute left-[0.8%] right-[0.8%] top-[142px] h-px bg-[#4f126e]" />
-            {processSteps.map((step, index) => (
-              <li key={step.title} className="relative text-center">
-                <h3 className="flex min-h-[86px] items-center justify-center font-display text-[29px] font-normal leading-[1.12] text-[#454545]">
-                  {step.title}
-                </h3>
-                <span
-                  aria-hidden="true"
-                  className={`relative z-10 mx-auto mt-[38px] block rounded-full ${
-                    index === 1
-                      ? "h-[40px] w-[40px] border-[9px] border-[#fce7ff] bg-[#d153ef] shadow-[0_0_0_2px_#f6dafa]"
-                      : "h-[14px] w-[14px] border-[4px] border-white bg-[#4f126e]"
-                  }`}
-                />
-                <p className="mx-auto mt-[58px] max-w-[285px] text-[17px] leading-[1.4] text-[#8a8a8a]">
-                  {step.description}
-                </p>
-              </li>
-            ))}
-          </ol>
-
-          <ol className="relative ml-2 grid gap-10 border-l border-[#4f126e] pl-8 min-[1025px]:hidden">
-            {processSteps.map((step, index) => (
-              <li key={step.title} className="relative">
-                <span
-                  aria-hidden="true"
-                  className={`absolute -left-[41px] top-1 rounded-full border-[4px] border-white shadow-[0_0_0_1px_#4f126e] ${
-                    index === 1 ? "h-[22px] w-[22px] bg-[#d153ef]" : "h-[17px] w-[17px] bg-[#4f126e]"
-                  }`}
-                />
-                <h3 className="font-display text-[25px] font-medium leading-[1.2] text-[#454545]">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-[16px] leading-[1.5] text-[#7a7a7a]">{step.description}</p>
-              </li>
-            ))}
-          </ol>
+          <ProcessTimeline />
         </MotionReveal>
       </div>
     </section>
@@ -299,7 +263,7 @@ function ContactCallout() {
           {sectionDescription}
         </p>
         <Link
-          href="/contact/"
+          href="/contact"
           className="group mt-[50px] inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-[#843dcb] px-7 font-display text-[17px] font-semibold text-white shadow-[0_12px_28px_rgba(113,11,192,0.18)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-1 hover:bg-codezela-purple hover:shadow-[0_18px_36px_rgba(113,11,192,0.26)]"
         >
           Learn More About What We Do

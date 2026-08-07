@@ -64,6 +64,8 @@ cp .env.example .env.local
 
 Never commit `.env.local`, API keys, or provider credentials. The committed `.env.example` contains names and safe placeholders only.
 
+For local browser testing, place Cloudflare's published always-pass test pair in `.env.development.local`. This keeps production keys restricted to the live host while allowing the final proposal step to work predictably on `localhost`; production builds still read the real values from `.env.local` or the deployment environment.
+
 ## ✉️ Proposal delivery
 
 `POST /api/proposals` validates requests on the server, rejects oversized or invalid payloads, applies honeypot and same-site checks, rate-limits known IP addresses, validates a single-use Cloudflare Turnstile token, and sends two clean emails through Resend:

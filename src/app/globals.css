@@ -75,6 +75,32 @@ a {
   outline-offset: 3px;
 }
 
+@keyframes not-found-reveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .not-found-reveal {
+    animation: not-found-reveal 620ms var(--ease-out-expo) both;
+  }
+
+  .not-found-reveal--delay {
+    animation-delay: 90ms;
+  }
+
+  .not-found-reveal--delay-2 {
+    animation-delay: 170ms;
+  }
+}
+
 .site-shell {
   width: min(calc(100% - (var(--page-gutter) * 2)), var(--page-max));
   margin-inline: auto;

@@ -5,7 +5,15 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   images: {
-    qualities: [60, 70, 75, 85],
+    // Keep responsive optimization while limiting the number of variants that
+    // can be generated for the site's real mobile and desktop breakpoints.
+    deviceSizes: [640, 828, 1080, 1280, 1600, 1920],
+    imageSizes: [48, 64, 96, 128, 256, 384],
+    qualities: [75, 85],
+    localPatterns: [
+      { pathname: "/images/**", search: "" },
+      { pathname: "/seo/**", search: "" },
+    ],
   },
   async redirects() {
     return [

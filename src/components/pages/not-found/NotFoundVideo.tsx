@@ -30,7 +30,6 @@ export function NotFoundVideo() {
               alt=""
               fill
               sizes="(max-width: 960px) calc(100vw - 40px), 880px"
-              quality={75}
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025] motion-reduce:transition-none"
             />
             <div

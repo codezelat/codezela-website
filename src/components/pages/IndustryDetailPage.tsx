@@ -77,7 +77,6 @@ function IndustrySegments() {
                   alt=""
                   width={42}
                   height={42}
-                  sizes="42px"
                   className="h-[42px] w-[42px] object-contain"
                 />
                 <h3 className="mt-[17px] flex min-h-[44px] items-center justify-center text-balance font-display text-[18px] font-semibold leading-[22px] text-codezela-card-copy">

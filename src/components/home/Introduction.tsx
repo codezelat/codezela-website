@@ -25,7 +25,6 @@ export function Introduction() {
               alt="Codezela team collaborating during a strategy meeting"
               fill
               sizes="(max-width: 899px) 320px, 400px"
-              quality={70}
               className="object-cover"
             />
           </div>

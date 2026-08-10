@@ -32,7 +32,6 @@ export function Technology() {
                   alt={`${name} technology logo`}
                   width={190}
                   height={88}
-                  sizes="(max-width: 767px) 130px, 190px"
                   className="h-[76px] w-full max-w-[170px] object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100"
                 />
               </li>

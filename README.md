@@ -126,6 +126,7 @@ FAQ structured data must always match the questions and answers visitors can rea
 - Public media is stored locally; the website does not depend on the previous WordPress media library at runtime.
 - Content images use `next/image`, explicit aspect ratios, responsive `sizes`, lazy loading below the fold, and higher fetch priority only for genuine above-the-fold content.
 - Industry panel photography is stored as consistent 1280×720 WebP assets and delivered responsively by Next.js.
+- The optimizer is restricted to local image paths, the site’s real responsive width buckets, and two approved quality levels to prevent wasteful transformations without disabling adaptive image delivery.
 - Industry photography was sourced through [Unsplash](https://unsplash.com/) search and is governed by the [Unsplash License](https://unsplash.com/license). Review third-party asset rights before redistribution outside this project.
 
 ## 🚢 Deployment checklist

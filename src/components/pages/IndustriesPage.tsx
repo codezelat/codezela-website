@@ -165,7 +165,6 @@ export function IndustriesPage() {
                       alt={activeVisual.alt}
                       fill
                       sizes="(max-width: 1024px) calc(100vw - 40px), 810px"
-                      quality={75}
                       className="animate-[fade-in_360ms_ease-out] object-cover transition-transform duration-500 hover:scale-[1.025]"
                     />
                     <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_65%,rgba(34,10,44,0.18)_100%)]" />

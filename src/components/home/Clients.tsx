@@ -38,7 +38,6 @@ export function Clients() {
                     alt={`${name} logo`}
                     width={260}
                     height={110}
-                    sizes="(max-width: 639px) 260px, (max-width: 767px) 45vw, 22vw"
                     className="h-[76px] w-full object-contain"
                   />
                 </div>

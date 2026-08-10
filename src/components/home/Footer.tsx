@@ -10,6 +10,7 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
+import { FooterOriginReveal } from "@/components/home/FooterOriginReveal";
 import { CookiePreferencesButton } from "@/components/shared/CookiePreferencesButton";
 
 const services = [
@@ -60,9 +61,10 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="overflow-hidden rounded-[44px] bg-[#2d0046] text-white md:rounded-[56px]">
-      <section aria-labelledby="connect-heading" className="grid h-[608px] min-[1025px]:h-[354px] min-[1025px]:grid-cols-2">
-        <div className="flex h-[304px] flex-col bg-codezela-purple px-[30px] pb-[26px] pt-[60px] min-[1025px]:h-[354px] min-[1025px]:justify-center min-[1025px]:px-[80px] min-[1025px]:py-14">
+    <>
+      <footer className="relative z-10 overflow-hidden rounded-[44px] bg-[#2d0046] text-white md:rounded-[56px]">
+      <section aria-labelledby="connect-heading" className="grid min-h-[644px] min-[1025px]:h-[354px] min-[1025px]:min-h-0 min-[1025px]:grid-cols-2">
+        <div className="flex min-h-[340px] flex-col bg-codezela-purple px-[30px] pb-[48px] pt-[60px] min-[1025px]:h-[354px] min-[1025px]:min-h-0 min-[1025px]:justify-center min-[1025px]:px-[80px] min-[1025px]:py-14">
           <h2 id="connect-heading" className="whitespace-nowrap font-display text-[37px] font-bold leading-none min-[390px]:text-[48px]">
             Let&apos;s Connect
           </h2>
@@ -72,7 +74,7 @@ export function Footer() {
           <Link
             href="/contact"
             scroll={false}
-            className="mt-[34px] inline-flex h-[44px] w-[257px] items-center justify-center gap-2 rounded-full bg-white px-5 font-footer text-[18px] font-semibold text-codezela-purple transition-transform hover:-translate-y-0.5 min-[1025px]:min-h-[43px] min-[1025px]:w-fit min-[1025px]:text-[17px]"
+            className="mt-[34px] inline-flex h-[50px] w-full max-w-[310px] items-center justify-center gap-2 whitespace-nowrap rounded-full bg-white px-4 font-footer text-[16px] font-semibold text-codezela-purple transition-transform hover:-translate-y-0.5 min-[390px]:text-[17px] min-[1025px]:h-[44px] min-[1025px]:min-h-[43px] min-[1025px]:w-fit min-[1025px]:px-5"
           >
             Start the Conversation
             <ArrowRight size={20} strokeWidth={2.5} aria-hidden="true" />
@@ -192,9 +194,9 @@ export function Footer() {
         </div>
 
         <div className="mt-0 border-t border-white/50 pt-[90px] md:mt-[50px] md:pt-[50px]">
-          <div className="flex flex-col gap-[32px] md:flex-row md:items-end md:justify-between md:gap-10">
-            <div className="order-2 md:order-1">
-              <div className="flex flex-wrap items-center gap-[18px]">
+          <div className="flex flex-col gap-[42px] md:flex-row md:items-end md:justify-between md:gap-10">
+            <div className="order-2 text-center md:order-1 md:text-left">
+              <div className="flex flex-wrap items-center justify-center gap-[18px] md:justify-start">
                 {socialLinks.map(([label, Icon, href]) => (
                   <a
                     key={label}
@@ -208,7 +210,7 @@ export function Footer() {
                   </a>
                 ))}
               </div>
-              <p className="mt-[78px] text-[14px] leading-[14px] text-[#eee5f1] md:mt-[34px] md:text-[15px] md:leading-normal">
+              <p className="mt-[40px] text-center text-[14px] leading-[18px] text-[#eee5f1] md:mt-[34px] md:text-left md:text-[15px] md:leading-normal">
                 Copyright &copy; 2020 &ndash; {currentYear} | Codezela Technologies
               </p>
             </div>
@@ -231,6 +233,9 @@ export function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+      </footer>
+
+      <FooterOriginReveal />
+    </>
   );
 }

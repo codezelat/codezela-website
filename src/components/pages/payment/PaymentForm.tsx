@@ -18,6 +18,7 @@ export function PaymentForm({ turnstileSiteKey }: { turnstileSiteKey: string }) 
   const [securityMessage, setSecurityMessage] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [securityStarted, setSecurityStarted] = useState(false);
   const [resetSignal, setResetSignal] = useState(0);
   const startedAt = useRef(0);
   const submissionId = useRef<string | null>(null);
@@ -77,6 +78,7 @@ export function PaymentForm({ turnstileSiteKey }: { turnstileSiteKey: string }) 
   return (
       <form
         onSubmit={submitPayment}
+        onFocusCapture={() => setSecurityStarted(true)}
         aria-label="Invoice payment"
         className="rounded-[30px] border border-codezela-purple/15 bg-white p-6 shadow-[0_24px_70px_rgba(80,8,136,0.12)] min-[600px]:p-10"
       >
@@ -121,14 +123,14 @@ export function PaymentForm({ turnstileSiteKey }: { turnstileSiteKey: string }) 
           </div>
         </div>
 
-        <div className="mt-7">
-          <TurnstileWidget
+        <div className="mt-7 min-h-[72px]">
+          {securityStarted ? <TurnstileWidget
             siteKey={turnstileSiteKey}
             action="payment_submit"
             resetSignal={resetSignal}
             onTokenChange={setTurnstileToken}
             onError={setSecurityMessage}
-          />
+          /> : null}
           {securityMessage ? <p className="mt-2 text-[13px] leading-5 text-red-700">{securityMessage}</p> : null}
         </div>
 

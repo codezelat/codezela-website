@@ -6,16 +6,22 @@ import { sendPaymentNotification } from "@/lib/payments/notification";
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
-const eventSchema = z.object({
-  eventType: z.literal("NOTIFY_TRANSACTION_CHANGE"),
+const transactionEventSchema = z.object({
   transactionId: z.string().regex(/^[A-Za-z0-9-]{8,100}$/),
   state: z.string(),
   amount: z.number().int().nonnegative(),
   currency: z.string(),
-  localId: z.string().nullable(),
-  customerReference: z.string().nullable(),
+  localId: z.string().nullish(),
+  customerReference: z.string().nullish(),
   updatedKeys: z.array(z.string()).optional(),
 });
+// Genie sends transaction-level notifications in an event envelope. Retain
+// compatibility with its legacy flat payload, while verifying both through the API.
+const eventSchema = z.union([
+  z.object({ eventType: z.literal("NOTIFY_TRANSACTION_CHANGE"), data: transactionEventSchema })
+    .transform((event) => event.data),
+  transactionEventSchema.extend({ eventType: z.literal("NOTIFY_TRANSACTION_CHANGE") }),
+]);
 const privateHeaders = { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow, noarchive" };
 const respond = (status: number) => Response.json({ received: status === 200 }, { status, headers: privateHeaders });
 
@@ -31,8 +37,14 @@ function validSignature(headers: Headers, apiKey: string) {
 export async function POST(request: Request) {
   const apiKey = process.env.GENIE_APP_KEY;
   const applicationId = process.env.GENIE_APPLICATION_ID;
-  if (!apiKey || !applicationId) return respond(503);
-  if (!validSignature(request.headers, apiKey)) return respond(401);
+  if (!apiKey || !applicationId) {
+    console.error("Payment webhook configuration missing");
+    return respond(503);
+  }
+  if (!validSignature(request.headers, apiKey)) {
+    console.warn("Payment webhook signature rejected");
+    return respond(401);
+  }
   if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) return respond(415);
   if (Number(request.headers.get("content-length") || 0) > 32_000) return respond(413);
 
@@ -53,10 +65,12 @@ export async function POST(request: Request) {
   } catch { return respond(400); }
 
   const parsed = eventSchema.safeParse(body);
-  if (!parsed.success) return respond(400);
+  if (!parsed.success) {
+    console.warn("Payment webhook payload rejected");
+    return respond(400);
+  }
   const event = parsed.data;
   if (event.state !== "CONFIRMED") return respond(200);
-  if (event.updatedKeys?.length && !event.updatedKeys.includes("state")) return respond(200);
 
   try {
     const transaction = await getGenieTransaction(event.transactionId);
@@ -67,8 +81,10 @@ export async function POST(request: Request) {
     if (transaction.state !== "CONFIRMED") return respond(200);
     if (
       transaction.currency !== "LKR" || transaction.currency !== event.currency ||
-      transaction.amount !== event.amount || transaction.localId !== event.localId ||
-      !transaction.customerReference || transaction.customerReference !== event.customerReference
+      transaction.id !== event.transactionId || transaction.amount !== event.amount ||
+      (event.localId != null && transaction.localId !== event.localId) ||
+      !transaction.customerReference ||
+      (event.customerReference != null && transaction.customerReference !== event.customerReference)
     ) return respond(409);
 
     await sendPaymentNotification(transaction);

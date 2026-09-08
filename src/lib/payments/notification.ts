@@ -38,5 +38,9 @@ export async function sendPaymentNotification(transaction: GenieTransaction) {
     ...paymentNotificationContent(transaction),
     tags: [{ name: "category", value: "payment_confirmed" }, { name: "transaction", value: transaction.id }],
   }, { idempotencyKey: `payment-confirmed/${transaction.id}` });
-  if (result.error || !result.data?.id) throw new Error("Payment notification delivery failed");
+  if (result.error || !result.data?.id) {
+    console.error("Payment email provider rejected delivery", { code: result.error?.name ?? "missing_email_id" });
+    throw new Error("Payment notification delivery failed");
+  }
+  console.info("Payment email accepted", { transactionId: transaction.id, emailId: result.data.id });
 }

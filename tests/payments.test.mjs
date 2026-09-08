@@ -210,4 +210,24 @@ test("signed payment webhook confirms with Genie and sends the exact internal re
   expect(emails[0].headers.get("idempotency-key")).toBe(`payment-confirmed/${data.transactionId}`);
   expect(emails[1].headers.get("idempotency-key")).toBe(emails[0].headers.get("idempotency-key"));
   expect(emails[1].body).toEqual(emails[0].body);
+  const envelope = {
+    eventId: "test-event", eventType: "NOTIFY_TRANSACTION_CHANGE",
+    data: { transactionId: transaction.id, amount: transaction.amount, currency: "LKR", state: "CONFIRMED", companyId: "test-company" },
+  };
+  expect((await paymentWebhook(webhookRequest(envelope))).status).toBe(200);
+  expect(emails[2].body).toEqual(emails[0].body);
+  expect((await paymentWebhook(webhookRequest({ ...envelope, data: { ...envelope.data, amount: 1 } }))).status).toBe(409);
+  transaction.originatorApp = "another-application";
+  expect((await paymentWebhook(webhookRequest(envelope))).status).toBe(409);
+  transaction.originatorApp = process.env.GENIE_APPLICATION_ID;
+  transaction.state = "VOIDED";
+  expect((await paymentWebhook(webhookRequest(envelope))).status).toBe(200);
+  expect(emails).toHaveLength(3);
+  transaction.state = "CONFIRMED";
+  globalThis.fetch = mock(async (url) => String(url).startsWith("https://api.resend.com/")
+    ? Response.json({ name: "validation_error", message: "Provider-only diagnostic" }, { status: 422 })
+    : Response.json(transaction));
+  const failed = await paymentWebhook(webhookRequest(envelope));
+  expect(failed.status).toBe(503);
+  expect(await failed.text()).not.toContain("Provider-only");
 });

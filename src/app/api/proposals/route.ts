@@ -10,8 +10,8 @@ import {
 import { proposalSubmissionSchema } from "@/lib/proposals/schema";
 
 export const runtime = "nodejs";
+export const maxDuration = 30;
 
-const INTERNAL_RECIPIENTS = ["info@codezela.com", "sayuru@codezela.com"];
 const REPLY_ADDRESS = "Codezela Technologies <info@codezela.com>";
 const MAX_BODY_BYTES = 30_000;
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
@@ -27,6 +27,7 @@ type TurnstileResponse = {
   action?: string;
   hostname?: string;
   "error-codes"?: string[];
+  metadata?: { result_with_testing_key?: boolean };
 };
 
 type TurnstileValidation =
@@ -116,7 +117,11 @@ function requestContext(request: Request, submittedAt: Date): ProposalRequestCon
 
 function sameSiteRequest(request: Request) {
   const fetchSite = safeHeader(request.headers, "sec-fetch-site", 30);
-  return !fetchSite || fetchSite === "same-origin" || fetchSite === "same-site" || fetchSite === "none";
+  if (fetchSite && !["same-origin", "same-site", "none"].includes(fetchSite)) return false;
+  const origin = request.headers.get("origin");
+  if (!origin) return true;
+  try { return new URL(origin).origin === new URL(request.url).origin; }
+  catch { return false; }
 }
 
 function expectedTurnstileHostnames(request: Request) {
@@ -173,6 +178,12 @@ async function validateTurnstile(
       const internalError = result["error-codes"]?.includes("internal-error");
       if (!result.success && internalError && attempt === 0) continue;
       if (!result.success) return { valid: false, reason: "rejected" };
+      // Match the payment form's strictly local Cloudflare test-key support.
+      const isLocalTest = process.env.NODE_ENV === "development" &&
+        ["localhost", "127.0.0.1", "[::1]"].includes(new URL(request.url).hostname) &&
+        secret === "1x0000000000000000000000000000000AA" &&
+        result.metadata?.result_with_testing_key === true;
+      if (isLocalTest) return { valid: true };
       if (result.action !== TURNSTILE_ACTION) return { valid: false, reason: "rejected" };
       if (!result.hostname || !expectedHostnames.has(result.hostname.toLowerCase())) {
         return { valid: false, reason: "rejected" };
@@ -194,6 +205,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, message: "This request could not be verified." }, { status: 403 });
   }
 
+  if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) {
+    return NextResponse.json({ ok: false, message: "The proposal request is not valid JSON." }, { status: 415 });
+  }
+
   const contentLength = Number(request.headers.get("content-length") ?? 0);
   if (contentLength > MAX_BODY_BYTES) {
     return NextResponse.json({ ok: false, message: "The proposal is too large to submit." }, { status: 413 });
@@ -201,7 +216,21 @@ export async function POST(request: Request) {
 
   let rawBody: unknown;
   try {
-    rawBody = await request.json();
+    const reader = request.body?.getReader();
+    if (!reader) throw new Error("Missing body");
+    const chunks: Uint8Array[] = [];
+    let received = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      received += value.byteLength;
+      if (received > MAX_BODY_BYTES) {
+        await reader.cancel();
+        return NextResponse.json({ ok: false, message: "The proposal is too large to submit." }, { status: 413 });
+      }
+      chunks.push(value);
+    }
+    rawBody = JSON.parse(Buffer.concat(chunks).toString("utf8"));
   } catch {
     return NextResponse.json({ ok: false, message: "The proposal request is not valid JSON." }, { status: 400 });
   }
@@ -279,7 +308,8 @@ export async function POST(request: Request) {
       [
         {
           from,
-          to: INTERNAL_RECIPIENTS,
+          to: ["info@codezela.com"],
+          cc: ["sayuru@codezela.com"],
           replyTo: submission.email,
           subject: internalEmail.subject,
           html: internalEmail.html,
@@ -306,14 +336,17 @@ export async function POST(request: Request) {
     );
 
     if (error || !data?.data || data.data.length !== 2) {
+      console.error("Proposal email provider rejected delivery", { code: error?.name ?? "missing_email_ids" });
       return NextResponse.json(
         { ok: false, message: "We could not send the proposal right now. Please retry in a moment." },
         { status: 502 },
       );
     }
 
+    console.info("Proposal emails accepted", { reference: submission.submissionId, emailIds: data.data.map((email) => email.id) });
     return NextResponse.json({ ok: true, reference: submission.submissionId });
   } catch {
+    console.error("Proposal email provider request failed");
     return NextResponse.json(
       { ok: false, message: "We could not send the proposal right now. Please retry in a moment." },
       { status: 502 },

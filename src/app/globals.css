@@ -156,6 +156,42 @@ a {
   transform: translateY(0) scale(0.98);
 }
 
+.payment-result-button {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--purple);
+  border-radius: 999px;
+  background: var(--purple);
+  padding: 10px 22px;
+  color: #ffffff;
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  transition:
+    transform var(--motion-fast) var(--ease-out-expo),
+    background-color var(--motion-fast) ease,
+    color var(--motion-fast) ease;
+}
+
+.payment-result-button:hover {
+  background: var(--title);
+  transform: translateY(-2px);
+}
+
+.payment-result-button--secondary {
+  background: #ffffff;
+  color: var(--purple);
+}
+
+.payment-result-button--secondary:hover {
+  background: var(--offwhite);
+  color: var(--title);
+}
+
 .hero-action {
   isolation: isolate;
   overflow: hidden;

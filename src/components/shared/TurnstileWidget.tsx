@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 type TurnstileWidgetProps = {
   siteKey: string;
+  action?: string;
   resetSignal: number;
   onTokenChange: (token: string) => void;
   onError: (message: string) => void;
@@ -37,7 +38,13 @@ declare global {
   }
 }
 
-export function TurnstileWidget({ siteKey, resetSignal, onTokenChange, onError }: TurnstileWidgetProps) {
+export function TurnstileWidget({
+  siteKey,
+  action = "proposal_submit",
+  resetSignal,
+  onTokenChange,
+  onError,
+}: TurnstileWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
   const onTokenChangeRef = useRef(onTokenChange);
@@ -54,7 +61,7 @@ export function TurnstileWidget({ siteKey, resetSignal, onTokenChange, onError }
 
     const widgetId = window.turnstile.render(containerRef.current, {
       sitekey: siteKey,
-      action: "proposal_submit",
+      action,
       appearance: "always",
       execution: "render",
       size: "flexible",
@@ -88,7 +95,7 @@ export function TurnstileWidget({ siteKey, resetSignal, onTokenChange, onError }
       }
       widgetIdRef.current = null;
     };
-  }, [scriptReady, siteKey]);
+  }, [action, scriptReady, siteKey]);
 
   useEffect(() => {
     if (resetSignal === 0 || !widgetIdRef.current || !window.turnstile) return;
@@ -113,7 +120,12 @@ export function TurnstileWidget({ siteKey, resetSignal, onTokenChange, onError }
         onLoad={() => setScriptReady(true)}
         onReady={() => setScriptReady(true)}
       />
-      <div ref={containerRef} className="min-h-[65px] w-full overflow-hidden rounded-[8px]" aria-label="Cloudflare security verification" />
+      <div
+        ref={containerRef}
+        role="group"
+        className="min-h-[65px] w-full overflow-hidden rounded-[8px]"
+        aria-label="Cloudflare security verification"
+      />
     </>
   );
 }

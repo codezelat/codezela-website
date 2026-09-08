@@ -61,10 +61,30 @@ cp .env.example .env.local
 | `PROPOSAL_FROM_EMAIL` | Verified sender identity for notification and confirmation emails |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Public Cloudflare Turnstile widget key used on the final proposal step |
 | `TURNSTILE_SECRET_KEY` | Server-only Turnstile key used by the proposal API for Siteverify validation |
+| `GENIE_APP_KEY` | Server-only API Key (secret) from the Codezela Invoice Payments Genie application |
+| `GENIE_API_BASE_URL` | `https://api.geniebiz.lk` for production |
+| `PAYMENT_SESSION_SECRET` | Private random signing secret, at least 32 characters, kept stable across deployments |
+| `GENIE_APPLICATION_ID` | Application ID from Codezela Invoice Payments, used to validate payment webhook ownership |
 
 Never commit `.env.local`, API keys, or provider credentials. The committed `.env.example` contains names and safe placeholders only.
 
 For local browser testing, place Cloudflare's published always-pass test pair in `.env.development.local`. This keeps production keys restricted to the live host while allowing the final proposal step to work predictably on `localhost`; production builds still read the real values from `.env.local` or the deployment environment.
+
+## 💳 Invoice payments
+
+Share `/payment` directly with invoice recipients. It is unlisted, excluded from the sitemap, and marked `noindex` through metadata and response headers. Crawlers may fetch the HTML to read `noindex`; API routes are blocked in `robots.txt`. This controls indexing, not access to the form.
+
+The payer enters an invoice reference and the exact amount in LKR. The server validates the input and Turnstile challenge, creates a Genie hosted checkout with integer cents, and stores a signed, HttpOnly browser cookie. `/payment/result` and `/api/payments/receipt` query Genie again and match the transaction, amount, currency, and invoice reference before confirming a payment. Only `CONFIRMED` transactions receive a PDF receipt. Pending, authorized, failed, cancelled, mismatched, and unavailable responses do not issue a receipt.
+
+There is no local invoice database or payment ledger. The amount is entered by the payer, so this page cannot look up an invoice balance or prevent a separate payment against the same invoice. Genie retains the gateway transaction record. The browser session expires after seven days; download the receipt while the session is available. The in-memory rate limit is per server instance, with Turnstile providing the shared bot check.
+
+For Vercel, add production values from the local `.env.local` to the **Production** environment before deploying. Set `GENIE_APPLICATION_ID`, `GENIE_APP_KEY`, `GENIE_API_BASE_URL`, and `PAYMENT_SESSION_SECRET`, and retain the existing Resend and production Turnstile variables. Do not copy `.env.development.local` test keys into production. Keep all secret variables server-only, without a `NEXT_PUBLIC_` prefix. The only public key is `NEXT_PUBLIC_TURNSTILE_SITE_KEY`. If creating a new signing secret, use `openssl rand -hex 48`; rotating it expires existing receipt sessions.
+
+Every checkout registers `https://codezela.com/api/payments/webhook` with Genie. The signed webhook queries Genie again, checks the application, amount, currency, invoice, and transaction reference, and sends a clean payment confirmation to `info@codezela.com` with `sayuru@codezela.com` CC'd. It uses the existing Resend key and sender. Email delivery failures return an error to allow webhook retries. Resend's transaction-specific idempotency key suppresses duplicate sends within its 24-hour retention window; there is no permanent local email ledger. No extra global webhook setup or scheduler is required. The return URL is `https://codezela.com/payment/result`, matching the registered live application domain, so the deployed return and webhook flow needs this version running on that domain.
+
+After deployment, complete a controlled real payment and confirm the return page and downloaded receipt. API checkout creation and automated tests do not prove card authorization, settlement, or the deployed browser return flow.
+
+Local development inherits the Genie configuration from `.env.local`, including live mode. Only the Cloudflare test pair is overridden locally. Use a separately provisioned UAT key and `https://api.uat.geniebiz.lk` if sandbox payments are required. Published Turnstile dummy responses are accepted only by the payment endpoint in development on a loopback hostname, after a successful Siteverify response explicitly identifies the test key.
 
 ## ✉️ Proposal delivery
 
@@ -93,6 +113,7 @@ Run the complete local code gate before handing off a change:
 ```bash
 bun run lint
 bun run typecheck
+bun run test
 bun run build
 ```
 

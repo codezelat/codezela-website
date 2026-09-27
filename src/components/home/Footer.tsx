@@ -35,6 +35,7 @@ const companyLinks = [
   ["Industries", "/industries"],
   ["Career Accelerator", "https://cca.it.com/"],
   ["About", "/about"],
+  ["Our Network", "/network"],
 ] as const;
 
 const industryLinks = [

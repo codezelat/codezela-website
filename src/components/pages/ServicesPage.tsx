@@ -4,7 +4,7 @@ import { MotionReveal } from "@/components/shared/MotionReveal";
 import tabStatesJson from "@/data/services-tab-states.json";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 
 type ServiceDefinition = {
   title: string;
@@ -312,7 +312,7 @@ function ServiceRow({ service, cardIndex }: { service: ServiceDefinition; cardIn
   );
 }
 
-export function ServicesPage() {
+export function ServicesPage({ children }: { children?: ReactNode }) {
   return (
     <main id="content" className="overflow-x-clip bg-white">
       <section aria-labelledby="services-workflow-heading" className="min-h-[1010px] min-[1025px]:min-h-[859px]">
@@ -382,6 +382,7 @@ export function ServicesPage() {
           ))}
         </div>
       </section>
+      {children}
     </main>
   );
 }

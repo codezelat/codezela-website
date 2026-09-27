@@ -1,6 +1,7 @@
 import { Footer } from "@/components/home/Footer";
 import { Header } from "@/components/home/Header";
 import { ServicesPage } from "@/components/pages/ServicesPage";
+import { SpecialistBrands } from "@/components/pages/services/SpecialistBrands";
 import { PageJsonLd } from "@/components/shared/PageJsonLd";
 import type { Metadata } from "next";
 
@@ -44,9 +45,11 @@ export default function ServicesRoute() {
       <a className="skip-link" href="#content">
         Skip to content
       </a>
-      <PageJsonLd path="/services" title={title} description={description} />
+      <PageJsonLd path="/services" title={title} description={description} dateModified="2026-09-28T00:00:00+05:30" />
       <Header />
-      <ServicesPage />
+      <ServicesPage>
+        <SpecialistBrands />
+      </ServicesPage>
       <Footer />
     </>
   );

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title,
     description,
     publishedTime: "2024-08-13T17:46:11+05:30",
-    modifiedTime: "2026-08-08T00:00:00+05:30",
+    modifiedTime: "2026-09-28T00:00:00+05:30",
     images: [
       {
         url: "/images/meeting-2-768x534.jpg.webp",
@@ -45,7 +45,7 @@ const jsonLd = {
   name: title,
   description,
   datePublished: "2024-08-13T17:46:11+05:30",
-  dateModified: "2026-08-08T00:00:00+05:30",
+  dateModified: "2026-09-28T00:00:00+05:30",
   isPartOf: { "@id": "https://codezela.com/#website" },
   about: { "@id": "https://codezela.com/#organization" },
   primaryImageOfPage: {

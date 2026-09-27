@@ -6,6 +6,7 @@ import { Header } from "@/components/home/Header";
 import { MotionReveal } from "@/components/shared/MotionReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { AboutStats } from "./about/AboutStats";
+import { CompanyGroup } from "./about/CompanyGroup";
 import { Locations } from "./about/Locations";
 import { ProcessTimeline } from "./about/ProcessTimeline";
 import { coreValues, leaders, sectionDescription } from "./about/data";
@@ -299,6 +300,7 @@ export function AboutPage() {
         <Hero />
         <AboutStats />
         <WhoWeAre />
+        <CompanyGroup />
         <VisionMission />
         <Process />
         <CoreValues />

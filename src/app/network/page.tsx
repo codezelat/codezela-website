@@ -73,17 +73,43 @@ function Artwork({
       className={`relative overflow-hidden rounded-2xl ${large ? "aspect-[16/10] w-full" : "h-28 w-40 shrink-0 max-[380px]:w-32"}`}
       style={{ backgroundColor: entry.background }}
     >
-      <Image
-        src={`/images/network/${entry.image}.webp`}
-        alt=""
-        fill
-        sizes={
-          large
-            ? "(min-width: 1025px) 380px, (min-width: 700px) 45vw, 90vw"
-            : "160px"
-        }
-        className={`transition-transform duration-500 motion-safe:group-hover:scale-[1.04] ${entry.image === "isbs" ? "object-cover" : `object-contain ${entry.image === "vat0" ? "p-0" : large ? "p-8" : "p-4"}`}`}
-      />
+      {entry.image === "vat0" ? (
+        <span
+          aria-hidden="true"
+          className="flex h-full items-center justify-center font-[ui-sans-serif,system-ui,sans-serif] text-[23px] font-bold tracking-[-0.025em] text-white max-[380px]:text-[20px]"
+        >
+          VAulTzer<span className="font-mono tabular-nums">0</span>
+        </span>
+      ) : entry.image === "plana" ? (
+        <span
+          aria-hidden="true"
+          className="flex h-full flex-col items-center justify-center gap-1.5"
+        >
+          <Image
+            src="/images/network/plana.webp"
+            alt=""
+            width={64}
+            height={64}
+            sizes="64px"
+            className="h-16 w-16 object-contain"
+          />
+          <span className="pl-[0.35em] font-[Arial,sans-serif] text-[14px] font-semibold tracking-[0.35em] text-[#f4f7fb]">
+            PLAN A
+          </span>
+        </span>
+      ) : (
+        <Image
+          src={`/images/network/${entry.image}.webp`}
+          alt=""
+          fill
+          sizes={
+            large
+              ? "(min-width: 1025px) 380px, (min-width: 700px) 45vw, 90vw"
+              : "160px"
+          }
+          className={`transition-transform duration-500 motion-safe:group-hover:scale-[1.04] ${entry.image === "isbs" ? "object-cover" : `object-contain ${large ? "p-8" : "p-4"}`}`}
+        />
+      )}
     </div>
   );
 }
@@ -98,49 +124,61 @@ export default function NetworkRoute() {
       <main id="main-content" className="bg-white">
         <section
           aria-labelledby="network-heading"
-          className="overflow-hidden pb-10 pt-14 min-[1025px]:pt-20"
+          className="overflow-hidden pb-[64px] pt-[260px] min-[1025px]:pb-[88px] min-[1025px]:pt-[350px]"
         >
           <div className="site-shell">
-            <div className="grid items-center gap-5 min-[1025px]:min-h-[460px] min-[1025px]:grid-cols-[1.2fr_1fr]">
+            <div className="grid items-start gap-[38px] min-[1025px]:grid-cols-[0.9fr_1.1fr] min-[1025px]:gap-[48px]">
               <div className="relative z-10">
-                <p className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-codezela-purple">
-                  Our network
-                </p>
                 <h1
                   id="network-heading"
-                  className="max-w-[730px] font-display text-[38px] font-semibold leading-[1.12] tracking-[-0.025em] text-codezela-title min-[700px]:text-[48px] min-[1280px]:text-[58px]"
+                  className="max-w-[590px] font-display text-[40px] font-medium leading-[1.08] tracking-[-0.02em] text-codezela-title min-[1025px]:text-[52px] min-[1025px]:leading-[1.04]"
                 >
-                  A connected network.
-                  <br />A wider world of expertise.
+                  A connected network. A wider world of expertise.
                 </h1>
-                <p className="mt-6 max-w-[600px] text-[17px] leading-relaxed text-[#6c6375] min-[1025px]:text-lg">
-                  Explore the products, specialist companies and education
-                  connections that bring creativity, technology and learning
-                  into the Codezela network.
-                </p>
-                <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-5">
-                  <a href="#specialist-companies" className={button}>
-                    Explore the network
-                    <ArrowRight size={18} aria-hidden="true" />
-                  </a>
-                  <Link
-                    href="/about"
-                    className={`py-2 text-base font-medium text-codezela-purple underline underline-offset-4 ${linkFocus}`}
-                  >
-                    About Codezela
-                  </Link>
-                </div>
               </div>
-              <div className="relative mx-auto aspect-[4/3] w-full max-w-[590px] min-[1025px]:scale-110">
+              <div className="relative mx-auto aspect-[4/3] w-full max-w-[660px] min-[1025px]:-mt-14">
                 <Image
                   src="/images/network/network-ribbons.webp"
                   alt=""
                   fill
                   loading="eager"
                   fetchPriority="high"
-                  sizes="(min-width: 1025px) 46vw, 90vw"
+                  sizes="(min-width: 1440px) 660px, (min-width: 1025px) 48vw, calc(100vw - 40px)"
                   className="object-contain"
                 />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="network-intro-heading"
+          className="pb-8 pt-4 min-[1025px]:pb-12 min-[1025px]:pt-8"
+        >
+          <div className="site-shell">
+            <h2
+              id="network-intro-heading"
+              className="font-display text-3xl font-semibold text-codezela-title min-[700px]:text-[42px]"
+            >
+              Our network
+            </h2>
+            <div className="mt-5 flex flex-col justify-between gap-7 min-[1025px]:flex-row min-[1025px]:items-center">
+              <p className="max-w-[650px] text-[17px] leading-relaxed text-[#6c6375]">
+                Explore the products, specialist companies and education
+                connections that bring creativity, technology and learning into
+                the Codezela network.
+              </p>
+              <div className="flex flex-wrap items-center gap-x-7 gap-y-5">
+                <a href="#specialist-companies" className={button}>
+                  Explore the network
+                  <ArrowRight size={18} aria-hidden="true" />
+                </a>
+                <Link
+                  href="/about"
+                  className={`py-2 text-base font-medium text-codezela-purple underline underline-offset-4 ${linkFocus}`}
+                >
+                  About Codezela
+                </Link>
               </div>
             </div>
             <div className="mt-7 flex flex-wrap gap-x-8 gap-y-4 border-t border-codezela-purple/15 pt-6 text-sm font-medium text-codezela-purple min-[1025px]:mt-12">

@@ -54,7 +54,8 @@ export const networkCompanies: readonly NetworkEntry[] = [
     description:
       "Cybersecurity and Zero Trust architecture for stronger digital infrastructure.",
     image: "vat0",
-    imageSource: "https://vat0.lk/images/og-image.jpg",
+    // Official header is live type, not the site's social-preview image.
+    imageSource: "https://vat0.lk/",
     background: "#020503",
   },
   {
@@ -64,7 +65,7 @@ export const networkCompanies: readonly NetworkEntry[] = [
       "Event planning and production for corporate occasions, celebrations and memorable experiences.",
     image: "plana",
     imageSource: "https://plana.lk/images/plan-a/plan-a-icon.webp",
-    background: "#f7f2ff",
+    background: "#000000",
   },
 ];
 

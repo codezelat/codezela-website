@@ -3,10 +3,21 @@ import {
   networkCompanies,
   networkEducation,
   networkProducts,
+  networkPublications,
 } from "../src/data/network";
 import sitemap from "../src/app/sitemap";
 
-const entries = [...networkCompanies, ...networkProducts, ...networkEducation];
+const entries = [...networkCompanies, ...networkProducts, ...networkPublications, ...networkEducation];
+
+test("Sparks is identified as the official publication, separate from products", () => {
+  expect(networkPublications).toHaveLength(1);
+  expect(networkPublications[0]).toMatchObject({
+    name: "Sparks by Codezela",
+    href: "https://sparks.codezela.com/",
+    label: "Our publication",
+  });
+  expect(networkProducts.some(({ href }) => href.includes("sparks."))).toBe(false);
+});
 
 test("network includes all requested companies, products and education connections", () => {
   expect(networkCompanies).toHaveLength(6);

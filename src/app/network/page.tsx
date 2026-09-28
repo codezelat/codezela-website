@@ -10,12 +10,13 @@ import {
   networkCompanies,
   networkEducation,
   networkProducts,
+  networkPublications,
   type NetworkEntry,
 } from "@/data/network";
 
 const title = "Our Network - Codezela Technologies";
 const description =
-  "Explore Codezela’s products, specialist companies and education connections, from creative tools and digital services to practical technology learning.";
+  "Explore Codezela’s products, specialist companies, publication and education connections, from digital services and insights to practical technology learning.";
 const linkFocus =
   "focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-codezela-purple";
 const button =
@@ -313,6 +314,72 @@ export default function NetworkRoute() {
         </section>
 
         <section
+          id="ideas-insights"
+          aria-labelledby="publications-heading"
+          className="scroll-mt-32 pt-16 min-[1025px]:pt-24"
+        >
+          <div className="site-shell">
+            <h2
+              id="publications-heading"
+              className="font-display text-3xl font-semibold text-codezela-title min-[700px]:text-[42px]"
+            >
+              Ideas &amp; insights
+            </h2>
+            {networkPublications.map((entry) => (
+              <MotionReveal key={entry.href}>
+                <a
+                  href={entry.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`group mt-10 grid items-center gap-7 border-b border-codezela-purple/15 pb-12 min-[700px]:grid-cols-[0.8fr_1.2fr] min-[700px]:gap-12 ${linkFocus}`}
+                >
+                  <div
+                    aria-hidden="true"
+                    className="flex aspect-[16/10] items-center justify-center overflow-hidden rounded-2xl p-8 min-[1025px]:p-10"
+                    style={{ backgroundColor: entry.background }}
+                  >
+                    <div className="flex w-full items-center gap-[6%] transition-transform duration-500 motion-safe:group-hover:scale-[1.04]">
+                      {/* Clip the original logo to preserve the exact dragon, not an AI approximation. */}
+                      <span className="relative block aspect-[120/144] w-[22%] shrink-0 overflow-hidden">
+                        <Image
+                          src="/images/Frame-12.png"
+                          alt=""
+                          width={708}
+                          height={192}
+                          sizes="500px"
+                          className="absolute -left-[37.5%] -top-[18.056%] h-auto w-[590%] max-w-none"
+                        />
+                      </span>
+                      <span className="relative block aspect-[3/1] w-[72%]">
+                        <Image
+                          src={`/images/network/${entry.image}.webp`}
+                          alt=""
+                          fill
+                          sizes="(min-width: 1440px) 300px, (min-width: 700px) 24vw, 60vw"
+                          className="object-contain"
+                        />
+                      </span>
+                    </div>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-codezela-purple">
+                      {entry.label}
+                    </p>
+                    <h3 className="mt-3 font-display text-2xl font-semibold text-codezela-title min-[1025px]:text-[32px]">
+                      {entry.name}
+                    </h3>
+                    <p className="mt-4 max-w-[580px] text-[17px] leading-relaxed text-[#6c6375]">
+                      {entry.description}
+                    </p>
+                    <Destination entry={entry} />
+                  </div>
+                </a>
+              </MotionReveal>
+            ))}
+          </div>
+        </section>
+
+        <section
           aria-labelledby="education-heading"
           className="py-16 min-[1025px]:py-24"
         >
@@ -361,7 +428,7 @@ export default function NetworkRoute() {
         description={description}
         pageType="CollectionPage"
         breadcrumbName="Our Network"
-        dateModified="2026-09-28T00:00:00+05:30"
+        dateModified="2026-09-29T00:00:00+05:30"
       />
     </>
   );

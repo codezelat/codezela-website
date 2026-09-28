@@ -122,6 +122,21 @@ export const networkProducts: readonly NetworkEntry[] = [
   },
 ];
 
+export const networkPublications: readonly NetworkEntry[] = [
+  {
+    name: "Sparks by Codezela",
+    href: "https://sparks.codezela.com/",
+    description:
+      "Our publication exploring technology, web development and digital marketing, with practical perspectives for businesses and updates from Codezela.",
+    image: "sparks-wordmark",
+    // Generated wordmark paired with the unchanged Codezela dragon in the UI.
+    // URL records brand context, not an official source for the new wordmark.
+    imageSource: "https://sparks.codezela.com/",
+    background: "#f6efff",
+    label: "Our publication",
+  },
+];
+
 export const networkEducation: readonly NetworkEntry[] = [
   {
     name: "Codezela Career Accelerator",

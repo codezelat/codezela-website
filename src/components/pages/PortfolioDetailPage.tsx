@@ -82,7 +82,7 @@ function PortfolioCta({ url, title }: { url: string; title: string }) {
     ["LinkedIn", `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, FaLinkedinIn],
     ["Facebook", `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, FaFacebookF],
     ["X", `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`, FaXTwitter],
-    ["WhatsApp", "https://wa.me/codezela.t", FaWhatsapp],
+    ["WhatsApp", "https://wa.me/CodeZela", FaWhatsapp],
   ] as const;
 
   return (
@@ -96,7 +96,7 @@ function PortfolioCta({ url, title }: { url: string; title: string }) {
             View More Projects <ArrowRight aria-hidden="true" className="ml-2 h-5 w-5" />
           </Link>
           <a
-            href="https://calendly.com/codezela/consult"
+            href="https://cal.com/codezela/"
             target="_blank"
             rel="noreferrer"
             className="inline-flex min-h-[50px] items-center rounded-full border border-codezela-pink-strong bg-white px-7 font-display text-[17px] font-semibold text-codezela-purple transition-all hover:-translate-y-0.5 hover:bg-codezela-offwhite"

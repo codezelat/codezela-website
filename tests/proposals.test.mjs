@@ -43,6 +43,10 @@ test("all proposal entry points send internal To/CC and a submitter confirmation
   expect(emails[0].reply_to).toBe(data.email);
   expect(emails[1].to).toBe(data.email);
   expect(emails[1].reply_to).toContain("info@codezela.com");
+  const whatsappUrl = `https://wa.me/CodeZela?text=${encodeURIComponent(`Hi Codezela, I just submitted a proposal request. My reference is ${data.submissionId}. I'd like to add a few details.`)}`;
+  expect(emails[1].text).toContain(whatsappUrl);
+  expect(emails[1].html).toContain(`href="${whatsappUrl}"`);
+  expect(emails[1].html).not.toContain("wa.me/codezela.t");
   expect(new Headers(calls[1].init.headers).get("idempotency-key")).toBe(`proposal-${data.submissionId}`);
 });
 

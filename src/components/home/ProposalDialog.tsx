@@ -406,7 +406,7 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
             </div>
             <div className="mt-7 flex flex-col justify-center gap-3 min-[480px]:flex-row">
               <a
-                href={`https://wa.me/codezela.t?text=${encodeURIComponent(`Hi Codezela, I just submitted a proposal request. My reference is ${submissionReference}. I’d like to add a few details.`)}`}
+                href={`https://wa.me/CodeZela?text=${encodeURIComponent(`Hi Codezela, I just submitted a proposal request. My reference is ${submissionReference}. I’d like to add a few details.`)}`}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-full border border-codezela-purple bg-white px-6 font-display text-[15px] font-semibold text-codezela-purple transition-colors hover:bg-codezela-offwhite"

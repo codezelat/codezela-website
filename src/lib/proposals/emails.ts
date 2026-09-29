@@ -25,7 +25,7 @@ const socials = [
 
 function proposalWhatsAppUrl(submissionId: string) {
   const message = `Hi Codezela, I just submitted a proposal request. My reference is ${submissionId}. I'd like to add a few details.`;
-  return `https://wa.me/codezela.t?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/CodeZela?text=${encodeURIComponent(message)}`;
 }
 
 function escapeHtml(value: string | number | undefined) {

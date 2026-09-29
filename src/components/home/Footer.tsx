@@ -98,7 +98,7 @@ export function Footer() {
             +94 11 485 8899
           </a>
           <a
-            href="https://calendly.com/codezela/consult"
+            href="https://cal.com/codezela/"
             target="_blank"
             rel="noreferrer"
             className="mt-[30px] inline-flex h-[42px] items-center gap-2 rounded-full border border-codezela-pink px-5 font-footer text-[16px] font-semibold text-codezela-purple transition-colors hover:bg-codezela-pink hover:text-white min-[1025px]:min-h-[43px]"
@@ -160,7 +160,7 @@ export function Footer() {
         </div>
 
         <div className="mt-[60px] flex flex-col gap-[114px] md:mt-[94px] md:flex-row md:items-end md:justify-between md:gap-12">
-          <a href="https://wa.me/codezela.t" target="_blank" rel="noreferrer" className="group inline-block w-fit">
+          <a href="https://wa.me/CodeZela" target="_blank" rel="noreferrer" className="group inline-block w-fit">
             <span className="block text-[14px] leading-[14px] md:leading-normal">Have a great idea?</span>
             <span className="mt-[8px] flex items-center gap-3 font-display text-[36px] font-medium leading-none md:mt-1 md:text-[38px]">
               Let’s Chat

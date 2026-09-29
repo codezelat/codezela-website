@@ -26,7 +26,7 @@ export function ContactHeroActions() {
           className="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-80"
         />
         <a
-          href="https://calendly.com/codezela/consult"
+          href="https://cal.com/codezela/"
           target="_blank"
           rel="noreferrer"
           className="pill-button absolute left-0 top-[58px] h-[54px] w-[332px] max-w-[92%] gap-3 bg-[#8840c8] text-[17px]"

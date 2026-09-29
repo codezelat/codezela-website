@@ -18,8 +18,8 @@ import {
 
 const supportLines = [
   { label: "General Inquiries", value: "(+94) 11 485 8899", href: "tel:+94114858899" },
-  { label: "WhatsApp", value: "codezela.t", href: "https://wa.me/codezela.t" },
-  { label: "Sales Agent", value: "+94 74 067 8898", href: "tel:+94740678898" },
+  { label: "WhatsApp", value: "CodeZela", href: "https://wa.me/CodeZela" },
+  { label: "Sales Agent", value: "(+94) 77 884 8285", href: "tel:+94778848285" },
 ] as const;
 
 const locations = [
@@ -38,7 +38,7 @@ const socials = [
   ["Threads", FaThreads, "https://www.threads.net/@codezela.t"],
   ["YouTube", FaYoutube, "https://www.youtube.com/@codezelatechnologies"],
   ["Behance", FaBehance, "https://www.behance.net/CodezelaTechnologies"],
-  ["WhatsApp", FaWhatsapp, "https://wa.me/codezela.t"],
+  ["WhatsApp", FaWhatsapp, "https://wa.me/CodeZela"],
 ] as const;
 
 export function ContactPage() {

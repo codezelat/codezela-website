@@ -112,6 +112,19 @@ function textFieldError(value: string, label: string) {
   return value.trim() ? undefined : `${label} is required.`;
 }
 
+function getFocusableElements(container: HTMLElement | null) {
+  if (!container) return [];
+
+  return Array.from(container.querySelectorAll<HTMLElement>(
+    'button:not([disabled]), a[href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]',
+  )).filter((element) =>
+    element.tabIndex >= 0 &&
+    !element.closest('[hidden], [inert], [aria-hidden="true"]') &&
+    element.getClientRects().length > 0 &&
+    getComputedStyle(element).visibility !== "hidden",
+  );
+}
+
 export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
   const [step, setStep] = useState(1);
   const [form, setForm] = useState<ProposalForm>(initialForm);
@@ -171,7 +184,7 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
     document.body.style.overflow = "hidden";
 
     const focusTimer = window.setTimeout(() => {
-      dialogRef.current?.querySelector<HTMLElement>("input, select, textarea, button")?.focus();
+      getFocusableElements(dialogRef.current)[0]?.focus();
     }, 0);
 
     const handleKeyboard = (event: KeyboardEvent) => {
@@ -182,11 +195,7 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
       }
 
       if (event.key !== "Tab" || !dialogRef.current) return;
-      const focusable = Array.from(
-        dialogRef.current.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
-        ),
-      ).filter((element) => !element.hasAttribute("hidden"));
+      const focusable = getFocusableElements(dialogRef.current);
 
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
@@ -213,7 +222,8 @@ export default function ProposalDialog({ open, onClose }: ProposalDialogProps) {
   useEffect(() => {
     if (!open) return;
     const focusTimer = window.setTimeout(() => {
-      dialogRef.current?.querySelector<HTMLElement>("input, select, textarea")?.focus();
+      getFocusableElements(dialogRef.current)
+        .find((element) => element.matches("input, select, textarea"))?.focus();
     }, 0);
     return () => window.clearTimeout(focusTimer);
   }, [open, step]);

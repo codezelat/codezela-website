@@ -129,7 +129,7 @@ export function IndustryDetailPage({ detail, faqs }: { detail: IndustryDetail; f
                 src={detail.icon}
                 alt=""
                 fill
-                priority
+                preload
                 sizes="(max-width: 1024px) 320px, 460px"
                 className="relative z-10 object-contain p-[34px] min-[1025px]:p-[48px]"
               />

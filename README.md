@@ -4,9 +4,9 @@ The complete public Codezela website, rebuilt with Next.js 16, React 19, TypeScr
 
 ## 🌐 Public site surface
 
-The application contains 66 indexable public routes:
+The application contains 67 indexable public routes:
 
-- Home, Services, Portfolio, Industries, About, and Contact
+- Home, Services, Portfolio, Industries, About, Our Network, and Contact
 - 40 industry detail pages under `/industry/[slug]`
 - 18 portfolio case studies under `/portfolio/[slug]`
 - Privacy Policy and Terms and Conditions

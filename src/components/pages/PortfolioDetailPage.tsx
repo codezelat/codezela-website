@@ -154,7 +154,7 @@ export function PortfolioDetailPage({ detail, faqs }: { detail: PortfolioDetail;
                 alt={`${detail.title} project preview`}
                 width={detail.heroWidth}
                 height={detail.heroHeight}
-                priority
+                preload
                 sizes="(max-width: 1024px) calc(100vw - 40px), 620px"
                 className="relative z-10 h-auto w-full object-contain"
               />

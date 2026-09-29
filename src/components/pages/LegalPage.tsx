@@ -29,7 +29,7 @@ export function LegalPage({ title, html, supplementalHtml = "" }: LegalPageProps
                 src="/images/portfolio/portfolio-hero-right-bg.png.webp"
                 alt=""
                 fill
-                priority
+                preload
                 sizes="560px"
                 className="object-contain opacity-70"
               />

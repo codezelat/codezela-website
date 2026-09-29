@@ -125,7 +125,7 @@ export function GoogleConsentManager() {
               <h2 id="cookie-preferences-title" className="sr-only">Your privacy choices</h2>
               <p id="cookie-preferences-description" className="text-[13px] leading-[19px] text-[#625c64] md:text-[14px] md:leading-5">
                 With permission, Google Analytics and Ads help us measure visits and improve campaigns. Read our{" "}
-                <Link href="/privacy-policy" scroll={false} className="font-semibold text-codezela-purple underline decoration-codezela-purple/30 underline-offset-2 hover:decoration-codezela-purple">
+                <Link href="/privacy-policy" prefetch={false} scroll={false} className="font-semibold text-codezela-purple underline decoration-codezela-purple/30 underline-offset-2 hover:decoration-codezela-purple">
                   Privacy Policy
                 </Link>
                 .

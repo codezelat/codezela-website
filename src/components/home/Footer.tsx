@@ -11,6 +11,7 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 import { FooterOriginReveal } from "@/components/home/FooterOriginReveal";
+import { FooterNavLink } from "@/components/home/FooterNavLink";
 import { CookiePreferencesButton } from "@/components/shared/CookiePreferencesButton";
 
 const services = [
@@ -131,15 +132,11 @@ export function Footer() {
           <nav aria-label="Company">
             <h2 className="text-[20px] font-bold leading-5">Company</h2>
             <ul className="mt-[20px] space-y-[20px] text-[16px] leading-[22.4px] text-[#eee5f1] md:mt-[36px] md:space-y-[22px] md:text-[18px]">
-              {companyLinks.map(([label, href], index) => (
+              {companyLinks.map(([label, href]) => (
                 <li key={label}>
-                  <a
-                    className={`transition-colors hover:text-codezela-pink-on-dark ${index === 0 ? "text-codezela-pink-on-dark" : ""}`}
-                    href={href}
-                    {...(href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
-                  >
+                  <FooterNavLink href={href}>
                     {label}
-                  </a>
+                  </FooterNavLink>
                 </li>
               ))}
             </ul>
@@ -150,9 +147,9 @@ export function Footer() {
             <ul className="mt-[20px] space-y-[20px] text-[16px] leading-[22.4px] text-[#eee5f1] md:mt-[36px] md:space-y-[22px] md:text-[18px]">
               {industryLinks.map(([label, href]) => (
                 <li key={label}>
-                  <a className="transition-colors hover:text-codezela-pink-on-dark" href={href}>
+                  <FooterNavLink href={href}>
                     {label}
-                  </a>
+                  </FooterNavLink>
                 </li>
               ))}
             </ul>
@@ -222,12 +219,12 @@ export function Footer() {
                 <span className="font-display text-[34px] font-semibold leading-[45px] md:leading-normal">Codezela</span>
               </Link>
               <div className="mt-[22px] flex flex-col items-center gap-[9px] text-[14px] leading-5 text-[#eee5f1] md:mt-[26px] md:flex-row md:flex-wrap md:justify-end md:gap-x-[72px] md:gap-y-4 md:text-[15px]">
-                <Link className="hover:text-codezela-pink-on-dark" href="/privacy-policy" scroll={false}>
+                <FooterNavLink href="/privacy-policy">
                   Privacy Policy
-                </Link>
-                <Link className="hover:text-codezela-pink-on-dark" href="/terms-and-conditions" scroll={false}>
+                </FooterNavLink>
+                <FooterNavLink href="/terms-and-conditions">
                   Terms &amp; Conditions
-                </Link>
+                </FooterNavLink>
                 <CookiePreferencesButton />
               </div>
             </div>
